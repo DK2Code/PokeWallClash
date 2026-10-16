@@ -1,0 +1,104 @@
+Kanto animation and head portrait credits
+Source: https://github.com/PMDCollab/SpriteCollab
+Downloaded: October 16, 2026
+
+Species: all 151 original Kanto Pokemon, national dex #001 through #151.
+Original Pokemon Mystery Dungeon artwork: CHUNSOFT.
+Community contributors are listed below; individual asset histories preserve
+the exact artists, animation/emotion names and license entries per species.
+This index includes all contributors in those histories, including states
+not used by this game. Author name/contact mappings: credit_names.txt.
+
+Battle sheets and histories: assets/directional/{dex}-{state}.png and
+assets/directional/{dex}-credits.txt (un-padded dex numbers).
+Head portraits: assets/portraits/{dex}.png (Normal emotion, unaltered).
+Portrait histories: assets/portraits/{dex}-credits.txt.
+States used: Idle, Walk, Attack, Shoot, Charge, Hurt, Sleep; source aliases
+are resolved to their underlying animation. PNGs are re-encoded without
+changing pixel art; XML timings, shadow anchors and head offsets are
+extracted for rendering. Original files remain in art-source/directional.
+
+SpriteCollab community contributions use CC BY-NC 4.0:
+https://creativecommons.org/licenses/by-nc/4.0/
+License text and warranty disclaimer: assets/directional/LICENSE.md.
+Original Pokemon characters and artwork remain the property of their owners.
+This is a noncommercial fan prototype.
+
+Contributors from the preserved source histories:
+- Magu (<@!108260609241423872>) @magu_boi
+- Audino (<@!117780585635643396>) https://github.com/audinowho
+- LT (<@!120852359676035072>) https://twitter.com/eLTehH
+- drawsstuff (<@!128989288665710592>) https://bugfu.newgrounds.com/
+- chikorene (<@!1346022682667388968>) <@1346022682667388968>
+- <@!136619914512433152> (<@!136619914512433152>) 
+- JustAGunk (<@!1377429093997477928>) <@1377429093997477928>
+- skygummi (<@!138236921980649472>) https://twitter.com/skygummi
+- AlexGroeger (<@!141718238336778241>) 
+- Coksi (<@!143644728230019072>) https://coksi.carrd.co/
+- Vex (<@!157339721729572864>) 
+- Deeshura (<@!157796074457661440>) https://bsky.app/profile/deeshura.bsky.social
+- 3P1C (<@!169247379453640706>) 
+- Frostdrop1 (<@!173505019268694016>) 
+- Mooncaller (<@!181829556930347009>) <https://twitter.com/LunarPilgrim>
+- frostibirb (<@!192178759376306176>) https://twitter.com/frostibirb
+- bwappi (<@!193530896211509248>) https://bsky.app/profile/bwappi.bsky.social
+- <@!199989579682414592> (<@!199989579682414592>) 
+- TawnySoup (<@!216640380408430592>) https://linktr.ee/tawnysoup
+- Grimlin (<@!217653022094786560>) https://twitter.com/Griimlin
+- Noo (<@!217899432652308480>) https://artfight.net/~NooNoo_Skidoo
+- Fable (<@!225813236589527041>) https://twitter.com/fabledpainter
+- FlowerSnek (<@!228595807132057600>) https://twitter.com/EthanLac13
+- Novie (<@!229363481852379136>) <https://twitter.com/themagolord>
+- Blanky (<@!230913498916323329>) https://www.tumblr.com/theblankest123
+- Emboarger (<@!237286997645983744>) 
+- Okami (<@!238146046146904069>) okamiromhacks@gmail.com
+- brookriver (<@!255219192901402624>) https://brookriver.carrd.co/
+- SirViolet (<@!262696514294513664>) 
+- SethY (<@!268261643178344448>) https://linktr.ee/sethyuikora
+- 3Monika4 (<@!270755102178934785>) <@270755102178934785>
+- Felis-Licht (<@!273594331577974785>) https://www.deviantart.com/felis-licht/
+- anomalocaris (<@!275075929905168384>) https://twitter.com/radiodonta_lord
+- <@!276175146304405514> (<@!276175146304405514>) 
+- Top_Kec (<@!276369635304275968>) @topkec.bsky.social
+- Tainted#3886 (<@!283571466891427841>) 
+- Shitpost_Sunkern (<@!292039958829727744>) https://www.youtube.com/channel/UCxyzfFEM6TfgAQ5LIdGtkXw
+- Mojo (<@!314519507869761556>) 
+- C_Pariah (<@!322382592202637322>) <@322382592202637322>
+- 0palite (<@!327927398941196289>) https://zeropalart.tumblr.com/
+- Caitemis (<@!330751862590406656>) https://caitemis-art.tumblr.com/
+- FalafelPorpoise (<@!338821717365489665>) https://bsky.app/profile/falafel-porpoise.bsky.social
+- Vynnyal (<@!343150274795405314>) <https://vynnyal.tumblr.com/>
+- G〜 (<@!350050109741858829>) https://bsky.app/profile/justtr4sh.pmd.social
+- Cloudy (<@!356187016054046723>) https://twitter.com/cloudyskys17695
+- Emmuffin (<@!356635814668664832>) https://twitter.com/Ernmuffin
+- XModxGodX (<@!365627932888268800>) 
+- fledermaus (<@!388753676140806175>) https://www.furaffinity.net/user/fleder-maus/
+- Blanca (<@!401608319762038794>) 
+- JemDragons (<@!408301000445788180>) https://twitter.com/JemDragons?s=09
+- cosmosully (<@!411407718839222272>) https://twitter.com/cosmosully
+- gromchurch (<@!421379254077620225>) https://twitter.com/poongis2
+- <@!436940337865293834> (<@!436940337865293834>) 
+- dmDash (<@!474262233442942995>) 
+- silverfox88 (<@!476409795239477248>) https://twitter.com/realsilverfox88
+- Deltex12 (<@!513590747694497792>) /u/Deltex12
+- Ray2064 (<@!540823632054714388>) <@540823632054714388>
+- baronessfaron (<@!544245909639397378>) 
+- deltaflare (<@!555360707617488904>) <@555360707617488904>
+- Gayschlatt (<@!560604377203736617>) 
+- LegendaryPhoenix (<@!573283158674505749>) 
+- ShyStarryRain (<@!576876006636519434>) 
+- Morei (<@!593113130213572610>) https://bsky.app/profile/murpia57.bsky.social
+- Axcel (<@!662304890143375391>) 
+- JFain (<@!702275233125630042>) 
+- Ginnie (<@!722542425196724289>) 
+- PhillipsYoung (<@!772726854188400641>) https://twitter.com/PhilliYoung196
+- jackolanternjackalope (<@!784171246011023481>) https://www.instagram.com/jackolanternjackalope/
+- <@!787048769883602956> (<@!787048769883602956>) 
+- Fearless-Quit (<@!801938240562397194>) 
+- NOLASMOR (<@!833717817445974046>) 
+- Gust (<@!861005464682889266>) https://twitter.com/Estelaris__
+- Sceptile (<@!965734014604410990>) 
+- <@!967585139485999154> (<@!967585139485999154>) 
+- CHUNSOFT (CHUNSOFT) https://www.spike-chunsoft.com/
+- estelstarlight (ESTELSTARLIGHT) https://estelstarlight.tumblr.com/post/186838449949
+- motherhenna(Helen) (MOTHERHENNA) <@!543717476421074945>

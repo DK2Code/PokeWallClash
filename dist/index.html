@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3eb">
+  <meta name="description" content="Small Pokémon. Big defense. Build your team, evolve your favorites, and protect the path in PokeWallClash, a Pokémon tower defense adventure.">
+  <title>PokeWallClash — A little strategy. A lot of Pokémon.</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./progression.css">
+  <link rel="stylesheet" href="./difficulty.css">
+  <link rel="stylesheet" href="./collection.css">
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h6m6 0h6"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.4 5.6a5.4 5.4 0 0 0-8.4.9 5.4 5.4 0 0 0-8.4-.9c-4.2 4.2 2.4 10.4 8.4 14.4 6-4 12.6-10.2 8.4-14.4Z"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 17V7h3a3 3 0 0 1 0 6H8m0-3h7"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4m0 0c6-5 8 5 15 0v10c-7 5-9-5-15 0"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 10 7-10 7Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-fast" viewBox="0 0 24 24"><path d="m3 6 8 6-8 6Zm10 0 8 6-8 6Z"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="m11 4-5 4H3v8h3l5 4Zm4 4a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="m11 4-5 4H3v8h3l5 4Zm5 5 6 6m0-6-6 6"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 2 8M3 3v7h7"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 3C7 1 1 10 7 16s15 0 13-13ZM4 21 15 10"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 1 1 4 3c-1 .5-1 1-1 2m0 3v.01"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m14 2-9 12h6l-1 8 9-12h-6Z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5C8 2 4 3 2 4v15c4-2 7-1 10 1 3-2 6-3 10-1V4c-2-1-6-2-10 1Zm0 0v15"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1 1m12 12 1 1M5 19l1-1M18 6l1-1"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7 3h10v7a5 5 0 0 1-10 0Zm0 2H3v3a4 4 0 0 0 4 4m10-7h4v3a4 4 0 0 1-4 4m-5 3v5m-5 1h10"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M19 10c0 6-7 11-7 11S5 16 5 10a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10" r="2"/></symbol>
+  </defs></svg>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="PokeWallClash home"><span class="brand-mark"><span></span></span><span>PokeWallClash<span class="brand-period">.</span></span></a>
+    <nav class="main-nav" aria-label="Main navigation"><button class="nav-link active" id="play-nav">Play <span class="nav-dot"></span></button><button class="nav-link" id="dex-nav">Pokédex</button><button class="nav-link" id="help-nav">How to play <svg class="icon"><use href="#i-arrow"/></svg></button></nav>
+    <div class="trainer"><span class="trainer-avatar"><img src="./assets/25.png" alt=""></span><div><span class="trainer-label">NICE TO SEE YOU,</span><strong>Trainer <span class="online-dot"></span></strong></div></div>
+  </header>
+  <main>
+    <section class="intro"><div><div class="eyebrow"><span class="tiny-star">✦</span> A LITTLE STRATEGY. A LOT OF POKÉMON.</div><h1>Small Pokémon. <em>Big defense.</em></h1><p>Build your dream team. Hold your ground. Catch a little adventure.</p></div><div class="adventure-stamp"><svg class="icon"><use href="#i-ball"/></svg><span>YOUR ADVENTURE<br><b>STARTS HERE</b></span><span class="stamp-star">✧</span></div></section>
+    <div class="route-selector" role="group" aria-label="Choose a route"><div class="route-tabs" id="route-tabs"></div><span class="route-note"><span></span> Every great trainer starts somewhere.</span></div>
+    <section class="difficulty-picker" aria-labelledby="challenge-heading"><div class="challenge-intro"><div class="eyebrow">YOUR ROUTE. YOUR PACE.</div><h2 id="challenge-heading">Choose your challenge.</h2><p id="difficulty-summary" aria-live="polite"></p></div><div class="difficulty-options" id="difficulty-options" role="group" aria-label="Choose difficulty"></div><small>Changing difficulty starts a new run. Personal bests are saved for each map and difficulty.</small></section>
+    <div class="game-layout">
+      <section class="battle-column" aria-label="Battlefield">
+        <div class="battle-shell">
+          <div class="battle-title"><div class="location-icon"><svg class="icon"><use href="#i-leaf"/></svg></div><div><span id="region-label" class="eyebrow">KANTO · ROUTE 01</span><h2 id="map-title">Viridian Forest</h2></div><div class="map-tags"><span class="difficulty" id="difficulty">Normal</span><span class="waves-tag">15 waves</span></div></div>
+          <div class="canvas-wrap" id="canvas-wrap">
+            <canvas id="battlefield" width="960" height="560" aria-label="Pokémon defense battlefield. Use the numbered roster buttons and clearing buttons to place defenders."></canvas>
+            <div class="map-hud"><div class="hud-stat lives"><svg class="icon"><use href="#i-heart"/></svg><strong id="lives">20</strong><span id="max-lives">/ 20</span></div><div class="hud-stat coins"><svg class="icon"><use href="#i-coin"/></svg><strong id="money">360</strong></div><div class="hud-stat wave"><svg class="icon"><use href="#i-flag"/></svg><strong id="wave">0</strong><span>/ 15</span></div></div>
+            <div class="weather"><svg class="icon"><use href="#i-sun"/></svg><span>Clear skies</span></div>
+            <div id="pad-buttons" class="pad-buttons"></div>
+            <div class="map-caption" id="map-caption"><span class="pulse-dot"></span><span>Choose a Pokémon. Find its perfect spot.</span></div>
+            <div class="paused-overlay" id="paused-overlay" hidden><span class="pause-symbol">Ⅱ</span><h3>A little breather.</h3><p>Your Pokémon will be right here.</p><button class="primary-button" id="resume">Back to the adventure <svg class="icon"><use href="#i-play"/></svg></button></div>
+          </div>
+          <div class="battle-controls"><div class="phase"><span class="phase-light" id="phase-light"></span><div><strong id="phase-title">Make yourself at home</strong><span id="phase-subtitle">Place your Pokémon before the first wave.</span></div></div><div class="control-buttons"><button class="icon-button" id="sound" aria-label="Enable sound" title="Enable sound"><svg class="icon"><use href="#i-mute"/></svg></button><button class="speed-button" id="speed" aria-label="Change game speed, currently 1 times" title="Game speed"><svg class="icon"><use href="#i-fast"/></svg><span>1×</span></button><span class="control-divider"></span><button class="icon-button" id="pause" aria-label="Pause game" title="Pause (Space)" disabled><svg class="icon"><use href="#i-pause"/></svg></button><button class="icon-button" id="restart" aria-label="Restart route" title="Restart route"><svg class="icon"><use href="#i-reset"/></svg></button></div></div>
+        </div>
+        <div id="team-growth" class="team-growth"></div>
+        <section id="encounters" class="encounter-panel" aria-label="Route visitors"></section>
+        <section id="new-friends" class="new-friends" aria-label="New collection rewards" aria-live="polite" hidden></section>
+        <section id="ready-partners" class="ready-partners" aria-label="Partners ready to evolve" hidden></section>
+        <section class="wave-panel" aria-label="Next wave"><div class="next-wave"><div class="eyebrow" id="next-wave-label">UP NEXT · WAVE 01</div><strong id="wave-description">A rustle in the grass</strong><div class="wave-preview" id="wave-preview"></div></div><div class="wave-action"><span class="wave-reward" id="wave-reward"><svg class="icon"><use href="#i-coin"/></svg> +60 wave bonus</span><button class="primary-button" id="start-wave"><span>Let’s do this</span><svg class="icon"><use href="#i-arrow"/></svg></button><span class="keyboard-tip">or press <kbd>space</kbd></span></div></section>
+      </section>
+      <aside class="team-column"><section class="roster-panel"><div class="section-heading"><h2>Your Pokémon</h2><span class="count-badge" id="roster-count">04</span></div><p class="panel-description" id="roster-description">Four starters. A whole Kanto to discover.</p><div class="roster-grid" id="roster"></div><button class="collection-button" id="collection-button">Open collection · 4 / 14</button><p class="eevee-hint" id="eevee-hint"></p><div class="selection-detail" id="selection-detail"></div><div class="roster-footer"><svg class="icon"><use href="#i-pin"/></svg><span>Pick a partner, then a <b>+ clearing</b>.</span></div></section><button class="field-guide" id="field-guide"><span class="guide-icon"><svg class="icon"><use href="#i-book"/></svg></span><span><strong>A trainer’s field guide</strong><small>A few tips for the road ahead</small></span><svg class="icon"><use href="#i-arrow"/></svg></button></aside>
+    </div>
+    <section class="journey-strip"><div><svg class="icon"><use href="#i-leaf"/></svg><span>Plant your strategy.<br><strong>Watch your team grow.</strong></span></div><p>Every Pokémon has a part to play. Mix types, evolve your favorites,<br class="desktop-break"> and turn a small team into a mighty defense.</p><div class="personal-best"><svg class="icon"><use href="#i-trophy"/></svg><span><span id="best-label">PERSONAL BEST · NORMAL</span><strong id="best-record">A new adventure</strong></span></div></section>
+  </main>
+  <footer><span class="footer-brand">PokeWallClash.</span><span>Made for the love of the adventure.</span><button id="credits">A fan-made adventure <span>↗</span></button></footer>
+  <div class="toast" role="status" id="toast"></div>
+  <dialog id="modal"><div class="dialog-content" id="dialog-content"></div><button class="dialog-close icon-button" id="close-modal" aria-label="Close dialog"><svg class="icon"><use href="#i-close"/></svg></button></dialog>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>

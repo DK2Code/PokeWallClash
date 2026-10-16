@@ -1,0 +1,11 @@
+{
+  "source": "pokemon-arena/dist",
+  "files": {
+    "move-data.mjs": "df3c0e4be3861588ae0ccc99b2ff67438fbc141255a6be5b42e8ec0f93cbeadd",
+    "loadouts.mjs": "824a827a95483469ebdc43eb46da7089952e4d73eaeec7ddd4b8b4e4ff0a97e7",
+    "moves.mjs": "dafdba89b23dd954a756a64e4bd44051786f60d2e36ec47e40743236bff0d7a4",
+    "move-art.mjs": "65a5f816d5aba496a1d2c255047f37a42731876cfef9a6953d18d5a448b29a09",
+    "combat-art.mjs": "d2933dbeb3eead9f6a763f342595ffd8bde7dd43cc621e5a1258f19ac2287ef8",
+    "sprite-animation.mjs": "891deb85c10728ea7bd92013dfdf181cce3acb3c506ebf8fa5885c19d757c812"
+  }
+}

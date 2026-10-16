@@ -1,0 +1,19 @@
+PokeWallClash asset sources
+
+Roster sprites (#001-151):
+https://github.com/PokeAPI/sprites
+Generation V Black/White front sprites. Character art belongs to Nintendo,
+Game Freak and The Pokemon Company.
+
+Battle stats, damage, abilities and evolution levels are tower defense
+adaptations rather than main-series battle rules. Battlefield artwork is
+drawn locally by the game. This is an unofficial, noncommercial fan project.
+
+Directional battlefield animation sheets:
+https://github.com/PMDCollab/SpriteCollab
+Adapted from Pokemon Arena's packaged sheets and metadata.
+Original Pokemon Mystery Dungeon artwork: CHUNSOFT. Community contributions:
+CC BY-NC 4.0. The original license, artist index, name mappings and per-species
+histories are retained in assets/directional/. Active battlefield animation
+metadata covers 29 species. Frames, pixels, timing, ground anchors and head
+offsets are retained.

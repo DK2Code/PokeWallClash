@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.png binary
+
+# Keep the imported Arena modules byte-identical to their recorded checksums.
+dist/arena/*.mjs -text
