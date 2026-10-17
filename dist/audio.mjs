@@ -27,10 +27,15 @@ export const ATTACK_SOUNDS = {
   psychic: [tone(690,460,.32,.32,0,'sine',{tremolo:17}),tone(1030,520,.3,.18,.025,'triangle'),tone(345,230,.3,.12)],
   dragon: [tone(190,65,.32,.34,0,'sawtooth'),noise(1700,400,.32,.4),tone(570,230,.25,.14,.04,'triangle')],
   ice: [tone(2200,1400,.2,.25,0,'triangle'),tone(1760,1760,.25,.2,.055),tone(2640,2640,.2,.15,.1),noise(6000,2800,.15,.12,0,{highpass:true})],
+  rumble: [noise(360,65,.3,.55),tone(110,38,.32,.3,0,'triangle'),noise(1200,180,.08,.2,.04)],
+  poison: [tone(360,110,.2,.3,0,'sine',{tremolo:25}),noise(1900,400,.23,.23),tone(710,260,.11,.17,.08)],
+  ghost: [tone(170,410,.3,.26,0,'sine',{tremolo:12}),tone(520,170,.32,.19,.02,'triangle'),noise(500,1600,.2,.09)],
+  bubble: [tone(390,1100,.09,.25),tone(580,1500,.1,.22,.06),tone(820,1700,.08,.17,.13),noise(1700,650,.12,.1,.04)],
+  metal: [tone(1720,700,.16,.23,0,'triangle'),tone(2580,1050,.18,.13,.03),noise(4000,1000,.07,.13)],
 };
 // New Arena silhouettes reuse the matching elemental texture with their own
 // tuning. A move ID further distinguishes moves which share one silhouette.
-const arenaTextures={petals:'bloom','solar-beam':'psychic',roots:'vine',fangs:'tackle',fireblast:'blast',flamethrower:'flame','water-ring':'pulse',hydropump:'hydro',cannon:'hydro',thunder:'chain',fist:'bolt',triad:'discharge','zap-orb':'spark',sound:'hurricane',gust:'hurricane',speed:'slash','flame-rush':'burst','hidden-orbs':'stars','spectrum-beam':'psychic',crescent:'slash',icicle:'ice',surf:'whirlpool',tail:'tackle',claws:'slash','aura-rush':'dragon',blizzard:'ice',horn:'tackle','bird-rush':'hurricane','ice-beam':'ice'};
+const arenaTextures={petals:'bloom','solar-beam':'psychic',roots:'vine',fangs:'tackle',fireblast:'blast',flamethrower:'flame','water-ring':'pulse',hydropump:'hydro',cannon:'hydro',thunder:'chain',fist:'bolt',triad:'discharge','zap-orb':'spark',sound:'hurricane',gust:'hurricane',speed:'slash','flame-rush':'burst','hidden-orbs':'stars','spectrum-beam':'psychic',crescent:'slash',icicle:'ice',surf:'whirlpool',tail:'tackle',claws:'slash','aura-rush':'dragon',blizzard:'ice',horn:'tackle','bird-rush':'hurricane','ice-beam':'ice',needle:'silk',tornado:'hurricane',sludge:'poison',dig:'rumble',quake:'rumble',wings:'hurricane',drain:'psychic',blade:'slash',cross:'slash',coin:'metal',gems:'ice',bubbles:'bubble',slam:'tackle',chop:'tackle','leaf-storm':'leaf',rock:'rumble','night-shade':'ghost',shadow:'ghost',tongue:'silk',pincer:'tackle',bone:'tackle',boomerang:'slash','stone-edge':'rumble'};
 Object.entries(arenaTextures).forEach(([style,texture],index)=>{
   const pitch=.81+index*.017;
   ATTACK_SOUNDS[style]=ATTACK_SOUNDS[texture].map(layer=>({...layer,frequency:layer.frequency*pitch,end:layer.end*pitch}));
@@ -38,8 +43,10 @@ Object.entries(arenaTextures).forEach(([style,texture],index)=>{
 function cue(id,layers){return {id,layers,duration:Math.max(...layers.map(l=>l.at+l.duration))+.01};}
 export function attackCue(visual={}){
   const style=ATTACK_SOUNDS[visual.style]?visual.style:'stars',level=Math.min(3,Math.max(1,visual.level||1)),variant=visual.variant||'move';
-  const signature=visual.moveId?[...visual.moveId].reduce((sum,c)=>sum+c.charCodeAt(0),0)%31:0;
-  const pitch=(1-(level-1)*.055)*(1+signature*.004),stretch=1+(level-1)*.06;
+  // Keep the full order-sensitive hash: a small character-sum bucket caused
+  // different moves in the larger roster to produce exactly the same sound.
+  let signature=0;if(visual.moveId){signature=2166136261;for(const char of visual.moveId)signature=Math.imul(signature^char.charCodeAt(0),16777619)>>>0;}
+  const pitch=(1-(level-1)*.055)*(1+signature/4294967295*.18),stretch=1+(level-1)*.06;
   const layers=ATTACK_SOUNDS[style].map(l=>({...l,frequency:l.frequency*pitch,end:l.end*pitch,duration:l.duration*stretch,at:l.at*stretch}));
   if(variant==='focus')layers.push(tone(1280,530,.15,.14,.01,'triangle'));
   if(variant==='surge')layers.push(noise(2200,500,.2,.16,.1,{tremolo:16}));

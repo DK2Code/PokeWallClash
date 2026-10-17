@@ -82,7 +82,7 @@ function animatedSprite(c,actor,time,reducedMotion=false,extraScale=1){
   if(!sheet){sprite(c,actor.species||actor.kind,actor.x,actor.y,actor.boss?115:actor.level?90:76,Math.cos(actor.lookAngle||0)<0,actor.shiny);return;}
   const {meta,frame,row,anchor,scale}=sample,offset=bodyOffset(actor,reducedMotion);
   const appear=reducedMotion?1:actor.appear>0?Math.min(1.08,1-Math.pow(actor.appear/.4,2)+Math.sin((1-actor.appear/.4)*Math.PI)*.12):1;
-  c.save();c.translate(Math.round(actor.x+offset.x),Math.round(actor.y+offset.y));c.scale(scale*appear*extraScale,scale*appear*extraScale);
+  c.save();c.translate(Math.round(actor.x+offset.x),Math.round(actor.y+offset.y+sample.idleBob));c.scale(scale*appear*extraScale,scale*appear*extraScale);
   c.imageSmoothingEnabled=false;if(actor.flash>0&&!reducedMotion)c.filter='brightness(1.35)';
   c.drawImage(sheet,frame*meta.width,row*meta.height,meta.width,meta.height,-anchor[0],-anchor[1],meta.width,meta.height);c.restore();
 }

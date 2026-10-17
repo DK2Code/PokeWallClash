@@ -57,7 +57,10 @@ export function spriteSample(actor,time=0,reducedMotion=false){
   else frame=timedFrame(meta,time+(actor.id||0)*.137);
   const row=meta.directions===1?0:directionRow(angle);
   const scale=config.scale*(actor.boss ? .72 : actor.level ? .62*(1+(actor.level-1)*.09) : .49);
-  return {state,frame,row,meta,anchor:meta.anchors[row][frame],head:meta.heads[row][frame],scale,angle};
+  // Persian and Arcanine have a single original idle frame. Give those poses
+  // a gentle breathing motion without altering Arena's sheets or combat poses.
+  const idleBob=state==='Idle'&&meta.frames===1&&!reducedMotion?Math.sin(time*2.5+(actor.id||0)*.3)*1.1:0;
+  return {state,frame,row,meta,anchor:meta.anchors[row][frame],head:meta.heads[row][frame],scale,angle,idleBob};
 }
 export function muzzlePosition(actor,reducedMotion=false){
   const sample=spriteSample(actor,0,reducedMotion),offset=bodyOffset(actor,reducedMotion),angle=actor.cast?.angle??actor.lookAngle??0;

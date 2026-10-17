@@ -1,9 +1,11 @@
 import {MOVES} from './arena/moves.mjs';
 import {LOADOUTS} from './arena/loadouts.mjs';
+import {EXTRA_MOVES} from './expanded-roster.mjs';
 
 // Each stage selects from that exact species' Arena loadout. Branch IDs stay
 // stable; the tower-defense perks and economy remain in game.mjs.
 export const PARTNER_MOVES={
+  ...EXTRA_MOVES,
   1:{basic:'vine-whip',garden:['razor-leaf','petal-blizzard'],razor:['solar-beam','frenzy-plant']},
   4:{basic:'ember',blast:['fire-fang','fire-blast'],flame:['flamethrower','flamethrower']},
   7:{basic:'water-gun',current:['water-pulse','hydro-pump'],hydro:['hydro-pump','hydro-cannon']},

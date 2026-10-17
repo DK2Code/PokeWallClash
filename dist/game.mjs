@@ -2,8 +2,9 @@ import {attackTiming,muzzlePosition} from './sprite-animation.mjs';
 import {attackVisual} from './combat-visuals.mjs';
 import {partnerMove,PARTNER_MOVES} from './partner-moves.mjs';
 import {MOVES} from './arena/moves.mjs';
-import {STARTER_IDS,loadCollectionProgress,isUnlocked,rollVisitor,COLLECTIBLE_IDS,LEGENDARY_VISITORS,usedSlots,slotPrice,defeatPoints,MAX_COLLECTION_POINTS} from './collection.mjs';
+import {STARTER_IDS,loadCollectionProgress,isUnlocked,rollVisitor,COLLECTIBLE_IDS,LEGENDARY_VISITORS,usedSlots,slotPrice,defeatPoints,MAX_COLLECTION_POINTS,COLLECTION_VERSION} from './collection.mjs';
 import {EXTRA_ROUTES} from './routes.mjs';
+import {EXTRA_TOWERS,EXTRA_EVOLUTIONS,EXTRA_ENEMIES} from './expanded-roster.mjs';
 export {STARTER_IDS} from './collection.mjs';
 export const WIDTH = 960, HEIGHT = 560, MAX_WAVES = 15;
 export const DIFFICULTIES = [
@@ -25,6 +26,7 @@ export const TOWERS = [
   {"id":131,"name":"Lapras","type":"water","cost":210,"damage":26,"range":165,"rate":1.1,"color":"#76a9c1","move":"Ice Shard","ability":"Slowing waves","description":"A gentle rare visitor. Ice Shard or Surf carries a slowing-water perk; training increases its power without changing species.","stages":[131,131,131],"names":["Lapras","Lapras","Lapras"]},
   {"id":37,"name":"Vulpix","type":"fire","cost":140,"damage":20,"range":145,"rate":0.9,"color":"#de8968","move":"Ember","ability":"Foxfire splash","description":"A rare visitor that favors autumn trails and coasts. Small fire bursts grow into Ninetales’s sweeping flames.","stages":[37,38,38],"names":["Vulpix","Ninetales","Ninetales"]},
   {"id":147,"name":"Dratini","type":"dragon","cost":190,"damage":28,"range":155,"rate":0.95,"color":"#9d95d3","move":"Dragon Rage","ability":"Steady dragon power","description":"An elusive rare visitor. Raise Dratini into Dragonair, then Dragonite.","stages":[147,148,149],"names":["Dratini","Dragonair","Dragonite"]},
+  ...EXTRA_TOWERS,
   {"id":145,"name":"Zapdos","type":"electric","cost":360,"damage":40,"range":180,"rate":1.1,"color":"#e9bc43","move":"Thunder Shock","ability":"Legendary lightning","description":"A random legendary visitor in wave 14 on any route. Chains lightning; training strengthens its legendary power.","stages":[145,145,145],"names":["Zapdos","Zapdos","Zapdos"],"legendary":true},
   {"id":144,"name":"Articuno","type":"ice","cost":360,"damage":34,"range":180,"rate":1.1,"color":"#83c9da","move":"Ice Beam","ability":"Freezing wind","description":"A random legendary visitor in wave 14 on any route. Slows enemies by 45% for 2 seconds.","slowTime":2,"slowFactor":0.55,"stages":[144,144,144],"names":["Articuno","Articuno","Articuno"],"legendary":true},
   {"id":146,"name":"Moltres","type":"fire","cost":360,"damage":45,"range":170,"rate":1.2,"color":"#de8968","move":"Ember","ability":"Legendary fire","description":"A random legendary visitor in wave 14 on any route. Powerful flames splash across the path.","stages":[146,146,146],"names":["Moltres","Moltres","Moltres"],"legendary":true},
@@ -41,6 +43,7 @@ export const OPENING_WAVES = [
 ];
 // A path changes the move as well as the sprite. Its identity stays with the partner.
 export const EVOLUTIONS = {
+  ...EXTRA_EVOLUTIONS,
   1:[
     {"id":"garden","name":"Petal garden","ability":"Lingering poison","description":"Razor Leaf grows into Petal Blizzard. Your garden perk deals 50% power as poison each second for 4 seconds.","poisonPower":0.5,"poisonTime":4},
     {"id":"razor","name":"Solar keeper","ability":"Long-range leaves","description":"Solar Beam grows into Frenzy Plant. Gain 40% direct power and +25 range, with lighter poison.","power":1.4,"reach":25,"poisonPower":0.12},
@@ -123,6 +126,7 @@ export const MAPS = [
   ...EXTRA_ROUTES,
 ];
 export const ENEMIES = {
+  ...EXTRA_ENEMIES,
   10:{name:'Caterpie',type:'bug',hp:48,speed:46,reward:12},
   13:{name:'Weedle',type:'bug',hp:55,speed:50,reward:13},
   19:{name:'Rattata',type:'normal',hp:62,speed:68,reward:14},
@@ -143,8 +147,8 @@ export const ENEMIES = {
   143:{name:'Snorlax',type:'normal',hp:1800,speed:25,reward:160,boss:true},
   149:{name:'Dragonite',type:'dragon',hp:3300,speed:34,reward:250,boss:true},
 };
-const advantages = {electric:['water','flying'],grass:['water','ground','rock'],fire:['bug','grass','ice'],water:['fire','ground','rock'],flying:['bug','grass'],psychic:['poison','fighting'],ice:['dragon','flying','ground','grass'],dragon:['dragon']};
-const resistances = {electric:['ground','dragon'],grass:['bug','flying','fire','dragon'],fire:['water','rock','dragon'],water:['grass','dragon'],psychic:['psychic'],ice:['fire','water','ice']};
+const advantages = {electric:['water','flying'],grass:['water','ground','rock'],fire:['bug','grass','ice','steel'],water:['fire','ground','rock'],flying:['bug','grass','fighting'],psychic:['poison','fighting'],ice:['dragon','flying','ground','grass'],dragon:['dragon'],bug:['grass','psychic','dark'],poison:['grass','fairy'],ground:['fire','electric','poison','rock','steel'],rock:['fire','ice','flying','bug'],fighting:['normal','ice','rock','dark','steel'],ghost:['psychic','ghost'],dark:['psychic','ghost'],steel:['ice','rock','fairy'],fairy:['fighting','dragon','dark']};
+const resistances = {electric:['ground','dragon'],grass:['bug','flying','fire','dragon','poison','steel'],fire:['water','rock','dragon'],water:['grass','dragon'],psychic:['psychic','dark','steel'],ice:['fire','water','ice','steel'],normal:['rock','ghost','steel'],bug:['fire','fighting','poison','flying','ghost','steel','fairy'],poison:['poison','ground','rock','ghost','steel'],ground:['grass','bug','flying'],rock:['fighting','ground','steel'],fighting:['poison','flying','psychic','bug','ghost','fairy'],ghost:['normal','dark'],dark:['fighting','dark','fairy'],steel:['fire','water','electric','steel'],fairy:['fire','poison','steel']};
 export function multiplier(attack,defense) {return advantages[attack]?.includes(defense) ? 1.6 : resistances[attack]?.includes(defense) ? .65 : 1;}
 export function towerStats(tower) {
   const base=TOWERS.find(t=>t.id===tower.kind),branch=evolutionOptions(tower).find(b=>b.id===tower.branch)||{},traitType=branch.type||base.types?.[tower.level-1]||base.type;
@@ -152,9 +156,9 @@ export function towerStats(tower) {
   return {...base,...branch,type,color:move.color,move:move.name,moveId:move.slug,damage:Math.round(base.damage*(1+(tower.level-1)*.72)*(branch.power||1)*(tower.teamPower||1)),
     range:(base.range+(tower.level-1)*15+(branch.reach||0))*(tower.routeRange||1),rate:base.rate/(1+(tower.level-1)*.13)*(branch.tempo||1),
     sprite,name:branch.evolvedName||base.names[tower.level-1],pathName:branch.name,
-    splash:branch.splash??(traitType==='fire'?51:traitType==='flying'?70:0),splashPower:branch.splashPower??.6,
+    splash:branch.splash??base.splash??(traitType==='fire'?51:traitType==='flying'?70:0),splashPower:branch.splashPower??.6,
     chain:branch.chain??(traitType==='electric'?1:0),chainPower:branch.chainPower??.45,
-    poisonPower:traitType==='grass'?(branch.poisonPower??.22):0,poisonTime:branch.poisonTime??2.6,
+    poisonPower:['grass','poison'].includes(traitType)?(branch.poisonPower??.22):0,poisonTime:branch.poisonTime??2.6,
     slowFactor:branch.slowFactor??base.slowFactor??.62,slowTime:traitType==='water'?(branch.slowTime??1.8):['bug','ice'].includes(traitType)?(base.slowTime||0):0};
 }
 export function waveInfo(number,difficultyId='normal',mapIndex=0) {
@@ -180,7 +184,7 @@ export class Game {
     this.wavePartners=new Set();
   }
   available(kind){return isUnlocked(this.collection,kind);}
-  collectionSave(){return {version:2,collection:this.collection,points:this.collectionPoints,slots:this.collectionSlots};}
+  collectionSave(){return {version:COLLECTION_VERSION,collection:this.collection,points:this.collectionPoints,slots:this.collectionSlots};}
   earnCollectionPoints(points){this.collectionPoints=Math.min(MAX_COLLECTION_POINTS,this.collectionPoints+points);this.emit('collectionPoints',{points});}
   unlockCollectionSlot(){
     const price=slotPrice(this.collectionSlots);

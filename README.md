@@ -1,6 +1,6 @@
 # PokeWallClash
 
-A self-contained Gen 1 Pokémon tower defense game with hand-drawn pixel landscapes, four starters, a permanent collection of 14 recruitable species, six routes, four selectable difficulties, and 15 waves per route. No build step or package installation is required.
+A self-contained Gen 1 Pokémon tower defense game with hand-drawn pixel landscapes, four starters, a permanent collection of 42 starter, basic visitor, reward, and legendary entries, six routes, four selectable difficulties, and 15 waves per route. No build step or package installation is required.
 
 ## Play
 
@@ -10,7 +10,7 @@ For local play, run `npm run dev` in this repository and open http://localhost:4
 
 Choose a route and difficulty, then a Pokémon and a marked clearing. Start each wave when ready. Defenders attack automatically; click a placed Pokémon to see its XP, evolve it, or recall it for 70% of its placement cost. Defeat wild Pokémon and clear waves to earn coins. Protect your Center through all 15 waves. Bosses appear on waves 5, 10, and 15 and cost five hearts if they escape.
 
-The next-wave button and free-evolution shortcuts sit directly beneath the battlefield, above field notes and collection rewards. On phones, ready partners use a horizontal row so a growing team does not push the controls down the page. Each shortcut opens that partner's move choices.
+The next-wave button and free-evolution shortcuts sit directly beneath the battlefield, above mystery encounters and collection rewards. On phones, ready partners use a horizontal row so a growing team does not push the controls down the page. Each shortcut opens that partner's move choices.
 
 - **1–9:** select the corresponding unlocked defender; additional recruits are selectable by clicking their cards.
 - **Space:** start a wave or pause/resume when no button is focused. Focused buttons keep their standard Space/Enter behavior.
@@ -28,20 +28,24 @@ Optional visitors enter **after the regular wave**. Defeat a marked visitor, the
 
 Catches celebrate directly over the battlefield with a portrait, name, and rewards **only when the Pokémon joins the collection** (including reserve). Ordinary defeats fade out with dust; they never show a Poké Ball or catch popup. Results separately count defeated and caught Pokémon. Cards never block taps, use real time at every battle speed, and respect reduced motion. Boss reward and victory dialogs wait for any collection celebration. Bosses and visitors display their Pokémon names above their health bars.
 
-Start with **six collection slots**, including the four starters. Buy up to **14 slots** in Collection: the first extra slot costs **100 collection points**, and each following slot costs 50 more. Earn 1 point per ordinary defeat and 5 per boss defeat. A confirmed visitor or Eevee catch awards 10; a legendary catch awards 25. Visitor points wait until the wave clears. Each cleared wave adds 10; completing a route adds another 50. This wallet is separate from score and coins, so purchases never lower personal bests. Earned points remain saved if a later wave fails.
+Start with **12 collection slots**, including the four starters. Buy up to **42 slots** in Collection: the first extra slot costs **100 collection points**, and each following slot costs 50 more up to a 300-point cap. Earn 1 point per ordinary defeat and 5 per boss defeat. A confirmed visitor or Eevee catch awards 10; a legendary catch awards 25. Visitor points wait until the wave clears. Each cleared wave adds 10; completing a route adds another 50. This wallet is separate from score and coins, so purchases never lower personal bests. Earned points remain saved if a later wave fails.
 
-When slots are full, new recruits wait **safely in reserve**, including their shiny preferences. Buying a slot activates a waiting partner (Eevee first, then Pokédex collection order), or leaves space for a future catch. Each species uses one slot; duplicates, evolutions, and shiny variants need no additional space. Existing collections receive enough slots to keep every previously unlocked partner available for free.
+When slots are full, new recruits wait **safely in reserve**, including their shiny preferences. Buying a slot activates a waiting partner (Eevee first, then collection order), or leaves space for a future catch. Each species uses one slot; duplicates, evolutions, and shiny variants need no additional space. Existing version-2 saves receive six free slots in addition to all previously purchased capacity. Waiting partners fill those free spaces automatically, with points, catches, and shiny choices preserved. The version-3 save prevents repeated migration grants. Older collections receive enough space to keep previously unlocked partners.
 
-All six rare visitors and all three legendary birds can appear on **every route**. Route favorites have double selection weight; species not yet in your collection have triple weight. A rare visitor cannot repeat immediately after the previous visitor in that run. Predictions keep the identity hidden until it arrives. These are weighted random encounters, not guarantees of a new species.
+The 28 added basic visitors are Weedle, Pidgey, Rattata, Ekans, Sandshrew, Zubat, Oddish, Paras, Diglett, Meowth, Psyduck, Growlithe, Poliwag, Machop, Bellsprout, Geodude, Ponyta, Slowpoke, Gastly, Krabby, Cubone, Horsea, Staryu, Scyther, Pinsir, Magikarp, Omanyte, and Kabuto. Each is placeable, supports shiny colors, and has two Arena-matched training paths. Evolutions share their basic family’s collection slot. Scyther and Pinsir remain in their Kanto forms; two-stage families train their final form at level 3. Magikarp starts weak and earns a large power boost as Gyarados.
+
+Discovery totals and maximum purchasable slots come from the available catalog, including reserve catches. They are independent of currently unlocked slot capacity and are no longer capped at 14. The current catalog has four starters, Eevee, 34 basic visitors, and three legendary birds.
+
+All 34 basic visitors and all three legendary birds can appear on **every route**. Route favorites have double selection weight; species not yet in your collection have triple weight. A rare visitor cannot repeat immediately after the previous visitor in that run. The encounter panel shows a question mark until the visitor actually arrives; it never displays route favorite portraits as predictions. These are weighted random encounters, not guarantees of a new species.
 
 | Route | Favored rare visitors | Favored legendary |
 | --- | --- | --- |
-| Viridian Forest | Caterpie, Abra | Zapdos |
-| Cerulean Creek | Magnemite, Lapras | Articuno |
-| Autumn Trail | Vulpix, Dratini | Moltres |
-| Moonlit Cavern | Abra, Magnemite | Articuno |
-| Safari Circuit | Caterpie, Dratini | Zapdos |
-| Cinnabar Coast | Vulpix, Lapras | Moltres |
+| Viridian Forest | Caterpie, Abra, Weedle, Pidgey, Oddish, Scyther | Zapdos |
+| Cerulean Creek | Magnemite, Lapras, Psyduck, Poliwag, Slowpoke, Staryu | Articuno |
+| Autumn Trail | Vulpix, Dratini, Meowth, Growlithe, Ponyta, Pinsir | Moltres |
+| Moonlit Cavern | Abra, Magnemite, Zubat, Diglett, Geodude, Gastly | Articuno |
+| Safari Circuit | Caterpie, Dratini, Rattata, Ekans, Sandshrew, Machop, Cubone, Magikarp | Zapdos |
+| Cinnabar Coast | Vulpix, Lapras, Krabby, Horsea, Omanyte, Kabuto | Moltres |
 
 - A random rare visitor is guaranteed on waves 4, 8, and 12. Waves 6, 7, 9, 11, and 13 each have a **35%** bonus visitor chance.
 - A random legendary bird appears only on **wave 14**, as the very last arrival. It is an optional encounter, separate from the three scheduled bosses. Eevee remains the special wave-5 reward.
@@ -49,7 +53,7 @@ All six rare visitors and all three legendary birds can appear on **every route*
 - Shiny colors stay on placed partners, attacks, both evolution stages, previews, recall, and future routes. Discovering a shiny also updates already placed partners of that kind. Cached recolored sprite sheets keep the battlefield consistent with roster colors even when the browser does not support canvas filters; static fallback portraits use the same treatment.
 - A repeated catch gives **75 bonus coins**, unless it unlocks a shiny variant you did not already own.
 - Escaped visitors cost **no hearts**. Catches are only added to your collection after a successful wave clear.
-- Open **Collection / Pokédex** for slot upgrades, unlock instructions, evolution lines, and shiny preferences. Collection, points, and slots are saved together under `pokewallclash-collection-v2`; v1 collections migrate automatically and personal bests are preserved. If storage fails, progress remains available for the current session.
+- Open **Collection / Pokédex** for slot upgrades, unlock instructions, evolution lines, and shiny preferences. Collection, points, and slots are saved together under `pokewallclash-collection-v3`; v1 and v2 collections migrate automatically and personal bests are preserved. If storage fails, progress remains available for the current session.
 
 ## Choose your difficulty
 

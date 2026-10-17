@@ -27,7 +27,7 @@ test('idle, movement, damage and capture select distinct timed poses',()=>{
   const actor={id:1,species:81,x:0,y:0,lookAngle:0};assert.equal(spriteSample(actor).state,'Idle');
   const walking={...actor,moving:true,walkDistance:0};assert.equal(spriteSample(walking).state,'Walk');assert.notEqual(spriteSample(walking).frame,spriteSample({...walking,walkDistance:12}).frame);
   assert.equal(spriteSample({...walking,hitRemaining:.16}).state,'Hurt');assert.equal(spriteSample({...actor,fainted:true}).state,'Sleep');
-  for(const id of Object.keys(DIRECTIONAL)){const frames=new Set(Array.from({length:40},(_,i)=>spriteSample({species:Number(id)},i/20).frame));assert.ok(frames.size>1,`${id} idle should animate`);}
+  for(const id of Object.keys(DIRECTIONAL)){const poses=new Set(Array.from({length:40},(_,i)=>{const s=spriteSample({species:Number(id)},i/20);return `${s.frame}:${s.idleBob}`;}));assert.ok(poses.size>1,`${id} idle should animate`);}
 });
 test('attack windup, release and recovery use the matching sprite frames',()=>{
   for(const t of TOWERS){for(const species of new Set(t.stages)){
@@ -66,4 +66,13 @@ test('defeat, capture, evolution and recall effects expire without keeping actor
 });
 test('reduced motion keeps frame selection stable without changing orientation',()=>{
   const actor={species:81,level:1,lookAngle:Math.PI,moving:true,walkDistance:4};const a=spriteSample(actor,0,true),b=spriteSample({...actor,walkDistance:100},9,true);assert.equal(a.frame,b.frame);assert.equal(a.row,6);assert.equal(b.row,6);
+});
+
+test('single-frame idle sprites breathe without moving attack poses or reduced-motion previews',()=>{
+  for(const species of [53,59]){
+    assert.notEqual(spriteSample({species},0).idleBob,spriteSample({species},.5).idleBob);
+    assert.equal(spriteSample({species},.5,true).idleBob,0);
+    assert.equal(spriteSample({species,fainted:true},.5).idleBob,0);
+    assert.equal(spriteSample({species,cast:{...attackTiming(1,'normal'),age:.1,angle:0}},.5).idleBob,0);
+  }
 });
