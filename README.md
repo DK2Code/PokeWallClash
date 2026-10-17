@@ -1,6 +1,6 @@
 # PokeWallClash
 
-A self-contained Gen 1 Pokémon tower defense game with a hand-drawn pixel landscape, four starters, a permanent collection of 14 recruitable species, three routes, four selectable difficulties, and 15 waves per route. No build step or package installation is required.
+A self-contained Gen 1 Pokémon tower defense game with hand-drawn pixel landscapes, four starters, a permanent collection of 14 recruitable species, six routes, four selectable difficulties, and 15 waves per route. No build step or package installation is required.
 
 ## Play
 
@@ -8,7 +8,7 @@ A self-contained Gen 1 Pokémon tower defense game with a hand-drawn pixel lands
 
 For local play, run `npm run dev` in this repository and open http://localhost:4174. Requires Node.js 18+. Keep the server terminal open while playing. The original workspace also includes **Play PokeWallClash.cmd** in the parent folder.
 
-Choose a route and difficulty, then a Pokémon and a marked clearing. Start each wave when ready. Defenders attack automatically; click a placed Pokémon to see its XP, evolve it, or recall it for 70% of its placement cost. Catch wild Pokémon and clear waves to earn coins. Protect your Center through all 15 waves. Bosses appear on waves 5, 10, and 15 and cost five hearts if they escape.
+Choose a route and difficulty, then a Pokémon and a marked clearing. Start each wave when ready. Defenders attack automatically; click a placed Pokémon to see its XP, evolve it, or recall it for 70% of its placement cost. Defeat wild Pokémon and clear waves to earn coins. Protect your Center through all 15 waves. Bosses appear on waves 5, 10, and 15 and cost five hearts if they escape.
 
 The next-wave button and free-evolution shortcuts sit directly beneath the battlefield, above field notes and collection rewards. On phones, ready partners use a horizontal row so a growing team does not push the controls down the page. Each shortcut opens that partner's move choices.
 
@@ -22,24 +22,29 @@ Begin with exactly **Bulbasaur, Charmander, Squirtle, and Pikachu**. Bulbasaur p
 
 ## Collect more partners
 
-**Eevee is a special permanent reward:** catch Onix and clear wave 5 on any route or difficulty. Eevee joins your roster in addition to the normal boss reward; escaping Onix or losing the wave does not unlock it.
+**Eevee is a special permanent reward:** defeat Onix and clear wave 5 on any route or difficulty. Eevee joins your collection in addition to the normal boss reward; escaping Onix or losing the wave does not unlock it.
 
-Optional visitors enter **after the regular wave**. Catch a marked visitor and clear its wave to recruit it; ordinary enemy catches award coins, XP, and collection points. Recruits with an open collection slot are available to place with coins, and remain unlocked across restarts, routes, difficulties, and browser reloads.
+Optional visitors enter **after the regular wave**. Defeat a marked visitor, then clear its wave to catch it. Ordinary wild Pokémon and bosses are **defeated**, not caught: they award coins, score, battle XP, and defeat points but do not enter the collection. Only confirmed collection additions count as catches. Recruits with an open collection slot are available to place with coins, and remain unlocked across restarts, routes, difficulties, and browser reloads.
 
-Catches celebrate directly over the battlefield with a portrait, name, and rewards. Rapid ordinary catches share a compact card; bosses, rare visitors, legendaries, and shinies get a larger sparkle celebration. Visitors only join the collection after clearing the wave. Cards never block taps, use real time at every battle speed, and respect reduced motion. Boss reward and victory dialogs wait for the celebration. Bosses and visitors display their Pokémon names above their health bars.
+Catches celebrate directly over the battlefield with a portrait, name, and rewards **only when the Pokémon joins the collection** (including reserve). Ordinary defeats fade out with dust; they never show a Poké Ball or catch popup. Results separately count defeated and caught Pokémon. Cards never block taps, use real time at every battle speed, and respect reduced motion. Boss reward and victory dialogs wait for any collection celebration. Bosses and visitors display their Pokémon names above their health bars.
 
-Start with **six collection slots**, including the four starters. Buy up to **14 slots** in Collection: the first extra slot costs **100 collection points**, and each following slot costs 50 more. Earn 1 point per ordinary catch, 5 per boss, 10 per rare visitor, or 25 per legendary (these replace the ordinary catch award). Each cleared wave adds 10; completing a route adds another 50. This wallet is separate from score and coins, so purchases never lower personal bests. Points are saved as earned, even if a later wave fails.
+Start with **six collection slots**, including the four starters. Buy up to **14 slots** in Collection: the first extra slot costs **100 collection points**, and each following slot costs 50 more. Earn 1 point per ordinary defeat and 5 per boss defeat. A confirmed visitor or Eevee catch awards 10; a legendary catch awards 25. Visitor points wait until the wave clears. Each cleared wave adds 10; completing a route adds another 50. This wallet is separate from score and coins, so purchases never lower personal bests. Earned points remain saved if a later wave fails.
 
 When slots are full, new recruits wait **safely in reserve**, including their shiny preferences. Buying a slot activates a waiting partner (Eevee first, then Pokédex collection order), or leaves space for a future catch. Each species uses one slot; duplicates, evolutions, and shiny variants need no additional space. Existing collections receive enough slots to keep every previously unlocked partner available for free.
 
-| Route | Rare visitors | Legendary visitor |
+All six rare visitors and all three legendary birds can appear on **every route**. Route favorites have double selection weight; species not yet in your collection have triple weight. A rare visitor cannot repeat immediately after the previous visitor in that run. Predictions keep the identity hidden until it arrives. These are weighted random encounters, not guarantees of a new species.
+
+| Route | Favored rare visitors | Favored legendary |
 | --- | --- | --- |
 | Viridian Forest | Caterpie, Abra | Zapdos |
 | Cerulean Creek | Magnemite, Lapras | Articuno |
 | Autumn Trail | Vulpix, Dratini | Moltres |
+| Moonlit Cavern | Abra, Magnemite | Articuno |
+| Safari Circuit | Caterpie, Dratini | Zapdos |
+| Cinnabar Coast | Vulpix, Lapras | Moltres |
 
-- The first rare species is guaranteed on wave 4, the second on wave 8, and one of the two on wave 12. Waves 6, 7, 9, 11, and 13 each have a 25% bonus visitor chance.
-- Legendary birds appear only on **wave 14**, as the very last arrival. They are optional encounters, separate from the three scheduled bosses.
+- A random rare visitor is guaranteed on waves 4, 8, and 12. Waves 6, 7, 9, 11, and 13 each have a **35%** bonus visitor chance.
+- A random legendary bird appears only on **wave 14**, as the very last arrival. It is an optional encounter, separate from the three scheduled bosses. Eevee remains the special wave-5 reward.
 - Every visitor has a **10% shiny chance**. Shiny variants use a cosmetic color shift and sparkles with identical combat stats. Toggle owned shiny colors in the collection screen.
 - Shiny colors stay on placed partners, attacks, both evolution stages, previews, recall, and future routes. Discovering a shiny also updates already placed partners of that kind. Cached recolored sprite sheets keep the battlefield consistent with roster colors even when the browser does not support canvas filters; static fallback portraits use the same treatment.
 - A repeated catch gives **75 bonus coins**, unless it unlocks a shiny variant you did not already own.
@@ -47,6 +52,14 @@ When slots are full, new recruits wait **safely in reserve**, including their sh
 - Open **Collection / Pokédex** for slot upgrades, unlock instructions, evolution lines, and shiny preferences. Collection, points, and slots are saved together under `pokewallclash-collection-v2`; v1 collections migrate automatically and personal bests are preserved. If storage fails, progress remains available for the current session.
 
 ## Choose your difficulty
+
+Six routes have different paths and scenery. The trainer passport tracks completion separately for each difficulty; existing route records keep their original IDs.
+
+- **Moonlit Cavern:** a returning cavern path, crystal pools, and three marked violet clearings with **+20% attack range**. The range bonus also applies to evolved partners and placement previews.
+- **Safari Circuit:** a wide savanna loop and **+15 collection points** for clearing each of waves 5, 10, and 15.
+- **Cinnabar Coast:** a harbor hairpin, volcanic shores, and hot springs that **restore two hearts** at those milestones, up to the selected difficulty's cap.
+
+The original Forest, Creek, and Autumn routes remain available. New routes share the gentle first five waves, then introduce their own enemy mixes. All routes can be played immediately with the four starters and earned coins; collected partners offer more strategies.
 
 All four modes are available on every map. Map selection changes the route layout; the selected difficulty controls enemy strength and starting resources.
 
@@ -63,7 +76,7 @@ Personal bests and completion marks are separate for every map and difficulty. E
 
 ## Opening pace
 
-Normal can afford a three-starter opening, while Hard and Expert encourage a strong pair with coins in reserve. Every pair of distinct starters can defend the first Normal wave on all three routes when placed at clearings 1 and 4. A clean Normal opening with Pikachu, Bulbasaur, and Charmander leaves 119 coins after wave 1, enough to add Squirtle.
+Normal can afford a three-starter opening, while Hard and Expert encourage a strong pair with coins in reserve. Every pair of distinct starters can defend the first Normal wave on all six routes when placed at clearings 1 and 4. A clean Normal opening with Pikachu, Bulbasaur, and Charmander leaves 119 coins after wave 1, enough to add Squirtle.
 
 | Wave | Normal enemies | New threat | Health adjustment | Spawn interval | Clear bonus |
 | --- | ---: | --- | ---: | ---: | ---: |
@@ -73,11 +86,11 @@ Normal can afford a three-starter opening, while Hard and Expert encourage a str
 | 4 | 13 | Pidgey | 100% | 1.05 s | 65 coins |
 | 5 | 16 + Onix | Sandshrew and the first boss | 100% | 0.975 s | 90 coins |
 
-Health adjustments multiply the normal wave growth and difficulty setting; spawn intervals also scale by difficulty. Normal catch bounties are 75% on waves 1–4, rounded to whole coins. Boss and visitor bounties retain their full values. The first clear bonus gives the opening economy a small head start. Optional visitors are additional to the counts above. Onix has 650 base HP and arrives after the regular crowd so the developing team can focus on its first boss. From wave 6, regular wave size, health, bounties, and pacing follow the established curve.
+Health adjustments multiply the normal wave growth and difficulty setting; spawn intervals also scale by difficulty. Normal defeat bounties are 75% on waves 1–4, rounded to whole coins. Boss and visitor bounties retain their full values. The first clear bonus gives the opening economy a small head start. Optional visitors are additional to the counts above. Onix has 650 base HP and arrives after the regular crowd so the developing team can focus on its first boss. From wave 6, regular wave size, health, bounties, and pacing follow the established curve.
 
 ## Grow your team
 
-Every partner that helps catch an enemy earns **2 XP**, regardless of which partner lands the final hit. Each partner can earn **12 combat XP per wave**. Attacks alone do not grant XP, so fast attacks, tougher difficulties, and repeated poison ticks cannot rush an evolution. Helping catch a boss adds **8 bonus XP outside that cap**, once per boss.
+Every partner that helps defeat an enemy earns **2 XP**, regardless of which partner lands the final hit. Each partner can earn **12 combat XP per wave**. Attacks alone do not grant XP, so fast attacks, tougher difficulties, and repeated poison ticks cannot rush an evolution. Helping defeat a boss adds **8 bonus XP outside that cap**, once per boss.
 
 Partners placed **before the wave starts** earn **6 team XP when it clears**, including defenders guarding a quiet stretch. Partners recruited mid-wave begin receiving that team bonus on the next wave; they can earn combat XP immediately. Failed waves give no clear bonus. Recalling and replacing a partner loses its earned XP.
 
@@ -97,13 +110,13 @@ The battlefield marks ready partners with a gold star, and a ready-to-grow tray 
 | Abra → Kadabra → Alakazam; Vulpix → Ninetales; Dratini → Dragonair → Dragonite | Focused power adds damage and range; Crowd keeper adds splash and speed. |
 | Lapras, Articuno, Zapdos, Moltres | Choose Focused power or Crowd keeper and train through three levels without evolving. |
 
-Catch Onix on wave 5 or Snorlax on wave 10 and clear the rest of that wave to pick **one boss reward**:
+Defeat Onix on wave 5 or Snorlax on wave 10 and clear the rest of that wave to pick **one boss reward**:
 
 - **Training picnic:** +20 XP to every currently placed partner, outside the combat cap.
 - **Power charm:** +12% power to current and future teammates for this run; charms stack additively.
 - **Supply satchel:** +250 coins after Onix or +400 after Snorlax, plus 4 hearts (up to the selected difficulty’s heart cap).
 
-The next wave waits until the reward is chosen. You can dismiss and reopen the choice from the wave button. Escaped bosses give no reward. Catching Dragonite on wave 15 adds **1,000 bonus points** to the victory score. Resetting or changing routes clears placed partners, XP, choices, and run bonuses, but keeps the collection.
+The next wave waits until the reward is chosen. You can dismiss and reopen the choice from the wave button. Escaped bosses give no reward. Defeating Dragonite on wave 15 adds **1,000 bonus points** to the victory score. Resetting or changing routes clears placed partners, XP, choices, and run bonuses, but keeps the collection.
 
 Animations reuse Pokémon Arena’s SpriteCollab sheets and rendering approach: eight-direction idle/walk/attack/hurt poses, original frame durations, stable ground anchors, and attacks emitted from each Pokémon’s head. Defenders track targets during windup, fire on the attack frame, and recover before attacking again. Enemies turn at corners, react to hits, and animate into Poké Balls when caught.
 
@@ -135,8 +148,8 @@ Keep asset and module URLs relative so the game works under the `/PokeWallClash/
 
 `npm run check` checks JavaScript syntax and runs deterministic gameplay and animation tests. The simulation is in `dist/game.mjs`, frame sampling in `dist/sprite-animation.mjs`, rendering in `dist/art.mjs`, and controls/UI in `dist/app.mjs`. Static files in `dist/` can be hosted directly. Google Fonts is optional; system fonts provide fallbacks. The `pokeall` project folder and original browser save keys are retained so existing local paths and personal bests remain compatible.
 
-`npm run balance` reports a fixed starter-only strategy across all 12 route/difficulty combinations using earned resources. `node scripts/balance-report.mjs --opening` shows wave-by-wave Normal opening income and XP. For focused checks, use `--difficulty=expert --waves=5 --summary`; `--reward=picnic` compares the training reward. Balance regressions cover all six starter pairs on all three routes, economy, progression timing, contribution caps, quiet defenders, boss XP, and stronger status effects.
+`npm run balance` reports a fixed starter-only strategy across all 24 route/difficulty combinations using earned resources. `node scripts/balance-report.mjs --opening` shows wave-by-wave Normal opening income and XP. For focused checks, use `--difficulty=expert --waves=5 --summary`; `--reward=picnic` compares the training reward. Balance regressions cover all six starter pairs on all six routes, economy, progression timing, contribution caps, quiet defenders, boss XP, and stronger status effects.
 
-`npm run sync:arena` refreshes the copied Arena modules plus all 41 used species’ seven animation states, retaining frame metadata, license and artist histories. Arena is only read; the finished game works independently of its folder and server. `dist/partner-moves.mjs` selects the Arena move for each stage and path, and `dist/combat-art.mjs` adapts the renderers to tower-defense coordinates. Tests verify byte-for-byte source consistency, move/species membership, all render paths, sound identity, collection gates, rewards, every animation sheet, and all 12 route/difficulty combinations using only the four starters and earned resources. `dist/records.mjs` handles save migration and per-difficulty records; `dist/collection.mjs` validates saves and schedules visitors.
+`npm run sync:arena` refreshes the copied Arena modules plus all 41 used species’ seven animation states, retaining frame metadata, license and artist histories. Arena is only read; the finished game works independently of its folder and server. `dist/partner-moves.mjs` selects the Arena move for each stage and path, and `dist/combat-art.mjs` adapts the renderers to tower-defense coordinates. Tests verify byte-for-byte source consistency, move/species membership, all render paths, sound identity, collection gates, rewards, every animation sheet, and all 24 route/difficulty combinations using only the four starters and earned resources. `dist/records.mjs` handles save migration and per-difficulty records; `dist/collection.mjs` validates saves and schedules visitors.
 
 PokeWallClash is an unofficial, noncommercial fan project. Pokémon artwork and names belong to Nintendo, Game Freak, and The Pokémon Company. Roster sprites are from [PokeAPI](https://github.com/PokeAPI/sprites). Directional animations are from [SpriteCollab](https://github.com/PMDCollab/SpriteCollab), including original CHUNSOFT artwork and community contributions under CC BY-NC 4.0. See `dist/assets/CREDITS.txt` and the license, contributor index, name mappings, and per-species histories in `dist/assets/directional/`.

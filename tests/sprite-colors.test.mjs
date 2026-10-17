@@ -25,7 +25,9 @@ function canvas() {
   // Simulate a browser where the canvas filter is ignored. Color must come
   // from the sprite bitmap, including when using static fallback portraits.
   Object.defineProperty(context,'filter',{get:()=> 'none',set(){}});
-  for(const method of ['save','restore','clearRect','translate','scale','rotate','beginPath','moveTo','lineTo','quadraticCurveTo','bezierCurveTo','closePath','ellipse','arc','fill','stroke','fillRect','fillText','strokeText','setLineDash'])context[method]=()=>{};
+  for(const method of ['save','restore','clearRect','translate','scale','rotate','beginPath','moveTo','lineTo','quadraticCurveTo','bezierCurveTo','closePath','ellipse','arc','fill','stroke','fillRect','fillText','strokeText','setLineDash'])context[method]=(...args)=>{
+    assert.ok(args.every(value=>typeof value!=='number'||Number.isFinite(value)),`${method} received invalid coordinates`);
+  };
   result.getContext=()=>context;return result;
 }
 
@@ -77,4 +79,21 @@ test('battlefield bosses and legendary visitors render species names instead of 
   for(const name of ['Onix','Snorlax','Dragonite','Articuno','★ Zapdos','Moltres'])assert.ok(labels.includes(name),`Missing ${name}`);
   assert.ok(!labels.some(label=>['BOSS','LEGENDARY','RARE'].includes(label)));
   assert.ok(fonts.every(font=>font==='bold 30px monospace'),'name labels must remain legible on a narrow battlefield');
+});
+
+test('defeat and confirmed capture render a visible sprite at finite coordinates with shiny colors intact',async t=>{
+  const previousDocument=globalThis.document,previousImage=globalThis.Image;
+  t.after(()=>{globalThis.document=previousDocument;globalThis.Image=previousImage;});
+  globalThis.document={createElement:()=>canvas()};
+  globalThis.Image=class {naturalWidth=1;naturalHeight=1;set src(value){this.url=value;queueMicrotask(()=>this.onload());}};
+  await loadSprites();
+  for(const kind of [10,131])for(const shiny of [false,true])for(const reducedMotion of [false,true])for(const type of ['defeat','capture']){
+    const g=new Game();g.wave=4;
+    if(type==='defeat'){const enemy=g.spawn({kind,shiny});g.hit(enemy,99999);g.enemies=[];g.particles=[];}
+    else g.recruit(kind,shiny,{x:300,y:200});
+    g.effects[0].age=.1;const c=canvas(),terrain={};
+    render(c.getContext(),terrain,g,{selectedKind:null,selectedTower:null,hoverPad:null,reducedMotion});
+    const sprites=c.images.filter(image=>image!==terrain);assert.equal(sprites.length,1,`${type} must draw its Pokémon`);
+    assert.equal(Boolean(sprites[0].pixels),shiny,`${type} must preserve the shiny variant`);
+  }
 });

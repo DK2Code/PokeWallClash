@@ -57,7 +57,7 @@ test('captured boss offers one reward only after the whole wave clears',()=>{
 });
 test('an escaped boss offers no reward',()=>{
   const g=new Game();g.wave=4;g.startWave();g.queue=[];const boss=g.spawn(95);boss.distance=g.length-.1;g.update(.1);
-  assert.equal(g.status,'build');assert.equal(g.pendingReward,null);assert.equal(g.bossesCaught,0);assert.equal(g.lives,15);
+  assert.equal(g.status,'build');assert.equal(g.pendingReward,null);assert.equal(g.bossesDefeated,0);assert.equal(g.lives,15);
 });
 test('picnic gives exactly 20 XP to current partners and cannot be claimed twice',()=>{
   const g=bossClear(),t=g.place(133,1);assert.equal(t.xp,0);assert.ok(g.claimReward('picnic'));assert.equal(t.xp,20);assert.equal(xpProgress(t).ready,false);
@@ -72,12 +72,12 @@ test('supplies restore up to 20 hearts and use the matching boss reward amount',
   for(const [wave,coins] of [[5,250],[10,400]]){const g=bossClear(wave);g.lives=18;const money=g.money;assert.ok(g.claimReward('supplies'));assert.equal(g.money,money+coins);assert.equal(g.lives,20);}
 });
 test('final boss grants victory bonus without leaving an unusable reward choice',()=>{
-  const g=bossClear(15);assert.equal(g.status,'won');assert.equal(g.pendingReward,null);assert.equal(g.bossesCaught,1);
+  const g=bossClear(15);assert.equal(g.status,'won');assert.equal(g.pendingReward,null);assert.equal(g.bossesDefeated,1);
   const dragoniteHp=Math.round(3300*(1+14*.21)*.65);
   assert.equal(g.score,dragoniteHp*2+waveInfo(15).reward*5+1000);assert.equal(g.claimReward('charm'),false);assert.equal(g.events.filter(e=>e.type==='won').length,1);
 });
 test('recall and reset discard progress and reward bonuses without refund exploits',()=>{
   const g=bossClear();g.claimReward('charm');const t=g.towers[0];g.gainXP(t,120);g.upgrade(t.id,'storm');g.upgrade(t.id);
   const before=g.money;g.sell(t.id);assert.equal(g.money-before,91);g.gainXP(t,20);const replacement=g.place(25,0);assert.equal(replacement.xp,0);assert.equal(replacement.branch,null);
-  g.reset(1);assert.equal(g.powerCharms,0);assert.equal(g.pendingReward,null);assert.deepEqual(g.rewardHistory,[]);assert.equal(g.bossesCaught,0);assert.equal(g.place(25,0).teamPower,1);
+  g.reset(1);assert.equal(g.powerCharms,0);assert.equal(g.pendingReward,null);assert.deepEqual(g.rewardHistory,[]);assert.equal(g.bossesDefeated,0);assert.equal(g.place(25,0).teamPower,1);
 });

@@ -24,7 +24,7 @@ test('water slows, grass poisons, fire splashes, and electric chains',()=>{
     assert.ok(a.hp<1000);if(kind===7)assert.equal(a.slow,1.8);if(kind===1)assert.ok(a.poisonDps>0);if(kind===4||kind===25)assert.ok(b.hp<1000);
   }
 });
-test('a catch rewards coins only once and awards poison kill credit',()=>{const g=new Game();const t=g.place(1,0);g.wave=1;const e=g.spawn(10);const money=g.money;g.hit(e,100,t);g.hit(e,100,t);assert.equal(g.kills,1);assert.equal(g.money,money+e.reward);assert.equal(t.kills,1);});
+test('a defeat rewards coins only once and credits its helper',()=>{const g=new Game();const t=g.place(1,0);g.wave=1;const e=g.spawn(10);const money=g.money;g.hit(e,100,t);g.hit(e,100,t);assert.equal(g.kills,1);assert.equal(g.money,money+e.reward);assert.equal(t.kills,1);});
 test('unprotected enemies leak hearts, bosses cost five, and defeat stops the simulation',()=>{
   const g=new Game();g.status='wave';g.wave=5;const e=g.spawn(95);e.distance=g.length-1;g.update(.1);assert.equal(g.lives,15);
   g.status='wave';g.lives=1;const b=g.spawn(10);b.distance=g.length-1;g.update(.1);assert.equal(g.status,'lost');assert.equal(g.lives,0);const before=JSON.stringify(g);advance(g,5);assert.equal(JSON.stringify(g),before);assert.equal(g.place(1,0),false);
@@ -34,12 +34,12 @@ test('a modest starting team clears the first wave and earns a wave bonus',()=>{
 });
 test('the final wave ends in victory exactly once',()=>{const g=new Game();g.wave=MAX_WAVES-1;g.startWave();g.queue=[];g.update(.1);assert.equal(g.status,'won');assert.equal(g.events.filter(e=>e.type==='won').length,1);g.update(.1);assert.equal(g.events.filter(e=>e.type==='won').length,1);assert.equal(g.startWave(),false);});
 test('route reset clears all combat state and restores the economy',()=>{const g=new Game();g.place(25,0);g.startWave();advance(g,2);g.reset(2);assert.equal(g.money,360);assert.equal(g.lives,20);assert.equal(g.wave,0);assert.equal(g.map,MAPS[2]);assert.equal(g.towers.length,0);assert.equal(g.enemies.length,0);assert.equal(g.queue.length,0);assert.equal(g.events.length,0);assert.equal(g.status,'build');});
-test('all twelve route and difficulty combinations can be completed using earned resources',()=>{
+test('all twenty-four route and difficulty combinations can be completed using earned resources',()=>{
   for(const difficulty of DIFFICULTIES)for(let map=0;map<MAPS.length;map++){
     const run=simulateRun(map,difficulty.id),label=`${run.map}, ${difficulty.name}`;
     assert.equal(run.status,'won',label);assert.ok(run.hearts>0,label);
     assert.ok(run.rows.every(w=>w.startCoins>=0&&w.endCoins>=0),label);
-    assert.equal(run.rows[4].bosses,1,`${label}: first boss should be catchable with the starter team`);
+    assert.equal(run.rows[4].bosses,1,`${label}: first boss should be defeatable with the starter team`);
     assert.equal(run.firstEvolution[0],3,`${label}: first evolution pacing`);
     assert.ok(run.finalEvolution[0]>=6&&run.finalEvolution[0]<=8,`${label}: final evolution pacing`);
   }

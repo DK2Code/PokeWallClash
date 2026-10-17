@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,TOWERS,DIFFICULTIES,ENEMIES,waveInfo,towerStats,rewardOptions} from '../dist/game.mjs';
+import {Game,TOWERS,MAPS,DIFFICULTIES,ENEMIES,waveInfo,towerStats,rewardOptions} from '../dist/game.mjs';
 import {loadRecords,recordKey,recordRun} from '../dist/records.mjs';
 
 test('exactly four starters are available and other species require a collection unlock',()=>{
@@ -26,7 +26,7 @@ test('difficulty scales resources, health, speed, crowd size and spawn cadence i
   }
 });
 test('every mode and map uses its selected difficulty and retains exactly one scheduled boss',()=>{
-  for(const d of DIFFICULTIES)for(let map=0;map<3;map++)for(const [wave,boss] of [[5,95],[10,143],[15,149]]){
+  for(const d of DIFFICULTIES)for(let map=0;map<MAPS.length;map++)for(const [wave,boss] of [[5,95],[10,143],[15,149]]){
     const g=new Game(map,d.id);g.wave=wave-1;g.startWave();assert.equal(g.queue.length,waveInfo(wave,d.id).count);assert.equal(g.queue.filter(k=>k===boss).length,1);
     assert.equal(g.spawn(boss).maxHp,Math.round(ENEMIES[boss].hp*(1+(wave-1)*.21)*d.health*.65));
   }

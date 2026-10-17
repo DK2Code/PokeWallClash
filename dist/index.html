@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="./collection.css">
   <link rel="stylesheet" href="./battle-ui.css">
   <link rel="stylesheet" href="./catch-celebration.css">
+  <link rel="stylesheet" href="./routes.css">
 </head>
 <body>
   <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -43,7 +44,8 @@
   </header>
   <main>
     <section class="intro"><div><div class="eyebrow"><span class="tiny-star">✦</span> A LITTLE STRATEGY. A LOT OF POKÉMON.</div><h1>Small Pokémon. <em>Big defense.</em></h1><p>Build your dream team. Hold your ground. Catch a little adventure.</p></div><div class="adventure-stamp"><svg class="icon"><use href="#i-ball"/></svg><span>YOUR ADVENTURE<br><b>STARTS HERE</b></span><span class="stamp-star">✧</span></div></section>
-    <div class="route-selector" role="group" aria-label="Choose a route"><div class="route-tabs" id="route-tabs"></div><span class="route-note"><span></span> Every great trainer starts somewhere.</span></div>
+    <div class="route-selector" role="group" aria-label="Choose a route"><div class="route-tabs" id="route-tabs"></div><span class="route-note" id="route-progress"></span></div>
+    <section class="route-brief" id="route-brief" aria-label="Route strategy"></section>
     <section class="difficulty-picker" aria-labelledby="challenge-heading"><div class="challenge-intro"><div class="eyebrow">YOUR ROUTE. YOUR PACE.</div><h2 id="challenge-heading">Choose your challenge.</h2><p id="difficulty-summary" aria-live="polite"></p></div><div class="difficulty-options" id="difficulty-options" role="group" aria-label="Choose difficulty"></div><small>Changing difficulty starts a new run. Personal bests are saved for each map and difficulty.</small></section>
     <div class="game-layout">
       <section class="battle-column" aria-label="Battlefield">

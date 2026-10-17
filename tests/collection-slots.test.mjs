@@ -23,7 +23,7 @@ test('full collections keep caught shinies in reserve until a slot is purchased'
 test('wallet, reserved partners, bought slots and shiny preferences survive one atomic save',()=>{
   const g=new Game();g.recruit(10);g.recruit(133);g.recruit(145,true);g.collectionPoints=175;g.unlockCollectionSlot();g.recruit(147,true);
   const restored=new Game(1,'hard',{collectionProgress:JSON.stringify(g.collectionSave())});
-  assert.equal(restored.collectionSlots,7);assert.equal(restored.collectionPoints,75);
+  assert.equal(restored.collectionSlots,7);assert.equal(restored.collectionPoints,85);
   assert.equal(restored.available(145),true);assert.equal(restored.collection[145].useShiny,true);
   assert.equal(restored.available(147),false);assert.equal(restored.collection[147].reserve,true);
   assert.equal(restored.collection[147].shiny,true);
@@ -51,12 +51,12 @@ test('slot prices grow by 50 points and stop at the Gen 1 collection size',()=>{
   assert.equal(g.unlockCollectionSlot(),false);assert.equal(g.collectionPoints,10000-spent);
 });
 
-test('catches award points once according to rarity and preserve catch popup metadata',()=>{
+test('defeats award points once; visitors wait until they join the collection',()=>{
   const g=new Game();g.wave=4;
-  for(const [encounter,points] of [[{kind:10},1],[{kind:95},5],[{kind:63,visitor:true,shiny:true},10],[{kind:145,visitor:true,legendary:true},25]]){
+  for(const [encounter,points] of [[{kind:10},1],[{kind:95},5],[{kind:63,visitor:true,shiny:true},0],[{kind:145,visitor:true,legendary:true},0]]){
     const before=g.collectionPoints,e=g.spawn(encounter);g.hit(e,999999);g.hit(e,999999);
     assert.equal(g.collectionPoints,before+points);
-    const event=g.events.filter(e=>e.type==='catch').at(-1);assert.equal(event.kind,encounter.kind);assert.equal(event.points,points);assert.equal(event.shiny,Boolean(encounter.shiny));assert.equal(event.legendary,Boolean(encounter.legendary));
+    const event=g.events.filter(e=>e.type==='defeat').at(-1);assert.equal(event.kind,encounter.kind);assert.equal(event.points,points);assert.equal(event.shiny,Boolean(encounter.shiny));assert.equal(event.legendary,Boolean(encounter.legendary));
   }
 });
 

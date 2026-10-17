@@ -1,0 +1,21 @@
+// Append routes so saved personal bests for the original three keep their IDs.
+export const EXTRA_ROUTES=[
+  {name:'Moonlit Cavern',subtitle:'Crystal chambers and a winding underground loop.',label:'THE CRYSTAL ROUTE',region:'KANTO · ROUTE 04',theme:'cave',weather:'Crystal glow',
+    feature:'Crystal clearings',featureDescription:'The three violet clearings give any partner +20% attack range. Cover the cavern’s returning path.',boostPads:[6,8,10],
+    path:[[-45,155],[180,155],[180,395],[425,395],[425,130],[710,130],[710,285],[570,285],[570,445],[1005,445]],
+    pads:[[90,245],[90,85],[305,65],[285,250],[85,390],[275,470],[335,320],[465,470],[505,220],[575,65],[645,365],[800,110],[805,340],[835,510]],pond:{x:325,y:180,rx:38,ry:25},
+    wavePool:[41,74,27,19],waveNames:['Echoing wings','Crystal guardians','Deep-cavern march'],
+  },
+  {name:'Safari Circuit',subtitle:'A wide savanna with sweeping turns and ranger rewards.',label:'THE RANGER ROUTE',region:'KANTO · ROUTE 05',theme:'safari',weather:'Golden breeze',
+    feature:'Ranger milestones',featureDescription:'Clear waves 5, 10, and 15 for +15 extra collection points each. Fill your collection as you explore.',bonusPoints:15,
+    path:[[-45,350],[195,350],[195,125],[425,125],[425,435],[655,435],[655,200],[840,200],[840,350],[1005,350]],
+    pads:[[90,260],[110,425],[290,65],[295,250],[105,135],[340,500],[345,345],[510,500],[525,270],[535,60],[720,355],[750,110],[765,270],[905,440]],pond:{x:530,y:155,rx:45,ry:34},
+    wavePool:[16,19,54,27],waveNames:['Savanna sprint','Wings over the grass','The great migration'],
+  },
+  {name:'Cinnabar Coast',subtitle:'A volcanic shoreline, warm springs, and a harbor hairpin.',label:'THE VOLCANIC ROUTE',region:'KANTO · ROUTE 06',theme:'coast',weather:'Ocean spray',
+    feature:'Restorative springs',featureDescription:'Clear waves 5, 10, and 15 to restore 2 hearts. Guard the tight harbor turns with splash attacks.',healing:2,
+    path:[[-45,155],[240,155],[240,375],[480,375],[480,200],[680,200],[680,425],[850,425],[850,290],[1005,290]],
+    pads:[[110,245],[130,85],[340,85],[330,255],[140,370],[325,465],[390,305],[540,465],[565,295],[565,115],[760,350],[770,110],[775,230],[905,490]],pond:{x:375,y:195,rx:36,ry:25},
+    wavePool:[54,37,74,41],waveNames:['Foam and foxfire','Volcanic company','Harbor surge'],
+  },
+];

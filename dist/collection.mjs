@@ -5,11 +5,17 @@ export const MAX_SLOTS=STARTER_IDS.length+COLLECTIBLE_IDS.length;
 export const MAX_COLLECTION_POINTS=9999999;
 export const usedSlots=collection=>STARTER_IDS.length+Object.values(collection).filter(entry=>!entry.reserve).length;
 export const slotPrice=slots=>slots>=MAX_SLOTS?null:100+50*(slots-INITIAL_SLOTS);
-export const catchPoints=enemy=>enemy.legendary?25:enemy.visitor?10:enemy.boss?5:1;
+export const defeatPoints=enemy=>enemy.visitor?0:enemy.boss?5:1;
+export const RARE_VISITORS=[10,63,81,131,37,147];
+export const LEGENDARY_VISITORS=[144,145,146];
+export const BONUS_VISITOR_CHANCE=.35;
 export const ROUTE_VISITORS = [
   {rare:[10,63],legendary:145},
   {rare:[81,131],legendary:144},
   {rare:[37,147],legendary:146},
+  {rare:[63,81],legendary:144},
+  {rare:[10,147],legendary:145},
+  {rare:[37,131],legendary:146},
 ];
 export function loadCollection(raw){
   try{
@@ -36,13 +42,17 @@ export function loadCollectionProgress(raw,legacy){
 }
 export function visitorForecast(mapIndex,wave){
   const route=ROUTE_VISITORS[mapIndex];
-  if(wave===14)return {kind:route.legendary,legendary:true,guaranteed:true};
-  if([4,8,12].includes(wave))return {kind:wave===4?route.rare[0]:wave===8?route.rare[1]:null,pool:route.rare,guaranteed:true};
-  if([6,7,9,11,13].includes(wave))return {pool:route.rare,guaranteed:false};
+  if(!route)return null;
+  if(wave===14)return {pool:LEGENDARY_VISITORS,favored:[route.legendary],legendary:true,guaranteed:true};
+  if([4,8,12].includes(wave))return {pool:RARE_VISITORS,favored:route.rare,guaranteed:true};
+  if([6,7,9,11,13].includes(wave))return {pool:RARE_VISITORS,favored:route.rare,guaranteed:false};
   return null;
 }
-export function rollVisitor(mapIndex,wave,random=Math.random){
+export function rollVisitor(mapIndex,wave,random=Math.random,collection={},previousKind=null){
   const forecast=visitorForecast(mapIndex,wave);
-  if(!forecast||(!forecast.guaranteed&&random()>=.25))return null;
-  return {kind:forecast.kind??forecast.pool[Math.min(forecast.pool.length-1,Math.floor(random()*forecast.pool.length))],visitor:true,legendary:Boolean(forecast.legendary),shiny:random()<.1};
+  if(!forecast||(!forecast.guaranteed&&random()>=BONUS_VISITOR_CHANCE))return null;
+  const choices=forecast.pool.filter(id=>id!==previousKind).map(id=>({id,weight:(collection[id]?1:3)*(forecast.favored.includes(id)?2:1)}));
+  let roll=Math.max(0,Math.min(.999999,random()))*choices.reduce((sum,c)=>sum+c.weight,0),kind=choices.at(-1).id;
+  for(const choice of choices){roll-=choice.weight;if(roll<0){kind=choice.id;break;}}
+  return {kind,visitor:true,legendary:Boolean(forecast.legendary),shiny:random()<.1};
 }

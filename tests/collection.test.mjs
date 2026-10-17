@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,TOWERS,EVOLUTIONS,ENEMIES,DIFFICULTIES,towerStats} from '../dist/game.mjs';
-import {STARTER_IDS,COLLECTIBLE_IDS,ROUTE_VISITORS,loadCollection,rollVisitor,visitorForecast} from '../dist/collection.mjs';
+import {Game,TOWERS,EVOLUTIONS,ENEMIES,DIFFICULTIES,MAPS,towerStats} from '../dist/game.mjs';
+import {STARTER_IDS,COLLECTIBLE_IDS,RARE_VISITORS,LEGENDARY_VISITORS,loadCollection,rollVisitor,visitorForecast} from '../dist/collection.mjs';
 
 test('the entire roster, enemy pool, evolutions and collection stay in Gen 1',()=>{
   const ids=[...TOWERS.flatMap(t=>[t.id,...t.stages]),...Object.keys(ENEMIES).map(Number),...Object.values(EVOLUTIONS).flat().map(b=>b.species).filter(Boolean),...COLLECTIBLE_IDS];
@@ -12,7 +12,7 @@ test('the entire roster, enemy pool, evolutions and collection stay in Gen 1',()
 test('Pikachu evolves to Raichu and stays in Gen 1 when fully trained',()=>{
   const g=new Game(),t=g.place(25,0);g.gainXP(t,120);g.upgrade(t.id,'storm');assert.equal(t.species,26);g.upgrade(t.id);assert.equal(t.species,26);assert.equal(towerStats(t).name,'Raichu');
 });
-test('Eevee is a permanent bonus only after catching Onix and clearing wave 5',()=>{
+test('Eevee is a permanent bonus only after defeating Onix and clearing wave 5',()=>{
   const g=new Game();assert.equal(g.place(133,0),false);g.wave=4;g.startWave();const boss=g.spawn(95);g.hit(boss,boss.hp);
   assert.equal(g.available(133),false);g.update(.01);assert.equal(g.available(133),false);
   g.queue=[];g.enemies=[];g.update(.01);assert.equal(g.available(133),true);assert.ok(g.pendingReward);assert.equal(g.collection[133].catches,1);
@@ -27,34 +27,34 @@ test('an escaped Onix or a failed wave never awards Eevee',()=>{
   }
 });
 test('each route has scheduled rare sightings, occasional visitors, and no early legends',()=>{
-  for(let map=0;map<3;map++){
-    assert.equal(rollVisitor(map,4,()=>.99).kind,ROUTE_VISITORS[map].rare[0]);
-    assert.equal(rollVisitor(map,8,()=>.99).kind,ROUTE_VISITORS[map].rare[1]);
+  for(let map=0;map<MAPS.length;map++){
+    assert.ok(RARE_VISITORS.includes(rollVisitor(map,4,()=>.99).kind));
+    assert.ok(RARE_VISITORS.includes(rollVisitor(map,8,()=>.99).kind));
     for(let wave=1;wave<=15;wave++){
       for(const random of [()=>0,()=>.99]){const v=rollVisitor(map,wave,random);if(v?.legendary)assert.equal(wave,14);}
       if([1,2,3,5,10,15].includes(wave))assert.equal(rollVisitor(map,wave,()=>0),null);
     }
-    for(const wave of [6,7,9,11,13]){assert.ok(rollVisitor(map,wave,()=>.1));assert.equal(rollVisitor(map,wave,()=>.25),null);}
+    for(const wave of [6,7,9,11,13]){assert.ok(rollVisitor(map,wave,()=>.34));assert.equal(rollVisitor(map,wave,()=>.35),null);}
     assert.ok(visitorForecast(map,12).guaranteed);
   }
 });
 test('each legendary is the last spawn in wave 14 on every map and difficulty',()=>{
-  for(let map=0;map<3;map++)for(const difficulty of DIFFICULTIES){const g=new Game(map,difficulty.id,{random:()=>.99});g.wave=13;g.startWave();
-    assert.equal(g.queue.at(-1).kind,ROUTE_VISITORS[map].legendary);assert.equal(g.queue.at(-1).legendary,true);
+  for(let map=0;map<MAPS.length;map++)for(const difficulty of DIFFICULTIES){const g=new Game(map,difficulty.id,{random:()=>.99});g.wave=13;g.startWave();
+    assert.ok(LEGENDARY_VISITORS.includes(g.queue.at(-1).kind));assert.equal(g.queue.at(-1).legendary,true);
     assert.equal(g.queue.filter(entry=>typeof entry==='object').length,1);
-    const e=g.spawn(g.queue.at(-1));assert.equal(e.visitor,true);assert.equal(e.boss,undefined);assert.equal(g.bossesCaught,0);
+    const e=g.spawn(g.queue.at(-1));assert.equal(e.visitor,true);assert.equal(e.boss,undefined);assert.equal(g.bossesDefeated,0);
   }
 });
-test('ordinary catches do not recruit; marked visitors recruit once after wave clear',()=>{
+test('ordinary defeats do not recruit; marked visitors are caught once after wave clear',()=>{
   const g=new Game();g.wave=4;g.status='wave';g.queue=[13];const ordinary=g.spawn(10);g.hit(ordinary,9999);assert.deepEqual(g.pendingRecruits,[]);
   const rare=g.spawn({kind:10,visitor:true});g.hit(rare,9999);g.hit(rare,9999);assert.equal(g.pendingRecruits.length,1);assert.equal(g.available(10),false);
   g.queue=[];g.update(.01);assert.equal(g.available(10),true);assert.equal(g.collection[10].catches,1);assert.equal(g.events.filter(e=>e.type==='recruit').length,1);
 });
 test('visitors escape without costing hearts or awarding a recruit',()=>{
   const g=new Game();g.wave=14;g.status='wave';const e=g.spawn({kind:145,visitor:true,legendary:true});e.distance=g.length-1;g.update(.1);
-  assert.equal(g.lives,g.maxLives);assert.equal(g.available(145),false);assert.equal(g.pendingReward,null);assert.equal(g.bossesCaught,0);assert.ok(g.events.some(e=>e.type==='visitorEscaped'));
+  assert.equal(g.lives,g.maxLives);assert.equal(g.available(145),false);assert.equal(g.pendingReward,null);assert.equal(g.bossesDefeated,0);assert.ok(g.events.some(e=>e.type==='visitorEscaped'));
 });
-test('caught visitors are not saved if the Center falls before wave clear',()=>{
+test('defeated visitors are not caught if the Center falls before wave clear',()=>{
   const g=new Game();g.wave=4;g.status='wave';const rare=g.spawn({kind:63,visitor:true});g.hit(rare,9999);g.lives=1;
   const e=g.spawn(13);e.distance=g.length-1;g.update(.1);assert.equal(g.status,'lost');assert.equal(g.available(63),false);g.reset();assert.deepEqual(g.pendingRecruits,[]);
 });
@@ -84,7 +84,7 @@ test('finding a shiny updates an already placed partner and its evolving form im
 test('shiny choices survive placement, every evolution, recall, routes and collection reloads',()=>{
   for(const spec of TOWERS.filter(t=>COLLECTIBLE_IDS.includes(t.id))) {
     const g=new Game();g.recruit(spec.id,true);
-    for(let route=0;route<3;route++)for(const branch of EVOLUTIONS[spec.id]) {
+    for(let route=0;route<MAPS.length;route++)for(const branch of EVOLUTIONS[spec.id]) {
       g.reset(route);g.money=1000;const t=g.place(spec.id,0);assert.equal(t.shiny,true);
       g.gainXP(t,120);
       for(const level of [2,3]) {

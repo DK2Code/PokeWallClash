@@ -58,8 +58,11 @@ test('pause freezes casts, walk frames, transition effects and the shared animat
 test('poison ticks do not keep an enemy permanently in the hurt pose',()=>{
   const g=new Game();const t=g.place(1,0);g.wave=1;g.status='wave';const e=g.spawn(74);e.distance=900;Object.assign(e,pointAt(g.map.path,900));e.hp=1000;g.attack(t,e);assert.ok(e.hitRemaining>0);advance(g,.4);assert.equal(e.hitRemaining,0);assert.ok(e.poison>0);assert.equal(spriteSample(e,g.time).state,'Walk');
 });
-test('capture, evolution and recall effects expire without keeping actors alive',()=>{
-  const g=new Game();const t=g.place(1,0);assert.ok(g.effects.some(e=>e.type==='summon'));g.gainXP(t,40);g.upgrade(t.id,'garden');assert.equal(t.species,2);assert.ok(g.effects.some(e=>e.type==='evolve'));g.sell(t.id);assert.ok(g.effects.some(e=>e.type==='recall'));const enemy=g.spawn(10);g.hit(enemy,1000);assert.ok(g.effects.some(e=>e.type==='capture'));advance(g,1.2);assert.equal(g.effects.length,0);assert.equal(g.towers.length,0);
+test('defeat, capture, evolution and recall effects expire without keeping actors alive',()=>{
+  const g=new Game();const t=g.place(1,0);assert.ok(g.effects.some(e=>e.type==='summon'));g.gainXP(t,40);g.upgrade(t.id,'garden');assert.equal(t.species,2);assert.ok(g.effects.some(e=>e.type==='evolve'));g.sell(t.id);assert.ok(g.effects.some(e=>e.type==='recall'));
+  const enemy=g.spawn(10);g.hit(enemy,1000);assert.ok(g.effects.some(e=>e.type==='defeat'));assert.ok(!g.effects.some(e=>e.type==='capture'));
+  g.recruit(131,true,{x:300,y:200});assert.ok(g.effects.some(e=>e.type==='capture'&&e.actor.shiny));
+  advance(g,1.2);assert.equal(g.effects.length,0);assert.equal(g.towers.length,0);
 });
 test('reduced motion keeps frame selection stable without changing orientation',()=>{
   const actor={species:81,level:1,lookAngle:Math.PI,moving:true,walkDistance:4};const a=spriteSample(actor,0,true),b=spriteSample({...actor,walkDistance:100},9,true);assert.equal(a.frame,b.frame);assert.equal(a.row,6);assert.equal(b.row,6);

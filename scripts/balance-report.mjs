@@ -25,11 +25,11 @@ export function simulateRun(mapIndex,difficultyId,{waves=MAX_WAVES,random=()=>.9
       game.update(1/30);if(growDuringWave&&ticks%30===0)grow();
     }
     grow();
-    rows.push({wave,team,startCoins,endCoins:game.money,hearts:game.lives,leaks:startHearts-game.lives,seconds:Math.round(ticks/30),frontXP:game.towers[0]?.xp,frontLevel:game.towers[0]?.level,bosses:game.bossesCaught,bossNearExit});
+    rows.push({wave,team,startCoins,endCoins:game.money,hearts:game.lives,leaks:startHearts-game.lives,seconds:Math.round(ticks/30),frontXP:game.towers[0]?.xp,frontLevel:game.towers[0]?.level,bosses:game.bossesDefeated,bossNearExit});
     if(game.status==='lost')break;
     if(game.status==='wave')throw Error(`Wave ${wave} did not finish`);
   }
-  return {map:game.map.name,difficulty:game.difficulty.name,status:game.status,hearts:game.lives,bosses:game.bossesCaught,firstEvolution,finalEvolution,rows};
+  return {map:game.map.name,difficulty:game.difficulty.name,status:game.status,hearts:game.lives,bosses:game.bossesDefeated,firstEvolution,finalEvolution,rows};
 }
 if(process.argv[1]?.replaceAll('\\','/').endsWith('/balance-report.mjs')){
   const quick=process.argv.includes('--opening');
