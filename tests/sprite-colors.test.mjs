@@ -67,3 +67,14 @@ test('battle, evolution, previews and missing animation sheets all use shiny bit
     assert.ok(sprites.length);assert.ok(sprites.every(image=>image.pixels),'evolution reverted to an untinted image');
   }
 });
+
+test('battlefield bosses and legendary visitors render species names instead of generic role labels',t=>{
+  const previous=globalThis.document;t.after(()=>{globalThis.document=previous;});globalThis.document={createElement:()=>canvas()};
+  const g=new Game();g.wave=14;
+  for(const kind of [95,143,149,144,145,146])g.spawn({kind,visitor:kind>=144&&kind<=146,legendary:kind>=144&&kind<=146,shiny:kind===145});
+  const c=canvas(),labels=[],fonts=[];c.clientWidth=280;c.getContext().fillText=text=>{labels.push(text);fonts.push(c.getContext().font);};
+  render(c.getContext(),{},g,{selectedKind:null,selectedTower:null,hoverPad:null,reducedMotion:true});
+  for(const name of ['Onix','Snorlax','Dragonite','Articuno','★ Zapdos','Moltres'])assert.ok(labels.includes(name),`Missing ${name}`);
+  assert.ok(!labels.some(label=>['BOSS','LEGENDARY','RARE'].includes(label)));
+  assert.ok(fonts.every(font=>font==='bold 30px monospace'),'name labels must remain legible on a narrow battlefield');
+});

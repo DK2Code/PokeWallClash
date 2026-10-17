@@ -138,8 +138,12 @@ export function render(c,terrain,game,ui){
       const w=e.boss?46:28,barY=e.y-(e.boss?76:39);rect(c,e.x-w/2,barY,w,4,'#53614b');rect(c,e.x-w/2+1,barY+1,(w-2)*Math.max(0,e.hp/e.maxHp),2,e.poison>0?'#b89bc7':e.slow>0?'#8ed0e0':'#b0cc77');
       if(e.slow>0){c.strokeStyle='#a5e3e5aa';c.lineWidth=1.5;c.beginPath();c.ellipse(e.x,e.y+2,17,6,0,0,Math.PI*2);c.stroke();}
       if(e.poison>0&&!ui.reducedMotion){for(let i=0;i<2;i++){const p=(game.time*.8+i*.5)%1;ellipse(c,e.x+Math.sin(e.id+i*3)*12,e.y-10-p*19,2,2,'#b59ccb99');}}
-      if(e.boss){c.font='bold 8px monospace';c.textAlign='center';c.fillStyle='#5d4c45';c.fillText('BOSS',e.x,barY-6);}
-      if(e.visitor){c.strokeStyle=e.legendary?'#fff1b2':'#e6c9f4';c.lineWidth=2;c.beginPath();c.ellipse(e.x,e.y,23,10,0,0,Math.PI*2);c.stroke();c.font='bold 9px monospace';c.textAlign='center';c.fillStyle='#4d365e';c.fillText(e.shiny?'★ SHINY':e.legendary?'LEGENDARY':'RARE',e.x,barY-9);star(c,e.x+23,e.y-23,5,e.shiny?'#fff1a3':'#e6c9f4',ui.reducedMotion?0:game.time);}
+      if(e.boss||e.visitor){
+        const label=`${e.shiny?'★ ':''}${e.name}`,fontSize=Math.min(30,12*960/(c.canvas.clientWidth||960));
+        const margin=label.length*fontSize*.33+4,labelX=Math.max(margin,Math.min(960-margin,e.x));
+        c.font=`bold ${fontSize}px monospace`;c.textAlign='center';c.lineWidth=fontSize/4;c.strokeStyle='#fff9e8';c.strokeText(label,labelX,barY-9);c.fillStyle=e.legendary?'#74511d':e.boss?'#5d4c45':'#4d365e';c.fillText(label,labelX,barY-9);
+      }
+      if(e.visitor){c.strokeStyle=e.legendary?'#fff1b2':'#e6c9f4';c.lineWidth=2;c.beginPath();c.ellipse(e.x,e.y,23,10,0,0,Math.PI*2);c.stroke();star(c,e.x+23,e.y-23,5,e.shiny?'#fff1a3':'#e6c9f4',ui.reducedMotion?0:game.time);}
     }}
   for(const s of game.shots){
     if(s.towerId&&['channel','melee','dash'].includes(s.visual.mode)){

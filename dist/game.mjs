@@ -2,7 +2,7 @@ import {attackTiming,muzzlePosition} from './sprite-animation.mjs';
 import {attackVisual} from './combat-visuals.mjs';
 import {partnerMove,PARTNER_MOVES} from './partner-moves.mjs';
 import {MOVES} from './arena/moves.mjs';
-import {STARTER_IDS,loadCollection,isUnlocked,rollVisitor} from './collection.mjs';
+import {STARTER_IDS,loadCollectionProgress,isUnlocked,rollVisitor,COLLECTIBLE_IDS,usedSlots,slotPrice,catchPoints,MAX_COLLECTION_POINTS} from './collection.mjs';
 export {STARTER_IDS} from './collection.mjs';
 export const WIDTH = 960, HEIGHT = 560, MAX_WAVES = 15;
 export const DIFFICULTIES = [
@@ -168,7 +168,7 @@ export function pointAt(path,distance) {
   return {x:path.at(-1)[0],y:path.at(-1)[1],dx:1,dy:0};
 }
 export class Game {
-  constructor(mapIndex=0,difficultyId='normal',options={}) {this.collection=loadCollection(options.collection);this.random=options.random||Math.random;this.reset(mapIndex,difficultyId);}
+  constructor(mapIndex=0,difficultyId='normal',options={}) {const progress=loadCollectionProgress(options.collectionProgress,options.collection);this.collection=progress.collection;this.collectionPoints=progress.points;this.collectionSlots=progress.slots;this.random=options.random||Math.random;this.reset(mapIndex,difficultyId);}
   reset(mapIndex=this.mapIndex,difficultyId=this.difficulty?.id||'normal') {
     this.mapIndex=mapIndex;this.map=MAPS[mapIndex];this.length=routeLength(this.map.path);
     this.difficulty=difficultyFor(difficultyId);this.maxLives=this.difficulty.hearts;
@@ -178,12 +178,25 @@ export class Game {
     this.wavePartners=new Set();
   }
   available(kind){return isUnlocked(this.collection,kind);}
+  collectionSave(){return {version:2,collection:this.collection,points:this.collectionPoints,slots:this.collectionSlots};}
+  earnCollectionPoints(points){this.collectionPoints=Math.min(MAX_COLLECTION_POINTS,this.collectionPoints+points);this.emit('collectionPoints',{points});}
+  unlockCollectionSlot(){
+    const price=slotPrice(this.collectionSlots);
+    if(price===null||this.collectionPoints<price)return false;
+    this.collectionPoints-=price;this.collectionSlots++;
+    const waiting=COLLECTIBLE_IDS.find(id=>this.collection[id]?.reserve);
+    if(waiting!==undefined)delete this.collection[waiting].reserve;
+    this.emit('slotUnlocked',{price,kind:waiting});return true;
+  }
   recruit(kind,shiny=false){
+    if(!COLLECTIBLE_IDS.includes(kind))return false;
     const previous=this.collection[kind],fresh=!previous,newShiny=shiny&&!previous?.shiny;
+    const reserve=previous?.reserve||(fresh&&usedSlots(this.collection)>=this.collectionSlots);
     this.collection[kind]={catches:Math.min(9999,(previous?.catches||0)+1),shiny:shiny||Boolean(previous?.shiny),useShiny:newShiny||Boolean(previous?.useShiny)};
+    if(reserve)this.collection[kind].reserve=true;
     if(newShiny)this.setShiny(kind,true);
     if(!fresh&&!newShiny)this.money+=75;
-    const reward={kind,shiny,fresh,newShiny,bonus:!fresh&&!newShiny?75:0};this.lastRecruits.push(reward);this.emit('recruit',reward);
+    const reward={kind,shiny,fresh,newShiny,reserve:Boolean(reserve),bonus:!fresh&&!newShiny?75:0};this.lastRecruits.push(reward);this.emit('recruit',reward);
   }
   setShiny(kind,enabled){
     if(!this.collection[kind]?.shiny)return false;
@@ -248,7 +261,8 @@ export class Game {
       }
       if(enemy.boss){this.bossCaught=true;this.bossesCaught++;if(this.wave===15)this.score+=1000;}
       if(enemy.visitor)this.pendingRecruits.push({kind:enemy.kind,shiny:enemy.shiny});
-      this.effect('capture',enemy.x,enemy.y,.55,{actor:{id:enemy.id,kind:enemy.kind,species:enemy.kind,shiny:enemy.shiny,lookAngle:enemy.lookAngle,fainted:true,boss:enemy.boss}});this.emit('catch',{x:enemy.x,y:enemy.y,kind:enemy.kind,reward:enemy.reward});this.particles.push({x:enemy.x,y:enemy.y,text:enemy.visitor?'★ Caught!':`+${enemy.reward}`,life:.8,maxLife:.8,color:'#fff5c3'});
+      const points=catchPoints(enemy);this.earnCollectionPoints(points);
+      this.effect('capture',enemy.x,enemy.y,.55,{actor:{id:enemy.id,kind:enemy.kind,species:enemy.kind,shiny:enemy.shiny,lookAngle:enemy.lookAngle,fainted:true,boss:enemy.boss}});this.emit('catch',{x:enemy.x,y:enemy.y,kind:enemy.kind,reward:enemy.reward,points,shiny:enemy.shiny,visitor:enemy.visitor,legendary:enemy.legendary,boss:Boolean(enemy.boss)});this.particles.push({x:enemy.x,y:enemy.y,text:enemy.visitor?'★ Caught!':`+${enemy.reward}`,life:.8,maxLife:.8,color:'#fff5c3'});
     }
   }
   targetFor(tower) {const s=towerStats(tower);return this.enemies.filter(e=>e.hp>0&&Math.hypot(tower.x-e.x,tower.y-e.y)<=s.range).sort((a,b)=>b.distance-a.distance)[0];}
@@ -296,8 +310,9 @@ export class Game {
     if(!this.queue.length&&!this.enemies.length){this.towers.forEach(t=>{t.cast=null;});const reward=waveInfo(this.wave).reward;this.money+=reward;this.score+=reward*5;this.status=this.wave===MAX_WAVES?'won':'build';
       this.towers.filter(t=>this.wavePartners.has(t.id)).forEach(t=>this.gainXP(t,XP_RULES.clear));this.wavePartners.clear();
       for(const recruit of this.pendingRecruits.splice(0))this.recruit(recruit.kind,recruit.shiny);
-      if(this.wave===5&&this.bossCaught&&!this.available(133))this.recruit(133);
-      this.emit(this.status==='won'?'won':'clear',{reward});
+      if(this.wave===5&&this.bossCaught&&!this.collection[133])this.recruit(133);
+      const points=this.status==='won'?60:10;this.earnCollectionPoints(points);
+      this.emit(this.status==='won'?'won':'clear',{reward,points});
       if(this.bossCaught&&this.status==='build'){this.pendingReward={wave:this.wave,boss:waveInfo(this.wave).boss};this.emit('bossReward');}
     }
   }

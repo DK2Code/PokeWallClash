@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="./difficulty.css">
   <link rel="stylesheet" href="./collection.css">
   <link rel="stylesheet" href="./battle-ui.css">
+  <link rel="stylesheet" href="./catch-celebration.css">
 </head>
 <body>
   <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -53,6 +54,8 @@
             <div class="map-hud"><div class="hud-stat lives"><svg class="icon"><use href="#i-heart"/></svg><strong id="lives">20</strong><span id="max-lives">/ 20</span></div><div class="hud-stat coins"><svg class="icon"><use href="#i-coin"/></svg><strong id="money">360</strong></div><div class="hud-stat wave"><svg class="icon"><use href="#i-flag"/></svg><strong id="wave">0</strong><span>/ 15</span></div></div>
             <div class="weather"><svg class="icon"><use href="#i-sun"/></svg><span>Clear skies</span></div>
             <div id="pad-buttons" class="pad-buttons"></div>
+            <div id="catch-celebration" class="catch-celebration" aria-hidden="true" hidden></div>
+            <span id="catch-announcement" class="sr-only" role="status" aria-live="polite"></span>
             <div class="map-caption" id="map-caption"><span class="pulse-dot"></span><span>Choose a Pokémon. Find its perfect spot.</span></div>
             <div class="paused-overlay" id="paused-overlay" hidden><span class="pause-symbol">Ⅱ</span><h3>A little breather.</h3><p>Your Pokémon will be right here.</p><button class="primary-button" id="resume">Back to the adventure <svg class="icon"><use href="#i-play"/></svg></button></div>
           </div>

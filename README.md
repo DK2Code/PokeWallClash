@@ -24,7 +24,13 @@ Begin with exactly **Bulbasaur, Charmander, Squirtle, and Pikachu**. Bulbasaur p
 
 **Eevee is a special permanent reward:** catch Onix and clear wave 5 on any route or difficulty. Eevee joins your roster in addition to the normal boss reward; escaping Onix or losing the wave does not unlock it.
 
-Optional visitors enter **after the regular wave**. Catch a marked visitor and clear its wave to recruit it; ordinary enemy catches only award coins and XP. Recruits are immediately available to place with coins, and remain unlocked across restarts, routes, difficulties, and browser reloads.
+Optional visitors enter **after the regular wave**. Catch a marked visitor and clear its wave to recruit it; ordinary enemy catches award coins, XP, and collection points. Recruits with an open collection slot are available to place with coins, and remain unlocked across restarts, routes, difficulties, and browser reloads.
+
+Catches celebrate directly over the battlefield with a portrait, name, and rewards. Rapid ordinary catches share a compact card; bosses, rare visitors, legendaries, and shinies get a larger sparkle celebration. Visitors only join the collection after clearing the wave. Cards never block taps, use real time at every battle speed, and respect reduced motion. Boss reward and victory dialogs wait for the celebration. Bosses and visitors display their Pokémon names above their health bars.
+
+Start with **six collection slots**, including the four starters. Buy up to **14 slots** in Collection: the first extra slot costs **100 collection points**, and each following slot costs 50 more. Earn 1 point per ordinary catch, 5 per boss, 10 per rare visitor, or 25 per legendary (these replace the ordinary catch award). Each cleared wave adds 10; completing a route adds another 50. This wallet is separate from score and coins, so purchases never lower personal bests. Points are saved as earned, even if a later wave fails.
+
+When slots are full, new recruits wait **safely in reserve**, including their shiny preferences. Buying a slot activates a waiting partner (Eevee first, then Pokédex collection order), or leaves space for a future catch. Each species uses one slot; duplicates, evolutions, and shiny variants need no additional space. Existing collections receive enough slots to keep every previously unlocked partner available for free.
 
 | Route | Rare visitors | Legendary visitor |
 | --- | --- | --- |
@@ -38,7 +44,7 @@ Optional visitors enter **after the regular wave**. Catch a marked visitor and c
 - Shiny colors stay on placed partners, attacks, both evolution stages, previews, recall, and future routes. Discovering a shiny also updates already placed partners of that kind. Cached recolored sprite sheets keep the battlefield consistent with roster colors even when the browser does not support canvas filters; static fallback portraits use the same treatment.
 - A repeated catch gives **75 bonus coins**, unless it unlocks a shiny variant you did not already own.
 - Escaped visitors cost **no hearts**. Catches are only added to your collection after a successful wave clear.
-- Open **Collection / Pokédex** for unlock instructions, evolution lines, and shiny preferences. Progress is stored locally under `pokewallclash-collection-v1`; existing personal bests are preserved. If storage fails, collection progress remains available for the current session.
+- Open **Collection / Pokédex** for slot upgrades, unlock instructions, evolution lines, and shiny preferences. Collection, points, and slots are saved together under `pokewallclash-collection-v2`; v1 collections migrate automatically and personal bests are preserved. If storage fails, progress remains available for the current session.
 
 ## Choose your difficulty
 
