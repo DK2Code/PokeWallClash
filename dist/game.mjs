@@ -181,12 +181,14 @@ export class Game {
   recruit(kind,shiny=false){
     const previous=this.collection[kind],fresh=!previous,newShiny=shiny&&!previous?.shiny;
     this.collection[kind]={catches:Math.min(9999,(previous?.catches||0)+1),shiny:shiny||Boolean(previous?.shiny),useShiny:newShiny||Boolean(previous?.useShiny)};
+    if(newShiny)this.setShiny(kind,true);
     if(!fresh&&!newShiny)this.money+=75;
     const reward={kind,shiny,fresh,newShiny,bonus:!fresh&&!newShiny?75:0};this.lastRecruits.push(reward);this.emit('recruit',reward);
   }
   setShiny(kind,enabled){
     if(!this.collection[kind]?.shiny)return false;
-    this.collection[kind].useShiny=Boolean(enabled);this.towers.filter(t=>t.kind===kind).forEach(t=>{t.shiny=Boolean(enabled);});return true;
+    this.collection[kind].useShiny=Boolean(enabled);this.towers.filter(t=>t.kind===kind).forEach(t=>{t.shiny=Boolean(enabled);});
+    this.effects.filter(e=>e.type==='evolve'&&e.previousActor?.kind===kind).forEach(e=>{e.previousActor.shiny=Boolean(enabled);});return true;
   }
   emit(type,data={}) {this.events.push({type,...data});}
   effect(type,x,y,duration,data={}) {this.effects.push({type,x,y,age:0,duration,...data});}

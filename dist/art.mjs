@@ -3,6 +3,7 @@ import {DIRECTIONAL} from './directional-data.mjs';
 import {spriteSample,bodyOffset,muzzlePosition,attackTiming} from './sprite-animation.mjs';
 import {attackVisual} from './combat-visuals.mjs';
 import {drawAttackShot,drawAttackImpact,drawAttackCharge} from './combat-art.mjs';
+import {spriteVariant} from './sprite-colors.mjs';
 const sprites = new Map();
 const directionalSheets=new Map();
 export function loadSprites() {
@@ -73,14 +74,14 @@ export function createTerrain(map,mapIndex=0){
   for(const [x,y] of map.pads){ellipse(c,x,y+3,25,13,'#78995c2b');ellipse(c,x,y,23,13,'#cad8a3');ellipse(c,x,y-2,21,12,'#b8cd90');c.strokeStyle='#e5edc3aa';c.lineWidth=1;c.beginPath();c.ellipse(x,y-2,20,11,0,0,Math.PI*2);c.stroke();}
   return canvas;
 }
-function sprite(c,id,x,y,size=88,flip=false){const image=sprites.get(id);if(!image)return;c.save();c.translate(Math.round(x),Math.round(y));if(flip)c.scale(-1,1);c.imageSmoothingEnabled=false;c.drawImage(image,-size/2,-size*.77,size,size);c.restore();}
+function sprite(c,id,x,y,size=88,flip=false,shiny=false){const image=spriteVariant(sprites.get(id),shiny);if(!image)return;c.save();c.translate(Math.round(x),Math.round(y));if(flip)c.scale(-1,1);c.imageSmoothingEnabled=false;c.drawImage(image,-size/2,-size*.77,size,size);c.restore();}
 function animatedSprite(c,actor,time,reducedMotion=false,extraScale=1){
-  const sample=spriteSample(actor,time,reducedMotion),sheet=sample&&directionalSheets.get(`${actor.species||actor.kind}-${sample.state}`);
-  if(!sheet){sprite(c,actor.species||actor.kind,actor.x,actor.y,actor.boss?115:actor.level?90:76,Math.cos(actor.lookAngle||0)<0);return;}
+  const sample=spriteSample(actor,time,reducedMotion),sheet=sample&&spriteVariant(directionalSheets.get(`${actor.species||actor.kind}-${sample.state}`),actor.shiny);
+  if(!sheet){sprite(c,actor.species||actor.kind,actor.x,actor.y,actor.boss?115:actor.level?90:76,Math.cos(actor.lookAngle||0)<0,actor.shiny);return;}
   const {meta,frame,row,anchor,scale}=sample,offset=bodyOffset(actor,reducedMotion);
   const appear=reducedMotion?1:actor.appear>0?Math.min(1.08,1-Math.pow(actor.appear/.4,2)+Math.sin((1-actor.appear/.4)*Math.PI)*.12):1;
   c.save();c.translate(Math.round(actor.x+offset.x),Math.round(actor.y+offset.y));c.scale(scale*appear*extraScale,scale*appear*extraScale);
-  c.imageSmoothingEnabled=false;if(actor.shiny)c.filter='hue-rotate(115deg) saturate(1.3)';if(actor.flash>0&&!reducedMotion)c.filter='brightness(1.65) saturate(.7)';
+  c.imageSmoothingEnabled=false;if(actor.flash>0&&!reducedMotion)c.filter='brightness(1.35)';
   c.drawImage(sheet,frame*meta.width,row*meta.height,meta.width,meta.height,-anchor[0],-anchor[1],meta.width,meta.height);c.restore();
 }
 function star(c,x,y,r,color,rotation=0){const points=[];for(let i=0;i<10;i++){const a=rotation-Math.PI/2+i*Math.PI/5,rr=i%2?r*.43:r;points.push([x+Math.cos(a)*rr,y+Math.sin(a)*rr]);}polygon(c,points,color);}
@@ -117,7 +118,7 @@ export function render(c,terrain,game,ui){
   if(ui.selectedTower){const t=game.towers.find(t=>t.id===ui.selectedTower);if(t)range(c,t.x,t.y,towerStats(t).range,'#fff5c8');}
   const empty=game.map.pads.map((p,i)=>({p,i})).filter(({i})=>!game.towers.some(t=>t.pad===i));
   for(const {p:[x,y],i} of empty){const active=ui.selectedKind!==null,hover=ui.hoverPad===i;c.strokeStyle=hover?'#fff9d9':active?'#f6f4cdcc':'#8baf70aa';c.lineWidth=hover?2.5:1.5;c.setLineDash([3,3]);c.beginPath();c.ellipse(x,y-2,21,12,0,0,Math.PI*2);c.stroke();c.setLineDash([]);c.globalAlpha=active?1:.65;rect(c,x-5,y-3,10,2,hover?'#fffce7':'#6e9465');rect(c,x-1,y-7,2,10,hover?'#fffce7':'#6e9465');c.globalAlpha=1;}
-  if(ui.selectedKind!==null&&ui.hoverPad!==null&&!game.towers.some(t=>t.pad===ui.hoverPad)){const t=TOWERS.find(t=>t.id===ui.selectedKind),[x,y]=game.map.pads[ui.hoverPad];range(c,x,y,t.range,t.color);c.globalAlpha=.65;animatedSprite(c,{kind:t.id,x,y,level:1},game.time,ui.reducedMotion);c.globalAlpha=1;}
+  if(ui.selectedKind!==null&&ui.hoverPad!==null&&!game.towers.some(t=>t.pad===ui.hoverPad)){const t=TOWERS.find(t=>t.id===ui.selectedKind),[x,y]=game.map.pads[ui.hoverPad];range(c,x,y,t.range,t.color);c.globalAlpha=.65;animatedSprite(c,{kind:t.id,x,y,level:1,shiny:Boolean(game.collection[t.id]?.useShiny)},game.time,ui.reducedMotion);c.globalAlpha=1;}
   const entities=[...game.towers.map(t=>({...t,entity:'tower'})),...game.enemies.map(e=>({...e,entity:'enemy'}))].sort((a,b)=>a.y-b.y);
   for(const e of entities){if(e.entity==='tower'){
       const spec=towerStats(e);ellipse(c,e.x,e.y+2,21,10,ui.selectedTower===e.id?'#eadc99':'#6f955d');ellipse(c,e.x,e.y-1,20,9,'#c6d6a0');
@@ -125,7 +126,7 @@ export function render(c,terrain,game,ui){
       if(evolution&&!ui.reducedMotion&&p<.42){animatedSprite(c,{...evolution.previousActor,flash:.1},game.time,false,1+p*.3);}
       else animatedSprite(c,e,game.time,ui.reducedMotion,evolution&&!ui.reducedMotion?Math.min(1,.8+(p-.42)*.7):1);
       if(e.shiny)star(c,e.x+20,e.y-30,4,'#fff1a3',ui.reducedMotion?0:game.time);
-      drawAttackCharge(c,e,muzzlePosition(e),ui.reducedMotion);
+      drawAttackCharge(c,e,muzzlePosition(e,ui.reducedMotion),ui.reducedMotion);
       for(let i=0;i<e.level;i++)ellipse(c,e.x+(i-(e.level-1)/2)*6,e.y+14,2,2,'#fff7c1');
       const progress=xpProgress(e);
       if(progress.ready){
@@ -163,7 +164,7 @@ export function renderAttackPreview(c,tower,time=0,reducedMotion=false){
   c.setLineDash([4,6]);c.strokeStyle='#b5c4a4';c.beginPath();c.moveTo(8,88);c.lineTo(292,88);c.stroke();c.setLineDash([]);
   ellipse(c,actor.x,actor.y+1,23,9,'#becda6');animatedSprite(c,actor,time,reducedMotion);
   ellipse(c,239,85,16,5,'#bdc9ad');rect(c,236,60,6,26,'#927854');ellipse(c,239,53,13,16,'#b09a6b');ellipse(c,239,53,9,11,'#f5eac8');ellipse(c,239,53,4,5,'#b37860');
-  drawAttackCharge(c,actor,muzzlePosition(actor),reducedMotion);
+  drawAttackCharge(c,actor,muzzlePosition(actor,reducedMotion),reducedMotion);
   const sinceRelease=reducedMotion ? .1 : age-timing.windup;
   if(sinceRelease>=0){
     // Slow the whole demonstration together: pose, contact, beam and recovery.

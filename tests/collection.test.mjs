@@ -73,3 +73,28 @@ test('collection loading ignores corrupt data and species outside the recruitabl
   for(const raw of ['bad','null','[]','"text"',null,{'133':true},{'133':{catches:'1'}}])assert.deepEqual(loadCollection(raw),{});
   assert.deepEqual(loadCollection({251:{catches:1},26:{catches:1},133:{catches:2,shiny:false,useShiny:true}}),{133:{catches:2,shiny:false,useShiny:false}});
 });
+
+test('finding a shiny updates an already placed partner and its evolving form immediately',()=>{
+  const g=new Game();g.recruit(10);const t=g.place(10,0);g.gainXP(t,40);g.upgrade(t.id,'tempest');
+  assert.equal(t.shiny,false);g.recruit(10,true);
+  assert.equal(t.shiny,true);assert.equal(g.effects.find(e=>e.type==='evolve').previousActor.shiny,true);
+  g.setShiny(10,false);assert.equal(t.shiny,false);assert.equal(g.effects.find(e=>e.type==='evolve').previousActor.shiny,false);
+});
+
+test('shiny choices survive placement, every evolution, recall, routes and collection reloads',()=>{
+  for(const spec of TOWERS.filter(t=>COLLECTIBLE_IDS.includes(t.id))) {
+    const g=new Game();g.recruit(spec.id,true);
+    for(let route=0;route<3;route++)for(const branch of EVOLUTIONS[spec.id]) {
+      g.reset(route);g.money=1000;const t=g.place(spec.id,0);assert.equal(t.shiny,true);
+      g.gainXP(t,120);
+      for(const level of [2,3]) {
+        assert.ok(g.upgrade(t.id,branch.id));assert.equal(t.level,level);assert.equal(t.shiny,true);
+        assert.equal(g.effects.filter(e=>e.type==='evolve').at(-1).previousActor.shiny,true);
+      }
+      g.sell(t.id);assert.equal(g.effects.at(-1).actor.shiny,true);
+      assert.equal(g.place(spec.id,0).shiny,true);
+    }
+    const restored=new Game(2,'expert',{collection:loadCollection(JSON.stringify(g.collection))});restored.money=1000;
+    assert.equal(restored.place(spec.id,0).shiny,true);
+  }
+});

@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,TOWERS,evolutionOptions,towerStats,multiplier} from '../dist/game.mjs';
+import {Game,TOWERS,MAPS,evolutionOptions,towerStats,multiplier} from '../dist/game.mjs';
 import {attackVisual} from '../dist/combat-visuals.mjs';
 import {drawAttackShot,drawAttackImpact,drawAttackCharge} from '../dist/combat-art.mjs';
-import {attackTiming,spriteSample,bodyOffset} from '../dist/sprite-animation.mjs';
+import {attackTiming,spriteSample,bodyOffset,muzzlePosition} from '../dist/sprite-animation.mjs';
 import {MOVES} from '../dist/arena/moves.mjs';
 import {LOADOUTS} from '../dist/arena/loadouts.mjs';
 import {readFileSync,existsSync} from 'node:fs';
@@ -133,5 +133,40 @@ test('reduced motion keeps move geometry stable as the animation clock advances'
     const actor=actorFor(kind,3,branch.id),v=attackVisual(towerStats(actor),3,branch.id),renders=[];
     for(const time of [0,50]){const {context,calls}=recordingCanvas();drawAttackShot(context,{x:10,y:20,tx:150,ty:80,visual:v,life:.2,maxLife:.34},time,true);renders.push(JSON.stringify(calls));}
     assert.equal(renders[0],renders[1]);
+  }
+});
+
+test('real evolution and route resets always cast the matching species move, pose and element',()=>{
+  for(const spec of TOWERS)for(const branch of evolutionOptions({kind:spec.id})) {
+    const g=new Game(0,'normal',{collection:{[spec.id]:{catches:1}}});
+    for(let route=0;route<MAPS.length;route++) {
+      g.reset(route);g.money=1000;
+      assert.equal(g.shots.length,0);assert.equal(g.effects.length,0);
+      const tower=g.place(spec.id,0);assert.equal(tower.cast,null);g.gainXP(tower,120);
+      for(const level of [1,2,3]) {
+        if(level>1){assert.ok(g.upgrade(tower.id,branch.id));assert.equal(tower.cast,null);}
+        const enemy=g.spawn(95);enemy.x=tower.x+60;enemy.y=tower.y+15;enemy.hp=100000;
+        g.beginAttack(tower,enemy);const stats=towerStats(tower),cast=tower.cast;
+        cast.age=cast.windup;cast.released=true;g.attack(tower,enemy);
+        const shot=g.shots.filter(s=>!s.chain).at(-1);
+        assert.equal(tower.species,stats.sprite);assert.ok(LOADOUTS[tower.species].includes(stats.moveId));
+        assert.equal(cast.visual.moveId,stats.moveId);assert.equal(shot.visual.moveId,stats.moveId);
+        assert.equal(spriteSample(tower,g.time).state,MOVES[stats.moveId].pose);
+        assert.equal(shot.type,MOVES[stats.moveId].element);
+        assert.deepEqual({x:shot.x,y:shot.y},muzzlePosition(tower));
+      }
+    }
+  }
+});
+
+test('Charge and short attack frames follow cast age, independent of route clock and actor id',()=>{
+  for(const spec of TOWERS)for(const branch of evolutionOptions({kind:spec.id}))for(const level of [1,2,3]) {
+    const actor=actorFor(spec.id,level,level===1?null:branch.id),stats=towerStats(actor),visual=attackVisual(stats,level,branch.id);
+    const timing=attackTiming(stats.rate,stats.type,visual);
+    for(const fraction of [.1,.5,.9]) {
+      actor.cast={...timing,visual,age:timing.duration*fraction,angle:.8};
+      const first=spriteSample({...actor,id:1},0),later=spriteSample({...actor,id:97},37);
+      assert.equal(first.frame,later.frame,stats.move);assert.deepEqual(first.head,later.head);
+    }
   }
 });

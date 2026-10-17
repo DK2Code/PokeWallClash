@@ -10,6 +10,8 @@ For local play, run `npm run dev` in this repository and open http://localhost:4
 
 Choose a route and difficulty, then a Pokémon and a marked clearing. Start each wave when ready. Defenders attack automatically; click a placed Pokémon to see its XP, evolve it, or recall it for 70% of its placement cost. Catch wild Pokémon and clear waves to earn coins. Protect your Center through all 15 waves. Bosses appear on waves 5, 10, and 15 and cost five hearts if they escape.
 
+The next-wave button and free-evolution shortcuts sit directly beneath the battlefield, above field notes and collection rewards. On phones, ready partners use a horizontal row so a growing team does not push the controls down the page. Each shortcut opens that partner's move choices.
+
 - **1–9:** select the corresponding unlocked defender; additional recruits are selectable by clicking their cards.
 - **Space:** start a wave or pause/resume when no button is focused. Focused buttons keep their standard Space/Enter behavior.
 - **Escape:** cancel selection or close a dialog.
@@ -33,6 +35,7 @@ Optional visitors enter **after the regular wave**. Catch a marked visitor and c
 - The first rare species is guaranteed on wave 4, the second on wave 8, and one of the two on wave 12. Waves 6, 7, 9, 11, and 13 each have a 25% bonus visitor chance.
 - Legendary birds appear only on **wave 14**, as the very last arrival. They are optional encounters, separate from the three scheduled bosses.
 - Every visitor has a **10% shiny chance**. Shiny variants use a cosmetic color shift and sparkles with identical combat stats. Toggle owned shiny colors in the collection screen.
+- Shiny colors stay on placed partners, attacks, both evolution stages, previews, recall, and future routes. Discovering a shiny also updates already placed partners of that kind. Cached recolored sprite sheets keep the battlefield consistent with roster colors even when the browser does not support canvas filters; static fallback portraits use the same treatment.
 - A repeated catch gives **75 bonus coins**, unless it unlocks a shiny variant you did not already own.
 - Escaped visitors cost **no hearts**. Catches are only added to your collection after a successful wave clear.
 - Open **Collection / Pokédex** for unlock instructions, evolution lines, and shiny preferences. Progress is stored locally under `pokewallclash-collection-v1`; existing personal bests are preserved. If storage fails, collection progress remains available for the current session.
@@ -103,6 +106,8 @@ Moves and animation effects now come directly from Pokémon Arena. `dist/arena/`
 Raichu chooses Thunder (lightning from above) or Thunder Punch (a physical electric strike). Charmeleon uses Fire Fang or Flamethrower; Charizard uses Fire Blast or Flamethrower. Wartortle uses Water Pulse or Hydro Pump; Blastoise uses Hydro Pump or Hydro Cannon. Arena’s silhouettes, colors, multi-projectile patterns, flowing fire texture, beam rings, ground effects, contact poses and Charge sheets are reused. Physical attackers lunge and return to their clearing. Pose, charge, release, stream/contact, and recovery share a clock in battle and previews. Reduced motion retains recognizable static effects.
 
 The adapter scales Arena effects for this battlefield and fits cast timings within each defender’s established attack cadence. Tower-defense perks (poison, slowing, splash, chains), power, costs, XP and difficulty settings remain separately tuned; damage uses the selected move’s element. This does not import Arena’s dueling cooldowns, stamina, recoil or status system. Splash outlines show the actual tower-defense damage radius. Level 3 increases effect size and intensity, including partners that train without changing species. Evolution transitions show the previous form, a burst, the new form, and the selected move name.
+
+Attack pose frames use the current cast's age, including Charge and short animation sheets, so a fresh route or a different partner ID cannot change their synchronization with head emitters. Regression checks exercise actual placement and both upgrades on every route and evolution path against Arena's species loadouts.
 
 Select a placed partner and use **Preview evolution moves** to compare its next attacks before earning enough XP. The evolution screen uses the same sprite and effect renderers as battle, with slower demonstrations and a pause control. Browsing a preview never spends XP or chooses a path; evolution still requires 40/120 XP. Fully trained partners can preview their signature move. Reduced motion uses stable silhouettes and still previews while preserving each move’s identity.
 

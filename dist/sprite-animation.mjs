@@ -51,7 +51,8 @@ export function spriteSample(actor,time=0,reducedMotion=false){
       if(remaining<=recovery){const duration=meta.durations.slice(recover).reduce((a,b)=>a+b,0);frame=timedFrame(meta,clamp(1-remaining/recovery,0,.9999)*duration,recover);}
       else frame=timedFrame(meta,cast.age-cast.windup,hit,recover);
     }
-  }else if(state==='Walk')frame=timedFrame(meta,(actor.walkDistance||0)/32*meta.duration);
+  }else if(cast&&state===cast.pose)frame=timedFrame(meta,cast.age);
+  else if(state==='Walk')frame=timedFrame(meta,(actor.walkDistance||0)/32*meta.duration);
   else if(state==='Hurt')frame=timedFrame(meta,Math.max(0,.18-actor.hitRemaining));
   else frame=timedFrame(meta,time+(actor.id||0)*.137);
   const row=meta.directions===1?0:directionRow(angle);

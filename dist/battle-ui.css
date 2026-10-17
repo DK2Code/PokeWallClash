@@ -1,0 +1,40 @@
+/* Keep the next action attached to the map, ahead of field notes and rewards. */
+.battle-column { min-width: 0; }
+.battle-shell { scroll-margin-block: 12px; }
+.battle-action-bar { border-bottom: 1px solid var(--line); }
+.battle-action-bar .wave-panel {
+  margin: 0; border: 0; border-radius: 0; min-height: 106px;
+  padding: 12px 18px; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 12px;
+}
+.battle-action-bar .next-wave { min-width: 0; }
+.battle-action-bar .next-wave > strong { font-size: 14px; margin: 5px 0 0; }
+.battle-action-bar .wave-preview { height: 30px; gap: 0; flex-wrap: wrap; }
+.battle-action-bar .wave-preview img { width: 30px; height: 30px; }
+.battle-action-bar .wave-preview .preview-count { font-size: 9px; }
+.battle-action-bar .wave-action { gap: 5px; }
+.battle-action-bar .primary-button { min-height: 44px; min-width: 142px; }
+.battle-action-bar .ready-partners { margin: 0; border: 0; border-top: 1px solid #ded3a4; border-radius: 0; padding: 9px 14px; }
+.battle-action-bar .ready-partners > .eyebrow { margin: 0 0 5px; }
+.battle-action-bar .ready-partners > div { flex-wrap: nowrap; overflow-x: auto; padding: 4px; gap: 8px; scrollbar-width: thin; }
+.battle-action-bar .ready-partners button { flex: 0 0 auto; min-width: 158px; min-height: 44px; }
+.battle-action-bar .ready-partners img { width: 36px; height: 36px; }
+.battle-controls { min-height: 59px; }
+@media (max-width: 540px) {
+  .battle-title { height: 54px; }
+  .battle-action-bar .wave-panel { padding: 10px; gap: 8px; min-height: 96px; }
+  .battle-action-bar .next-wave > strong { font-size: 12px; line-height: 1.35; }
+  .battle-action-bar .wave-preview { height: auto; min-height: 24px; }
+  .battle-action-bar .wave-preview img { width: 23px; height: 23px; }
+  .battle-action-bar .wave-preview .preview-count { font-size: 8px; }
+  .battle-action-bar .primary-button { min-width: 123px; max-width: 145px; padding: 10px; gap: 7px; font-size: 11px; }
+  .battle-action-bar .keyboard-tip { display: none; }
+  .battle-action-bar .ready-partners { padding: 7px; }
+  .battle-controls { padding: 6px 9px; gap: 6px; }
+  .battle-controls .phase { min-width: 0; }
+  .battle-controls .phase strong { line-height: 1.5; margin-bottom: 0; }
+  .battle-controls .phase span:last-child { display: none; }
+  .battle-controls .control-buttons { flex-shrink: 0; gap: 0; }
+  .battle-controls .icon-button { width: 40px; height: 44px; }
+  .battle-controls .speed-button { min-height: 44px; }
+  .battle-controls .control-divider { display: none; }
+}

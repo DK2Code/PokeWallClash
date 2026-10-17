@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./progression.css">
   <link rel="stylesheet" href="./difficulty.css">
   <link rel="stylesheet" href="./collection.css">
+  <link rel="stylesheet" href="./battle-ui.css">
 </head>
 <body>
   <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -55,13 +56,15 @@
             <div class="map-caption" id="map-caption"><span class="pulse-dot"></span><span>Choose a Pokémon. Find its perfect spot.</span></div>
             <div class="paused-overlay" id="paused-overlay" hidden><span class="pause-symbol">Ⅱ</span><h3>A little breather.</h3><p>Your Pokémon will be right here.</p><button class="primary-button" id="resume">Back to the adventure <svg class="icon"><use href="#i-play"/></svg></button></div>
           </div>
+          <div class="battle-action-bar">
+            <section class="wave-panel" aria-label="Next wave"><div class="next-wave"><div class="eyebrow" id="next-wave-label">UP NEXT · WAVE 01</div><strong id="wave-description">A rustle in the grass</strong><div class="wave-preview" id="wave-preview"></div></div><div class="wave-action"><span class="wave-reward" id="wave-reward"><svg class="icon"><use href="#i-coin"/></svg> +60 wave bonus</span><button class="primary-button" id="start-wave"><span>Let’s do this</span><svg class="icon"><use href="#i-arrow"/></svg></button><span class="keyboard-tip">or press <kbd>space</kbd></span></div></section>
+            <section id="ready-partners" class="ready-partners" aria-label="Partners ready to evolve" hidden></section>
+          </div>
           <div class="battle-controls"><div class="phase"><span class="phase-light" id="phase-light"></span><div><strong id="phase-title">Make yourself at home</strong><span id="phase-subtitle">Place your Pokémon before the first wave.</span></div></div><div class="control-buttons"><button class="icon-button" id="sound" aria-label="Enable sound" title="Enable sound"><svg class="icon"><use href="#i-mute"/></svg></button><button class="speed-button" id="speed" aria-label="Change game speed, currently 1 times" title="Game speed"><svg class="icon"><use href="#i-fast"/></svg><span>1×</span></button><span class="control-divider"></span><button class="icon-button" id="pause" aria-label="Pause game" title="Pause (Space)" disabled><svg class="icon"><use href="#i-pause"/></svg></button><button class="icon-button" id="restart" aria-label="Restart route" title="Restart route"><svg class="icon"><use href="#i-reset"/></svg></button></div></div>
         </div>
         <div id="team-growth" class="team-growth"></div>
         <section id="encounters" class="encounter-panel" aria-label="Route visitors"></section>
         <section id="new-friends" class="new-friends" aria-label="New collection rewards" aria-live="polite" hidden></section>
-        <section id="ready-partners" class="ready-partners" aria-label="Partners ready to evolve" hidden></section>
-        <section class="wave-panel" aria-label="Next wave"><div class="next-wave"><div class="eyebrow" id="next-wave-label">UP NEXT · WAVE 01</div><strong id="wave-description">A rustle in the grass</strong><div class="wave-preview" id="wave-preview"></div></div><div class="wave-action"><span class="wave-reward" id="wave-reward"><svg class="icon"><use href="#i-coin"/></svg> +60 wave bonus</span><button class="primary-button" id="start-wave"><span>Let’s do this</span><svg class="icon"><use href="#i-arrow"/></svg></button><span class="keyboard-tip">or press <kbd>space</kbd></span></div></section>
       </section>
       <aside class="team-column"><section class="roster-panel"><div class="section-heading"><h2>Your Pokémon</h2><span class="count-badge" id="roster-count">04</span></div><p class="panel-description" id="roster-description">Four starters. A whole Kanto to discover.</p><div class="roster-grid" id="roster"></div><button class="collection-button" id="collection-button">Open collection · 4 / 14</button><p class="eevee-hint" id="eevee-hint"></p><div class="selection-detail" id="selection-detail"></div><div class="roster-footer"><svg class="icon"><use href="#i-pin"/></svg><span>Pick a partner, then a <b>+ clearing</b>.</span></div></section><button class="field-guide" id="field-guide"><span class="guide-icon"><svg class="icon"><use href="#i-book"/></svg></span><span><strong>A trainer’s field guide</strong><small>A few tips for the road ahead</small></span><svg class="icon"><use href="#i-arrow"/></svg></button></aside>
     </div>
