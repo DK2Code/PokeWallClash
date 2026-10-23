@@ -96,7 +96,7 @@ export function render(c,terrain,game,ui){
       }
       if(e.visitor){c.strokeStyle=e.legendary?'#fff1b2':'#e6c9f4';c.lineWidth=2;c.beginPath();c.ellipse(e.x,e.y,23,10,0,0,Math.PI*2);c.stroke();star(c,e.x+23,e.y-23,5,e.shiny?'#fff1a3':'#e6c9f4',ui.reducedMotion?0:game.time);}
     }}
-  drawRouteEntrance(c,game.map,{showLabel:false});
+  drawRouteEntrance(c,game.map,{foreground:true});
   for(const s of game.shots){
     if(s.towerId&&['channel','melee','dash'].includes(s.visual.mode)){
       const actor=game.towers.find(t=>t.id===s.towerId);if(!actor?.cast||actor.cast.visual.moveId!==s.visual.moveId)continue;

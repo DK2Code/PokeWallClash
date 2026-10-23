@@ -19,6 +19,18 @@ dialog{background:#fff;border:1px solid #a9bfd7;border-radius:14px;max-width:min
 @media(max-width:360px){.brand{font-size:18px}.main-nav{gap:8px}.nav-link{font-size:10px}main{padding-left:7px;padding-right:7px}.battle-title h1{font-size:15px}.map-hud{gap:8px}.exit-label{max-width:78px}.phase strong{font-size:9px}.battle-controls .control-buttons{gap:2px}.battle-controls .icon-button{min-width:36px;width:36px}.pokemon-card{min-width:73px}.pokemon-card strong{font-size:10px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
+/* Compact controls and the best record share the panels they belong to. */
+.battle-controls{justify-content:flex-end}
+.battle-controls .speed-button{width:auto;min-width:94px;padding:0 0 0 10px;gap:5px;cursor:pointer}
+.speed-button select{min-height:42px;min-width:65px;border:0;border-radius:6px;padding:8px 7px;background:transparent;color:inherit;font:600 13px var(--body);cursor:pointer}
+.speed-button select:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.roster-panel>.personal-best{display:flex;justify-content:flex-start;gap:10px;padding:12px 14px;margin:0 -14px;background:#f4f8fe;border-top:1px solid var(--line);border-radius:0 0 12px 12px;min-width:0}
+.roster-panel>.personal-best>.icon{width:21px;height:21px;color:#a18b50}
+.roster-panel>.personal-best>span{display:block;min-width:0;color:#526987}
+.roster-panel>.personal-best strong{margin-top:4px}
+@media(min-width:801px) and (max-width:1050px){.roster-panel>.personal-best{margin-inline:-10px}}
+@media(max-width:800px){.roster-panel>.personal-best{margin-inline:-10px;padding:10px 12px}.roster-panel>.personal-best>span{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.roster-panel>.personal-best strong{margin:0}}
+
 /* Keep the route chooser's final action visible, including on a small phone. */
 dialog:has(.route-choices){width:min(900px,94vw)}
 .route-choice canvas{height:100px;object-fit:cover}

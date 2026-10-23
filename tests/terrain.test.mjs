@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
 import {MAPS} from '../dist/game.mjs';
-import {createBattleTerrain,loadTerrainArt,ROUTE_EXITS,TERRAIN_FILES} from '../dist/terrain.mjs';
+import {createBattleTerrain,loadTerrainArt,TERRAIN_FILES} from '../dist/terrain.mjs';
 
 function canvas(){
   const output={width:0,height:0,calls:[]};let depth=0;
@@ -22,7 +22,7 @@ test('all routes render with missing terrain images without mutating paths or cl
   for(const [i,map] of MAPS.entries()){
     const terrain=createBattleTerrain(map,i);assert.equal(terrain.width,960);assert.equal(terrain.height,560);assert.equal(terrain.depth(),0);
     const labels=terrain.calls.filter(call=>call[0]==='fillText').map(call=>call[1]);
-    assert.ok(labels.includes(ROUTE_EXITS[map.theme].name.toUpperCase()));assert.ok(!labels.includes('HOME'));
+    assert.ok(labels.includes('IN →'));assert.ok(!labels.includes('HOME'));
     assert.ok(terrain.calls.some(call=>call[0]==='fillRect'));
   }
   assert.equal(JSON.stringify(MAPS),before,'scenery must never change gameplay geometry');

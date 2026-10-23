@@ -38,7 +38,7 @@ function borderLandmark(c,map,x,y,size){
   else if(map.theme==='coast'){boulder(c,x,y,size*.65);}
   else tree(c,x,y,size,map.theme);
 }
-export function drawRouteEntrance(c,map,{showLabel=true}={}){
+export function drawRouteEntrance(c,map,{foreground=false}={}){
   const y=map.path.at(-1)[1],theme=map.theme,exit=ROUTE_EXITS[theme];
   c.save();c.imageSmoothingEnabled=false;
   // A recessed opening faces the incoming path. The dark throat continues off-map.
@@ -56,18 +56,27 @@ export function drawRouteEntrance(c,map,{showLabel=true}={}){
     px(c,872,y-22,95,51,'#705844');for(let x=875;x<968;x+=10){px(c,x,y-20,8,46,'#ba985c');px(c,x,y-20,8,3,'#e2c486');}
     for(const dy of [-26,29]){px(c,867,y+dy,98,5,'#6d5c45');px(c,867,y+dy-2,98,3,'#debd7b');for(const x of [872,912,952]){px(c,x,y+dy-11,6,24,'#79603e');px(c,x,y+dy-12,6,4,'#ecce8c');}}
     tree(c,959,y-28,62,'water');tree(c,972,y+112,72,'water');
+  }else if(exit.kind==='grove'){
+    // Top-down woodland passage: trees flank an unobstructed trail into the forest.
+    // Keep the canopy above and below the path, instead of framing it as a front door.
+    const autumn=theme==='autumn';
+    if(!foreground)for(const [x,alpha] of [[902,.08],[918,.12],[934,.17],[950,.23]]){
+      c.save();c.globalAlpha=alpha;px(c,x,y-26,16,52,autumn?'#685329':'#244a35');c.restore();
+    }
+    tree(c,930,y-35,56,theme);tree(c,974,y-32,62,theme);
+    tree(c,935,y+133,62,theme);tree(c,978,y+137,68,theme);
+    px(c,913,y-32,12,3,autumn?'#c8aa62':'#a6c278');
+    px(c,942,y+30,14,3,autumn?'#c8aa62':'#a6c278');
   }else{
-    const autumn=theme==='autumn',safari=exit.kind==='gate';
-    px(c,919,y-22,51,49,safari?'#5c7848':autumn?'#665c38':'#315d43');px(c,941,y-18,24,40,safari?'#789358':autumn?'#7e7546':'#426e4e');
-    if(!safari){tree(c,925,y-29,66,theme);tree(c,961,y+112,76,theme);}
-    for(const dy of [-30,33]){px(c,884,y+dy-47,8,52,'#6b503a');px(c,885,y+dy-47,3,52,'#bf9963');px(c,876,y+dy+2,27,5,'#6b503a');}
-    px(c,884,y-78,74,11,'#705039');px(c,886,y-78,72,4,'#d8b36b');px(c,918,y-80,8,16,'#ad8350');
-    if(!safari){px(c,883,y-78,27,5,autumn?'#c99845':'#82ab63');px(c,948,y-77,12,15,autumn?'#ddaf52':'#5d9656');}
-    else{for(const yy of [y-67,y+67]){px(c,916,yy,48,5,'#c6ab74');for(let x=917;x<965;x+=19)px(c,x,yy-12,5,24,'#8d754e');}}
+    // Safari fence posts stand on either bank, leaving the whole trail open.
+    for(const dy of [-39,39]){
+      px(c,899,y+dy-10,9,24,'#6b503a');px(c,900,y+dy-10,3,24,'#bf9963');
+      px(c,899,y+dy-11,9,4,'#dec48c');
+      for(const rail of [-5,6])px(c,908,y+dy+rail,52,4,'#bd9b60');
+      for(const x of [929,952])px(c,x,y+dy-9,6,22,'#896d46');
+    }
   }
-  // Small sign sits outside the approach; the route name is also readable in the HUD.
-  if(showLabel){const label=exit.name.toUpperCase();c.font='bold 8px monospace';c.textAlign='center';
-    px(c,864,y+48,92,20,'#f4f3dc');px(c,864,y+67,92,2,'#718367');c.fillStyle='#344b49';c.fillText(label,910,y+62);}
+  // The destination name lives in the HUD, leaving the path and nearby clearings clear.
   c.restore();
 }
 export function createBattleTerrain(map,mapIndex=0){
