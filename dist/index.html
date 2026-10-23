@@ -45,6 +45,7 @@
     <nav class="main-nav" aria-label="Game navigation"><button class="nav-link active" id="play-nav" aria-current="page">Play</button><button class="nav-link" id="dex-nav">Collection</button><button class="nav-link" id="help-nav">How to play</button></nav>
   </header>
   <main id="game-area" tabindex="-1">
+    <div class="admin-banner" id="admin-banner" hidden><div><strong>ADMIN TEST MODE</strong><span>Normal progress is protected</span></div><button id="admin-tools">Test tools</button><button id="admin-exit">Exit admin</button></div>
     <div class="game-layout">
       <section class="battle-column" aria-label="Battlefield">
         <div class="battle-shell">
@@ -67,7 +68,7 @@
       </section>
       <aside class="team-column" aria-label="Team and collection"><section class="roster-panel"><div class="personal-best"><svg class="icon"><use href="#i-trophy"/></svg><span><span id="best-label">PERSONAL BEST · NORMAL</span><strong id="best-record">A new adventure</strong></span></div><div class="section-heading"><h2>Your team</h2><span class="count-badge" id="roster-count">04</span></div><p class="panel-description" id="roster-description">Four starters. A whole Kanto to discover.</p><div class="roster-grid" id="roster"></div><button class="collection-button" id="collection-button">Open collection</button></section>
         <div class="selection-detail" id="selection-detail"></div>
-        <details class="trainer-journal"><summary><svg class="icon"><use href="#i-book"/></svg> Trainer journal <span>+</span></summary><div class="journal-body"><div id="team-growth" class="team-growth"></div><p class="eevee-hint" id="eevee-hint"></p><section id="encounters" class="encounter-panel" aria-label="Route visitors"></section><section id="new-friends" class="new-friends" aria-label="New collection rewards" aria-live="polite" hidden></section><button class="field-guide" id="field-guide">Read the field guide <svg class="icon"><use href="#i-arrow"/></svg></button></div></details>
+        <details class="trainer-journal"><summary><svg class="icon"><use href="#i-book"/></svg> Trainer journal <span>+</span></summary><div class="journal-body"><div id="team-growth" class="team-growth"></div><p class="eevee-hint" id="eevee-hint"></p><section id="encounters" class="encounter-panel" aria-label="Route visitors"></section><section id="new-friends" class="new-friends" aria-label="New collection rewards" aria-live="polite" hidden></section><button class="field-guide" id="field-guide">Read the field guide <svg class="icon"><use href="#i-arrow"/></svg></button><button class="field-guide admin-entry" id="admin-open">Admin testing</button></div></details>
       </aside>
     </div>
   </main>

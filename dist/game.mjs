@@ -177,7 +177,7 @@ export function pointAt(path,distance) {
   return {x:path.at(-1)[0],y:path.at(-1)[1],dx:1,dy:0};
 }
 export class Game {
-  constructor(mapIndex=0,difficultyId='normal',options={}) {const progress=loadCollectionProgress(options.collectionProgress,options.collection);this.collection=progress.collection;this.collectionPoints=progress.points;this.collectionSlots=progress.slots;this.random=options.random||Math.random;this.reset(mapIndex,difficultyId);}
+  constructor(mapIndex=0,difficultyId='normal',options={}) {const progress=loadCollectionProgress(options.collectionProgress,options.collection);this.collection=progress.collection;this.collectionPoints=progress.points;this.collectionSlots=progress.slots;this.adminTest=options.adminTest===true;this.random=options.random||Math.random;this.reset(mapIndex,difficultyId);}
   reset(mapIndex=this.mapIndex,difficultyId=this.difficulty?.id||'normal') {
     this.mapIndex=mapIndex;this.map=MAPS[mapIndex];this.length=routeLength(this.map.path);
     this.difficulty=difficultyFor(difficultyId);this.maxLives=this.difficulty.hearts;
@@ -185,6 +185,7 @@ export class Game {
     this.pendingReward=null;this.rewardHistory=[];this.powerCharms=0;this.bossDefeated=false;this.bossesDefeated=0;this.coinExchanges=0;
     this.visitor=null;this.visitorArrived=false;this.previousVisitor=null;this.pendingRecruits=[];this.lastRecruits=[];this.caught=0;
     this.wavePartners=new Set();
+    if(this.adminTest)this.refillTestResources();
   }
   available(kind){return isUnlocked(this.collection,kind);}
   collectionSave(){return {version:COLLECTION_VERSION,collection:this.collection,points:this.collectionPoints,slots:this.collectionSlots};}
@@ -195,13 +196,30 @@ export class Game {
     this.collectionPoints-=price;this.collectionSlots++;
     this.emit('slotUnlocked',{price});return true;
   }
-  purchasePartner(kind){
+  partnerOffer(kind){
     const price=partnerPrice(kind),entry=this.collection[kind],special=Boolean(SPECIAL_PARTNERS[kind]);
-    if(price===null||(entry?!entry.reserve:!special)||this.collectionPoints<price||usedSlots(this.collection)>=this.collectionSlots)return false;
-    this.collectionPoints-=price;
+    const owned=Boolean(entry&&!entry.reserve),freeSlots=Math.max(0,this.collectionSlots-usedSlots(this.collection));
+    const missingPoints=price===null?0:Math.max(0,price-this.collectionPoints);
+    const reason=price===null?'This Pokémon is not a point reward.':owned?'Already on your team.':!entry&&!special?'Catch this Pokémon first.':!freeSlots?'Your team is full. Unlock an empty team slot first.':missingPoints?`You need ${missingPoints.toLocaleString()} more collection points. Personal-best score cannot be spent.`:null;
+    return {kind,price,owned,freeSlots,missingPoints,canPurchase:reason===null,reason};
+  }
+  purchasePartner(kind){
+    const offer=this.partnerOffer(kind);if(!offer.canPurchase)return false;
+    const entry=this.collection[kind];this.collectionPoints-=offer.price;
     if(entry)delete entry.reserve;
     else this.collection[kind]={catches:1,shiny:false,useShiny:false};
-    this.emit('partnerPurchased',{kind,price,fresh:!entry,shiny:Boolean(entry?.useShiny),legendary:special||LEGENDARY_VISITORS.includes(kind)});return true;
+    this.emit('partnerPurchased',{kind,price:offer.price,fresh:!entry,shiny:Boolean(entry?.useShiny),legendary:Boolean(SPECIAL_PARTNERS[kind])||LEGENDARY_VISITORS.includes(kind)});return true;
+  }
+  refillTestResources(){
+    if(!this.adminTest)return false;
+    this.money=100000;this.collectionPoints=100000;this.lives=this.maxLives;return true;
+  }
+  prepareTestWave(wave){
+    if(!this.adminTest||!Number.isInteger(wave)||wave<1||wave>MAX_WAVES)return false;
+    const towers=this.towers;this.reset();this.towers=towers;this.wave=wave-1;
+    this.nextId=Math.max(1,...towers.map(t=>t.id+1));
+    for(const t of towers){t.cast=null;t.cooldown=.1;t.combatXP=0;t.teamPower=1;t.kills=0;}
+    return true;
   }
   coinExchangeOffer(){
     const betweenWaves=['build','won'].includes(this.status),cleared=betweenWaves?this.wave:Math.max(0,this.wave-1);
@@ -236,7 +254,7 @@ export class Game {
   effect(type,x,y,duration,data={}) {this.effects.push({type,x,y,age:0,duration,...data});}
   place(kind,pad) {
     const spec=TOWERS.find(t=>t.id===kind);if(!spec || !this.available(kind) || !Number.isInteger(pad) || !this.map.pads[pad] || this.towers.some(t=>t.pad===pad) || this.money<spec.cost || ['won','lost'].includes(this.status))return false;
-    const [x,y]=this.map.pads[pad];const t={id:this.nextId++,kind,species:kind,shiny:Boolean(this.collection[kind]?.useShiny),pad,x,y,level:1,xp:0,combatXP:0,branch:null,readyNotified:false,teamPower:1+this.powerCharms*.12,routeRange:this.map.boostPads?.includes(pad)?1.2:1,spent:spec.cost,cooldown:.1,kills:0,pulse:0,lookAngle:Math.PI/2,cast:null,appear:.4};this.towers.push(t);this.money-=spec.cost;this.effect('summon',x,y,.55);this.emit('place',{tower:t});return t;
+    const [x,y]=this.map.pads[pad];const t={id:this.nextId++,kind,species:kind,shiny:Boolean(this.collection[kind]?.useShiny),pad,x,y,level:1,xp:0,combatXP:0,branch:null,readyNotified:false,teamPower:1+this.powerCharms*.12,routeRange:this.map.boostPads?.includes(pad)?1.2:1,spent:spec.cost,cooldown:.1,kills:0,pulse:0,lookAngle:Math.PI/2,cast:null,appear:.4};this.towers.push(t);this.money-=spec.cost;this.effect('summon',x,y,.55);this.emit('place',{tower:t});if(this.adminTest)this.gainXP(t,XP_THRESHOLDS.at(-1));return t;
   }
   gainXP(tower,amount) {
     if(!this.towers.includes(tower)||tower.level===3||!Number.isFinite(amount)||amount<=0)return;

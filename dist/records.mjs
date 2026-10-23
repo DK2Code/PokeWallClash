@@ -10,6 +10,7 @@ export function loadRecords(raw){
   return result;
 }
 export function recordRun(records,game){
+  if(game.adminTest)return records;
   const key=recordKey(game.mapIndex,game.difficulty.id),prior=records[key]||{wave:0,score:0,won:false};
   return {...records,[key]:{wave:Math.max(prior.wave,game.wave),score:Math.max(prior.score,game.score),won:prior.won||game.status==='won'}};
 }

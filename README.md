@@ -26,6 +26,8 @@ Begin with exactly **Bulbasaur, Charmander, Squirtle, and Pikachu**. Bulbasaur p
 
 **Mew and Mewtwo are permanent point rewards:** unlock Mew for **2,500 collection points** or Mewtwo for **4,000** from Collection. Each needs one open slot; an unaffordable, duplicate, or full-collection purchase never spends points. Unlocks and the wallet save together. They cost 500 and 650 battle coins to place, respectively. Both train without changing species: Mew uses Ancient Power or Psychic; Mewtwo uses Aura Sphere or Psystrike. Their Arena attacks gain bounded constellation auras and psychic aftershocks, with stable reduced-motion effects. These rewards never enter visitor rolls, award catch points, or inflate run catch counts.
 
+**Personal-best score is not spendable currency.** The Collection wallet shows spendable collection points. Special-partner cards show the current wallet, free team slots, and the exact missing requirement. A saved but unrecruited special partner is not marked as already unlocked.
+
 Optional visitors enter **after the regular wave**. Defeat a marked visitor, then clear its wave to catch it. Ordinary wild Pokémon and bosses are **defeated**, not caught: they award coins, score, battle XP, and defeat points but do not enter the collection. Only confirmed collection additions count as catches. Every new catch stays in Collection until the player chooses to recruit it. Recruiting a basic Pokémon or Eevee costs **50 collection points**; a caught legendary bird costs **300**. Recruitment uses one open team slot and permanently unlocks the partner across restarts, routes, difficulties, and browser reloads. Uncaught visitors cannot be purchased. Battle placement still costs coins.
 
 Catches celebrate directly over the battlefield with a portrait, name, and rewards **only when the Pokémon joins the collection** (including reserve). Ordinary defeats fade out with dust; they never show a Poké Ball or catch popup. Results separately count defeated and caught Pokémon. Cards never block taps, use real time at every battle speed, and respect reduced motion. Boss reward and victory dialogs wait for any collection celebration. Bosses and visitors display their Pokémon names above their health bars.
@@ -58,6 +60,14 @@ All 34 basic visitors and all three legendary birds can appear on **every route*
 - A repeated catch gives **75 bonus coins**, unless it unlocks a shiny variant you did not already own.
 - Escaped visitors cost **no hearts**. Catches are only added to your collection after a successful wave clear.
 - Open **Collection / Pokédex** for slot upgrades, unlock instructions, evolution lines, and shiny preferences. Collection, points, and slots are saved together under `pokewallclash-collection-v4`; v1, v2, and v3 collections migrate automatically and personal bests are preserved. If storage fails, progress remains available for the current session.
+
+## Reversible admin testing
+
+Open **How to play → Admin testing** or **Trainer journal → Admin testing**, then enter **1234**. This intentionally public, browser-only test password is a convenience gate, not account authentication or server access.
+
+Admin testing uses a separate in-memory game: all 44 Pokémon, shiny choices, and team slots are unlocked, with 100,000 coins and collection points. Every placed partner receives 120 XP immediately, so either evolution path can be tested. The visible **Test tools** panel can refill resources and hearts, open routes and difficulties, or prepare any wave from 1–15 while retaining the placed test team. Legendary visitors still use wave 14; wave selection lets testers reach it directly.
+
+**Exit admin** restores the normal game exactly where it was paused, including its team, enemies, wave, wallet, and pause state. Test catches, spending, shiny choices, and scores never enter normal collection saves or personal bests. Refreshing closes the test session and loads normal saved progress; use Exit instead to resume an in-progress normal battle. Test mode is never stored or automatically enabled after a reload.
 
 ## Choose your difficulty
 

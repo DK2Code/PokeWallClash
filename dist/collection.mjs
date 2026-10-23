@@ -7,7 +7,7 @@ export const COLLECTION_VERSION=4;
 export const COLLECTION_STORAGE_KEY='pokewallclash-collection-v4';
 export const MAX_SLOTS=STARTER_IDS.length+COLLECTIBLE_IDS.length;
 export const MAX_COLLECTION_POINTS=9999999;
-export const usedSlots=collection=>STARTER_IDS.length+Object.values(collection).filter(entry=>!entry.reserve).length;
+export const usedSlots=collection=>STARTER_IDS.length+COLLECTIBLE_IDS.filter(id=>collection[id]&&!collection[id].reserve).length;
 export const slotPrice=slots=>slots>=MAX_SLOTS?null:Math.min(300,100+50*Math.max(0,slots-INITIAL_SLOTS));
 export const defeatPoints=enemy=>enemy.visitor?0:enemy.boss?5:1;
 export const RARE_VISITORS=[10,63,81,131,37,147,...EXTRA_TOWERS.map(p=>p.id)];

@@ -96,3 +96,15 @@ dialog:has(.collection-upgrades){width:min(900px,94vw)}
 .exchange-offer{text-align:center;background:#fff8e2;border:1px solid #e1ce90;border-radius:9px;padding:22px 12px;margin:15px 0}.exchange-offer>strong{font-size:23px}.exchange-offer>strong>span{padding:0 12px;color:#997b34}.exchange-offer p{font-size:12px;margin:8px 0 0;color:#735e2c}.exchange-status{font-size:13px;color:#405b7b;line-height:1.6}
 @media(max-width:540px){#coin-exchange{min-height:44px;padding:2px 5px}.battle-stats{min-height:50px}.collection-actions{flex-direction:column}.collection-actions button{width:100%}.recruit-heading h3{font-size:16px}.exchange-offer>strong{font-size:19px}.exchange-offer>strong>span{padding:0 5px}.exchange-balances{gap:8px;padding:12px}.exchange-balances small{font-size:8px}#confirm-exchange{font-size:11px;padding:12px 9px}}
 @media(max-width:360px){.site-header{padding:0 8px;gap:6px}.brand{font-size:16px}.main-nav{gap:6px}}
+
+.special-wallet{padding:10px;border:1px solid #d7c5e8;background:#fff;border-radius:7px;line-height:1.6}
+.admin-banner{display:flex;align-items:center;gap:8px;background:#fff5d7;border:1px solid #d6b666;border-radius:9px;padding:8px 12px;margin:0 0 12px;color:#705113}
+.admin-banner[hidden]{display:none}.admin-banner>div{flex:1;min-width:0}.admin-banner strong{display:block;font-size:11px;letter-spacing:.6px}.admin-banner span{display:block;font-size:10px;margin-top:3px}
+.admin-banner button{min-height:44px;padding:8px 12px;border:1px solid #d6b666;background:#fffaf0;border-radius:6px;font-size:12px;white-space:nowrap}
+.admin-entry{margin-top:8px;justify-content:center}.admin-login label,.admin-wave label{display:block;font-size:13px;font-weight:650;margin:0 0 8px}
+.admin-login input,.admin-wave select{width:100%;min-height:44px;background:#f6f9fe;border:1px solid #b7cbe1;border-radius:7px;padding:10px;font:inherit;color:var(--ink)}
+.admin-login input:focus-visible,.admin-wave select:focus-visible{outline:3px solid var(--red);outline-offset:2px}.admin-login #admin-error{font-size:12px;min-height:18px;color:#b4173c}
+.admin-tools{display:grid;grid-template-columns:1fr 1fr;gap:9px}.admin-tools button,.admin-wave button{min-height:44px;justify-content:center;font-size:12px}
+.admin-wave{margin:20px 0 12px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px}.admin-wave label{grid-column:1/-1;margin:0}
+.admin-testing .exit-label{display:none}
+@media(max-width:540px){.admin-banner{padding:7px;gap:5px}.admin-banner strong{font-size:9px}.admin-banner span{font-size:9px}.admin-banner button{padding:7px;font-size:10px}.admin-tools{grid-template-columns:1fr}.admin-wave{grid-template-columns:1fr}.admin-wave label{grid-column:auto}.collection-totals small{font-size:8px}.special-wallet{font-size:11px}}
