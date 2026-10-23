@@ -78,9 +78,17 @@ dialog:has(.route-choices){overflow:hidden}
 @media(max-width:360px){.wave-action .battle-controls .icon-button{width:32px;min-width:32px}.wave-action .control-buttons{gap:2px}.wave-action .speed-button{min-width:48px}.wave-action .speed-button select{min-width:46px;width:46px}.wave-action .primary-button{min-width:100px}}
 
 /* A caught Pokémon stays in the collection until its trainer chooses it. */
-#coin-exchange{background:#fff7df;border:1px solid #ddc88c;border-radius:6px;padding:3px 7px;min-height:44px;color:var(--ink);cursor:pointer;pointer-events:auto}
+.battle-stats{min-height:60px}.map-hud{align-items:center;min-width:0;flex-shrink:1}
+.battle-wallet{display:flex;align-items:center;gap:14px;min-width:0}
+.wallet-balance{display:flex;flex-direction:column;gap:2px;min-width:0;font-variant-numeric:tabular-nums}
+.wallet-balance>small{font-size:10px;line-height:1.2;color:var(--muted);white-space:nowrap}
+.wallet-balance>span{display:flex;align-items:center;gap:4px}.wallet-balance strong{font-size:15px;line-height:1.3;color:var(--ink)}
+.wallet-balance .icon,.points-mark{width:16px;height:16px;flex-shrink:0}.wallet-balance.coins .icon{color:#97720e}.points-mark{font-size:17px;line-height:16px;color:#8053a2;text-align:center}
+#coin-exchange{display:flex;align-items:center;justify-content:center;gap:5px;background:#fff7df;border:1px solid #ddc88c;border-radius:6px;padding:7px 9px;min-height:44px;color:#735517;font-size:11px;font-weight:650;white-space:nowrap;cursor:pointer;pointer-events:auto}
 #coin-exchange:hover{background:#ffedb9}#coin-exchange:focus-visible{outline:3px solid var(--red);outline-offset:2px}
-#coin-exchange>span{font-size:16px;color:#866820}
+#coin-exchange>span{font-size:17px}#coin-exchange.exchange-ready{border-color:#97c3aa;background:#eaf7ee;color:#286145}#coin-exchange.exchange-ready:hover{background:#d7efdf}
+@media(min-width:541px) and (max-width:1100px){.battle-stats .exit-label{display:none}}
+@media(max-width:540px){.battle-stats{padding:7px 9px}.battle-stats .map-hud{display:grid;grid-template-columns:auto 1fr;gap:5px 16px;width:100%}.battle-wallet{grid-column:1/-1;grid-row:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) auto;gap:10px;padding-bottom:6px;border-bottom:1px solid var(--line)}.wallet-balance strong{font-size:14px}.battle-stats .hud-stat{height:23px}.battle-stats .exit-label{display:none}}
 dialog:has(.collection-upgrades){width:min(900px,94vw)}
 .collection-upgrades{padding:16px;margin:14px 0;background:#f2f7ff;border-color:#c5d6e8;color:var(--ink)}
 .collection-totals strong{font-size:27px}.collection-totals{margin-bottom:12px}
@@ -94,7 +102,7 @@ dialog:has(.collection-upgrades){width:min(900px,94vw)}
 .exchange-balances{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px;background:#f2f7ff;border:1px solid var(--line);border-radius:9px}
 .exchange-balances small{display:block;font-size:10px;letter-spacing:.5px;color:var(--muted)}.exchange-balances strong{display:block;font-size:25px;margin-top:5px}
 .exchange-offer{text-align:center;background:#fff8e2;border:1px solid #e1ce90;border-radius:9px;padding:22px 12px;margin:15px 0}.exchange-offer>strong{font-size:23px}.exchange-offer>strong>span{padding:0 12px;color:#997b34}.exchange-offer p{font-size:12px;margin:8px 0 0;color:#735e2c}.exchange-status{font-size:13px;color:#405b7b;line-height:1.6}
-@media(max-width:540px){#coin-exchange{min-height:44px;padding:2px 5px}.battle-stats{min-height:50px}.collection-actions{flex-direction:column}.collection-actions button{width:100%}.recruit-heading h3{font-size:16px}.exchange-offer>strong{font-size:19px}.exchange-offer>strong>span{padding:0 5px}.exchange-balances{gap:8px;padding:12px}.exchange-balances small{font-size:8px}#confirm-exchange{font-size:11px;padding:12px 9px}}
+@media(max-width:540px){.collection-actions{flex-direction:column}.collection-actions button{width:100%}.recruit-heading h3{font-size:16px}.exchange-offer>strong{font-size:19px}.exchange-offer>strong>span{padding:0 5px}.exchange-balances{gap:8px;padding:12px}.exchange-balances small{font-size:8px}#confirm-exchange{font-size:11px;padding:12px 9px}}
 @media(max-width:360px){.site-header{padding:0 8px;gap:6px}.brand{font-size:16px}.main-nav{gap:6px}}
 
 .special-wallet{padding:10px;border:1px solid #d7c5e8;background:#fff;border-radius:7px;line-height:1.6}
