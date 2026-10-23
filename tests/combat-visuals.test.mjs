@@ -6,7 +6,7 @@ import {drawAttackShot,drawAttackImpact,drawAttackCharge} from '../dist/combat-a
 import {attackTiming,spriteSample,bodyOffset,muzzlePosition} from '../dist/sprite-animation.mjs';
 import {MOVES} from '../dist/arena/moves.mjs';
 import {LOADOUTS} from '../dist/arena/loadouts.mjs';
-import {readFileSync,existsSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 
 function recordingCanvas(){
@@ -29,8 +29,8 @@ test('packaged Arena renderers and move data match their recorded source exactly
   for(const [file,hash] of Object.entries(manifest.files)){
     const bytes=readFileSync(new URL(`../dist/arena/${file}`,import.meta.url));
     assert.equal(createHash('sha256').update(bytes).digest('hex'),hash,file);
-    const source=new URL(`../../pokemon-arena/dist/${file}`,import.meta.url);
-    if(existsSync(source))assert.deepEqual(bytes,readFileSync(source),`${file} drifted from Arena`);
+    // The manifest pins the imported snapshot. A separately updated reference
+    // checkout must not change the expected bytes of this game's saved import.
   }
 });
 

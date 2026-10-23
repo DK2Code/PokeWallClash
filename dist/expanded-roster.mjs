@@ -1,7 +1,7 @@
 import {MOVES} from './arena/moves.mjs';
 
 // One entry per collectible Gen 1 family. Evolutions occupy the same slot.
-// Every move is taken from the corresponding species' Pokémon Arena loadout.
+// Every move is taken from the corresponding species' the reference engine loadout.
 const colors={bug:'#99ae65',flying:'#a392b6',normal:'#bba080',poison:'#a77aaf',ground:'#b69a69',grass:'#69a672',water:'#76a9c1',fire:'#de8968',fighting:'#bc8070',rock:'#aa9c7b',ghost:'#9183b2'};
 const abilities={bug:'Quick strikes',flying:'Sweeping gusts',normal:'Rapid attacks',poison:'Lingering poison',ground:'Steady ground power',grass:'Poison damage',water:'Slowing water',fire:'Splash damage',fighting:'Heavy close strikes',rock:'Rock splash',ghost:'Haunting reach'};
 function partner(id,name,type,stats,stages,names,moves,description,perks={}){

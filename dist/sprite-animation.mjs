@@ -1,7 +1,7 @@
 import {DIRECTIONAL} from './directional-data.mjs';
 import {bodyOffset as arenaBodyOffset} from './arena/sprite-animation.mjs';
 
-// Adapted from Pokémon Arena: real frame durations, eight facings, ground
+// Adapted from the reference engine: real frame durations, eight facings, ground
 // anchors and head emitters. All clocks come from the paused game simulation.
 export const directionRow=angle=>((Math.round((Math.PI/2-angle)/(Math.PI/4))%8)+8)%8;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));

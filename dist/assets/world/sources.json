@@ -1,0 +1,662 @@
+{
+  "sources": [
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/metatiles.bin",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/metatiles.bin",
+      "sha256": "17974b0ba1bb9d105d5ba255c69a3b80d8484a26ea0b8ff22c6c6567c6c22910"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/00.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/00.pal",
+      "sha256": "424a32d1079a61b6b9b4f1e879dd68108708905e8312d18edd134af3918407fd"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/01.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/01.pal",
+      "sha256": "9b9d01878137cef9ea6006c3025a3ada5cdf37d9c251b25bc95f71963bd9a447"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/02.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/02.pal",
+      "sha256": "8a469b137e6fc97823ab46b903c0ab80c466212cd430340586ccde22afbee949"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/03.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/03.pal",
+      "sha256": "821f0a62f0ce995c96e9eaa0b4a32a1cd61e4db1f3216bfbe1fd588cf33b7583"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/04.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/04.pal",
+      "sha256": "f99602126046eed3f20545a34ddd46fa6e5fcb96f032b410fa8d5251c7450e22"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/05.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/05.pal",
+      "sha256": "53b599be1554c4e1a0684f2339409ee4032ac8507696dae1836a10152f925177"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/06.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/06.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/07.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/07.pal",
+      "sha256": "75869eaa61747c23984c7f76735cfa77e3950d663ad9cc9dc6ad751210442bd0"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/08.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/08.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/09.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/09.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/10.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/10.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/11.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/11.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/12.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/12.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/13.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/13.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/14.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/14.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/palettes/15.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/palettes/15.pal",
+      "sha256": "64b87ff3eb44caada2f27f7b1e3195db1935f86460ec78e4bc3b3cffcb0e3251"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/primary/general/tiles.png",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/primary/general/tiles.png",
+      "sha256": "365ba5482e7564763e614a0009900d1c317790dcd9f7a06c4ab74c363a3ba2f5"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/metatiles.bin",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/metatiles.bin",
+      "sha256": "fca8629264b6ff2324224864ed98d929cc5a93213a5a512a3798d144470e022b"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/00.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/00.pal",
+      "sha256": "64b87ff3eb44caada2f27f7b1e3195db1935f86460ec78e4bc3b3cffcb0e3251"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/01.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/01.pal",
+      "sha256": "36d2607d4f4e6b18ac04940a3a4e8fa7756d551e2eb5305fa56397ac90d121b4"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/02.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/02.pal",
+      "sha256": "8bc5618a01c8ecceaa802d4544a783761742a9b69fce38e99a704de926de4bb6"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/03.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/03.pal",
+      "sha256": "11b12742b31416198058a4fcd792dabafffb29d0424dc9b7d4de6edfe088003b"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/04.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/04.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/05.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/05.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/06.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/06.pal",
+      "sha256": "aa7b4ee23247cf3b450244bf3f6bd93261636f9fbbcd5f1aca5e4c2c7b4514d8"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/07.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/07.pal",
+      "sha256": "893eeed2498efa76e0f86188328c34726c6c5fc9b9f2bda7c16054609b39aaae"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/08.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/08.pal",
+      "sha256": "b85ee72f6afd288d2a2f571d1f8bf9f44bc038757ff6908384ec228ff1a86acc"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/09.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/09.pal",
+      "sha256": "5f62500d42828f034bb0be6ccd62c86cfb3eb851999a73f3f9f4fcaaf532ce05"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/10.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/10.pal",
+      "sha256": "b59c1a54bf459f1af44d296fcee008d209bb398517e90666719620f272079d9b"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/11.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/11.pal",
+      "sha256": "5a979ffc203b2fcf6bbe263c8492aaf67a7a9d9c04a4132c64946b647b07d1a9"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/12.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/12.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/13.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/13.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/14.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/14.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/palettes/15.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/palettes/15.pal",
+      "sha256": "f8f20b286c4c09a7e60f229a0cb968ef13d31a38f69fa2c4b2a95363b8e730aa"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/tilesets/secondary/cave/tiles.png",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/tilesets/secondary/cave/tiles.png",
+      "sha256": "bcffd7ad24c8acb328cee23598dca4dadeb527299c76565e6a9d939e25e40c76"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "graphics/object_events/pics/people/brendan/walking.png",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/graphics/object_events/pics/people/brendan/walking.png",
+      "sha256": "f33ec07a5fd17f4422455f8bc55cd3d3522fa65c3bf740ecbdc00da705eaa0d1"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "graphics/object_events/pics/people/may/walking.png",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/graphics/object_events/pics/people/may/walking.png",
+      "sha256": "7f185cda9854f7812545c306795b454dc750be440e582974518ba8a63c9b7e87"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "include/global.fieldmap.h",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/include/global.fieldmap.h",
+      "sha256": "c455ccc2c0fc8d4ef073aa0b5f94ea15039735f090dfa707ea0541a250dbe96d"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "src/data/object_events/object_event_anims.h",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/src/data/object_events/object_event_anims.h",
+      "sha256": "4663646948caefc458e31684d6f3b89d55f50b34d8c8a6c7ca1724d139549b2a"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "src/data/object_events/object_event_pic_tables.h",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/src/data/object_events/object_event_pic_tables.h",
+      "sha256": "9d3f6afdfd3010fecfaf44a956de30a4f6d9697205b2e0ff78f5e285f47d6471"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "include/constants/metatile_labels.h",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/include/constants/metatile_labels.h",
+      "sha256": "6f53ac68b105d8d72c7daa3d57c4c669a828f68d3f8d84d1902e9f6309b818f2"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/layouts/layouts.json",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/layouts/layouts.json",
+      "sha256": "5ac58ee1072862c937f82121a931b3315ccca3b5ae807f2a28a0e273957c2e4f"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "data/layouts/Route101/map.bin",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/data/layouts/Route101/map.bin",
+      "sha256": "134cf07849968c1b3415df2205e5ba771cb26ba5484cc5d78a1e8d76e52f12ed"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "graphics/field_effects/pics/tree_disguise.png",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/graphics/field_effects/pics/tree_disguise.png",
+      "sha256": "b6d836032a63962849b3ef8082387987270661a08a496f2395004af13c10bd6d"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "graphics/object_events/pics/misc/cuttable_tree.png",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/graphics/object_events/pics/misc/cuttable_tree.png",
+      "sha256": "7777b5b630cb9a430d1313e6d9603a6e2e4829c5954f08dc1f11b4a0a4f5eac1"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "graphics/object_events/pics/misc/breakable_rock.png",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/graphics/object_events/pics/misc/breakable_rock.png",
+      "sha256": "accf417ec0b1958af56e2964eda5dadd1ba97a52def6bbf6057d11f4a02be316"
+    },
+    {
+      "repository": "pokeemerald",
+      "commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+      "path": "graphics/object_events/pics/misc/pushable_boulder.png",
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/graphics/object_events/pics/misc/pushable_boulder.png",
+      "sha256": "9ff11e929fbc9c221dd5228e342be51a04b19591b7248ad12aa698e60221e663"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/metatiles.bin",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/metatiles.bin",
+      "sha256": "8d950c1a1f151f5e1bded1ecee165b815c3a4d62b69a4a9cec4f676283f9041e"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/00.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/00.pal",
+      "sha256": "757529e794c7fb9c333b1c2ef83704f6b03bb0fe756443b80025b2bc55dbe7f0"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/01.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/01.pal",
+      "sha256": "baec95e65952c79e6ceb9cf8306995379982dc9253e67797b350556e1db83bfb"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/02.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/02.pal",
+      "sha256": "ea0310019345ea29e2196c4326182e32cbddf0e5fc2c4d010e8c40794c78852b"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/03.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/03.pal",
+      "sha256": "117156779971950f6693bbefa2e92c373662209f2e39e4716f1e37a4f72ba022"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/04.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/04.pal",
+      "sha256": "7fed8601788c83852288c2395afd84a2c9ca6717c1eb38b762ad8ae7a9d61c5d"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/05.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/05.pal",
+      "sha256": "f8497b9b541ebe7ba0a80b0ac865135410d9cf6324f13949f3285c70b1119e07"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/06.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/06.pal",
+      "sha256": "4d2d0cfdc068acb9bc2adc9d4d762bcee527fd0cf045c30728632e15b0590582"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/07.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/07.pal",
+      "sha256": "9fd961331b3d93c934ae2606e4c71e915af26bdefdded710b3992d047360fc3e"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/08.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/08.pal",
+      "sha256": "9fd961331b3d93c934ae2606e4c71e915af26bdefdded710b3992d047360fc3e"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/09.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/09.pal",
+      "sha256": "9fd961331b3d93c934ae2606e4c71e915af26bdefdded710b3992d047360fc3e"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/10.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/10.pal",
+      "sha256": "9fd961331b3d93c934ae2606e4c71e915af26bdefdded710b3992d047360fc3e"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/11.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/11.pal",
+      "sha256": "9fd961331b3d93c934ae2606e4c71e915af26bdefdded710b3992d047360fc3e"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/12.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/12.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/13.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/13.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/14.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/14.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/palettes/15.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/palettes/15.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/primary/general/tiles.png",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/primary/general/tiles.png",
+      "sha256": "9ff889d1b9da5383a0cd0c85ac7b791812867804f3a38566b46172087419e0b9"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/metatiles.bin",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/metatiles.bin",
+      "sha256": "55f6a7495a33ba2efe663c422eb8802fcbfb5dcf9bfa8502fc49acc50967b658"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/00.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/00.pal",
+      "sha256": "757529e794c7fb9c333b1c2ef83704f6b03bb0fe756443b80025b2bc55dbe7f0"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/01.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/01.pal",
+      "sha256": "96a9a254c959a7ea267a4a89d8417dcd88abfe36c63ad8c47faf6e29542a0821"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/02.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/02.pal",
+      "sha256": "ea0310019345ea29e2196c4326182e32cbddf0e5fc2c4d010e8c40794c78852b"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/03.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/03.pal",
+      "sha256": "117156779971950f6693bbefa2e92c373662209f2e39e4716f1e37a4f72ba022"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/04.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/04.pal",
+      "sha256": "deb8d7b34dd9f0e4158e03194a1390ce5f620440e61ff979a94f66eb5d91e678"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/05.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/05.pal",
+      "sha256": "f8497b9b541ebe7ba0a80b0ac865135410d9cf6324f13949f3285c70b1119e07"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/06.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/06.pal",
+      "sha256": "a47bca4043b26b45e2e06f38bd87f2c611c81629a65dc46e7144273143d3d5b2"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/07.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/07.pal",
+      "sha256": "a47bca4043b26b45e2e06f38bd87f2c611c81629a65dc46e7144273143d3d5b2"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/08.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/08.pal",
+      "sha256": "3e2bdaea02a8e7a16c508c347fa62700aa3e2bc10b4de7d1cc7cd2f322d51be1"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/09.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/09.pal",
+      "sha256": "d05a0c475373b2a29a36ad065d027daffe822030249be13104a1628f13667271"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/10.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/10.pal",
+      "sha256": "daba0532571c8dfb2ca22e71fafc0b079e135ee3bbf965590d6abef734987e1f"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/11.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/11.pal",
+      "sha256": "d9dd09582e72edc522bc7aadeceb02d1efe9835fe3e34b8807aa8952f9553e73"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/12.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/12.pal",
+      "sha256": "6428a4417120a8d7aaf2e751752ce76ba48f4c32bdb8de0ac1ebce7fa1dde858"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/13.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/13.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/14.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/14.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/palettes/15.pal",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/palettes/15.pal",
+      "sha256": "226f0ddc9a6d3b26b78e138333dfde67d39aa7ac95a257e9e53c766fb6035675"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "data/tilesets/secondary/seafoam_islands/tiles.png",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/data/tilesets/secondary/seafoam_islands/tiles.png",
+      "sha256": "2884c75373ee580af9a380acd8ef12f825a92254f359fb0e29d81de214e2999d"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "graphics/object_events/pics/people/red_normal.png",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/graphics/object_events/pics/people/red_normal.png",
+      "sha256": "94eb37499a8bd663f47a0767c34b93569cf0c222a9906852943016e3a771054d"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "graphics/object_events/pics/people/green_normal.png",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/graphics/object_events/pics/people/green_normal.png",
+      "sha256": "1229935843ebeb349176fe0c0dad579fdb855c5b89ecad8a22cbb9096581e1df"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "graphics/object_events/pics/people/blue.png",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/graphics/object_events/pics/people/blue.png",
+      "sha256": "2b66b767e56237d811ad83585f7b6a8732f73efd8d8406069e07322d36d791fb"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "graphics/object_events/pics/people/misty.png",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/graphics/object_events/pics/people/misty.png",
+      "sha256": "a21a6f1283fc93f32f1a62b7c11132df253e4f649bd76214eed48a3571a29414"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "graphics/object_events/pics/people/brock.png",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/graphics/object_events/pics/people/brock.png",
+      "sha256": "6fede6fe6aae9e23af78efee0e55a0012c84a1ea80e5d13e2827e37772a21963"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "graphics/object_events/pics/people/sabrina.png",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/graphics/object_events/pics/people/sabrina.png",
+      "sha256": "8a4c54fa32b572647b1098c85b597d327ca4c578ace20221dc8981a786665fbb"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "include/global.fieldmap.h",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/include/global.fieldmap.h",
+      "sha256": "34a8c91e10803ba48b97a2df8a721ca37fad7572b2ff951a4ab7ec15a5f050eb"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "src/data/object_events/object_event_anims.h",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/src/data/object_events/object_event_anims.h",
+      "sha256": "a484f38af198398f763c1d5f239dddd4397bb4cc7eab48c2b2e992552d767b0e"
+    },
+    {
+      "repository": "pokefirered",
+      "commit": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+      "path": "src/data/object_events/object_event_pic_tables.h",
+      "url": "https://raw.githubusercontent.com/pret/pokefirered/037335f4c725d7c9aecdac87066f2002b4bd7e14/src/data/object_events/object_event_pic_tables.h",
+      "sha256": "7210ac3a847600c1e2778d6dcd5896e641e3b19f1d203841c4911bfe50769995"
+    }
+  ],
+  "outputs": {
+    "cavern.png": "4b64e08306514535bfd796b63dcd175ee58d30edf362a243687696104c87b8cc",
+    "forest-tree.png": "21e03f9bfaaced6618315cbec82833e09828e95d8329f76b13bd93fa0cecdae3",
+    "obstacle-crystal.png": "3e19d6c2d84bcfc923542d8b27b76a4ef3bf488bf8f48904a0ffff90f4e136cd",
+    "obstacle-rock.png": "4b0805af5d398918d27d619071d18c27b6546fd97c7205e51a9aebafcc0fe777",
+    "outdoors.png": "c1b0751d216f78b2e17a3d56f5076ca4f7da0150cf1df6c20bd534e233610fc4"
+  }
+}

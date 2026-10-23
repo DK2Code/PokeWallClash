@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "test": "node --test tests/engine.test.mjs tests/animation.test.mjs tests/progression.test.mjs tests/difficulty.test.mjs tests/collection.test.mjs tests/balance.test.mjs tests/combat-visuals.test.mjs tests/audio.test.mjs tests/sprite-colors.test.mjs tests/collection-slots.test.mjs tests/capture-semantics.test.mjs tests/routes.test.mjs tests/site-assets.test.mjs tests/expanded-collection.test.mjs",
+    "test": "node --test tests/engine.test.mjs tests/animation.test.mjs tests/progression.test.mjs tests/difficulty.test.mjs tests/collection.test.mjs tests/balance.test.mjs tests/combat-visuals.test.mjs tests/audio.test.mjs tests/sprite-colors.test.mjs tests/collection-slots.test.mjs tests/capture-semantics.test.mjs tests/routes.test.mjs tests/site-assets.test.mjs tests/expanded-collection.test.mjs tests/terrain.test.mjs",
     "balance": "node scripts/balance-report.mjs --summary",
     "sync:arena": "node scripts/import-arena-moves.mjs && node scripts/import-arena-art.mjs",
-    "check": "node --check dist/expanded-roster.mjs && node --check dist/visitor-preview.mjs && node --check dist/game.mjs && node --check dist/partner-moves.mjs && node --check dist/collection.mjs && node --check dist/records.mjs && node --check dist/sprite-animation.mjs && node --check dist/combat-visuals.mjs && node --check dist/combat-art.mjs && node --check dist/audio.mjs && node --check dist/art.mjs && node --check dist/routes.mjs && node --check dist/route-scenery.mjs && node --check dist/catch-celebration.mjs && node --check dist/app.mjs && npm test"
+    "check": "node --check dist/expanded-roster.mjs && node --check dist/visitor-preview.mjs && node --check dist/game.mjs && node --check dist/partner-moves.mjs && node --check dist/collection.mjs && node --check dist/records.mjs && node --check dist/sprite-animation.mjs && node --check dist/combat-visuals.mjs && node --check dist/combat-art.mjs && node --check dist/audio.mjs && node --check dist/art.mjs && node --check dist/terrain.mjs && node --check dist/route-picker.mjs && node --check dist/routes.mjs && node --check dist/route-scenery.mjs && node --check dist/catch-celebration.mjs && node --check dist/app.mjs && npm test"
   }
 }

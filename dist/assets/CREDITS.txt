@@ -11,7 +11,7 @@ drawn locally by the game. This is an unofficial, noncommercial fan project.
 
 Directional battlefield animation sheets:
 https://github.com/PMDCollab/SpriteCollab
-Adapted from Pokemon Arena's packaged sheets and metadata.
+Adapted from the reference engine's packaged sheets and metadata.
 Original Pokemon Mystery Dungeon artwork: CHUNSOFT. Community contributions:
 CC BY-NC 4.0. The original license, artist index, name mappings and per-species
 histories are retained in assets/directional/. Active battlefield animation
