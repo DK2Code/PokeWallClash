@@ -59,7 +59,7 @@ test('battle, evolution, previews and missing animation sheets all use shiny bit
     assert.ok(c.images.length);assert.equal(Boolean(c.images[0].pixels),shiny);
     if(level===1)assert.equal(shiny?c.images[0].images[0].url:c.images[0].url,'./assets/10.png');
   }
-  const g=new Game();g.recruit(10,true);const tower=g.place(10,0);
+  const g=new Game();g.recruit(10,true);g.collectionPoints=50;assert.ok(g.purchasePartner(10));const tower=g.place(10,0);
   g.gainXP(tower,40);g.upgrade(tower.id,'tempest');
   const terrain={terrain:true},ui={selectedKind:null,selectedTower:null,hoverPad:null,reducedMotion:false};
   for(const age of [.1,.8]) {

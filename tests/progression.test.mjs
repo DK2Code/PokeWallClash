@@ -60,12 +60,12 @@ test('an escaped boss offers no reward',()=>{
   assert.equal(g.status,'build');assert.equal(g.pendingReward,null);assert.equal(g.bossesDefeated,0);assert.equal(g.lives,15);
 });
 test('picnic gives exactly 20 XP to current partners and cannot be claimed twice',()=>{
-  const g=bossClear(),t=g.place(133,1);assert.equal(t.xp,0);assert.ok(g.claimReward('picnic'));assert.equal(t.xp,20);assert.equal(xpProgress(t).ready,false);
+  const g=bossClear();g.collectionPoints=50;assert.ok(g.purchasePartner(133));const t=g.place(133,1);assert.equal(t.xp,0);assert.ok(g.claimReward('picnic'));assert.equal(t.xp,20);assert.equal(xpProgress(t).ready,false);
   assert.equal(g.claimReward('picnic'),false);assert.equal(t.xp,20);assert.equal(g.place(1,2).xp,0);
 });
 test('power charms stack and also boost newly recruited partners',()=>{
   const g=bossClear(),t=g.towers[0],before=towerStats(t).damage;g.claimReward('charm');assert.equal(t.teamPower,1.12);assert.ok(towerStats(t).damage>before);
-  assert.equal(g.place(133,1).teamPower,1.12);g.pendingReward={wave:10,boss:143};g.claimReward('charm');assert.equal(t.teamPower,1.24);
+  g.collectionPoints=50;assert.ok(g.purchasePartner(133));assert.equal(g.place(133,1).teamPower,1.12);g.pendingReward={wave:10,boss:143};g.claimReward('charm');assert.equal(t.teamPower,1.24);
   assert.equal(g.place(1,2).teamPower,1.24);
 });
 test('supplies restore up to 20 hearts and use the matching boss reward amount',()=>{

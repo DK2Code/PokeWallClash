@@ -2,7 +2,7 @@ import {attackTiming,muzzlePosition} from './sprite-animation.mjs';
 import {attackVisual} from './combat-visuals.mjs';
 import {partnerMove,PARTNER_MOVES} from './partner-moves.mjs';
 import {MOVES} from './arena/moves.mjs';
-import {STARTER_IDS,loadCollectionProgress,isUnlocked,rollVisitor,COLLECTIBLE_IDS,LEGENDARY_VISITORS,usedSlots,slotPrice,defeatPoints,MAX_COLLECTION_POINTS,COLLECTION_VERSION} from './collection.mjs';
+import {STARTER_IDS,loadCollectionProgress,isUnlocked,rollVisitor,COLLECTIBLE_IDS,LEGENDARY_VISITORS,usedSlots,slotPrice,partnerPrice,COIN_EXCHANGE,defeatPoints,MAX_COLLECTION_POINTS,COLLECTION_VERSION} from './collection.mjs';
 import {EXTRA_ROUTES} from './routes.mjs';
 import {EXTRA_TOWERS,EXTRA_EVOLUTIONS,EXTRA_ENEMIES} from './expanded-roster.mjs';
 import {SPECIAL_PARTNERS,SPECIAL_TOWERS,SPECIAL_EVOLUTIONS} from './special-partners.mjs';
@@ -182,7 +182,7 @@ export class Game {
     this.mapIndex=mapIndex;this.map=MAPS[mapIndex];this.length=routeLength(this.map.path);
     this.difficulty=difficultyFor(difficultyId);this.maxLives=this.difficulty.hearts;
     this.money=this.difficulty.coins;this.lives=this.maxLives;this.wave=0;this.kills=0;this.score=0;this.towers=[];this.enemies=[];this.shots=[];this.particles=[];this.effects=[];this.events=[];this.queue=[];this.status='build';this.paused=false;this.time=0;this.spawnTimer=0;this.nextId=1;this.waveKills=0;
-    this.pendingReward=null;this.rewardHistory=[];this.powerCharms=0;this.bossDefeated=false;this.bossesDefeated=0;
+    this.pendingReward=null;this.rewardHistory=[];this.powerCharms=0;this.bossDefeated=false;this.bossesDefeated=0;this.coinExchanges=0;
     this.visitor=null;this.visitorArrived=false;this.previousVisitor=null;this.pendingRecruits=[];this.lastRecruits=[];this.caught=0;
     this.wavePartners=new Set();
   }
@@ -193,21 +193,32 @@ export class Game {
     const price=slotPrice(this.collectionSlots);
     if(price===null||this.collectionPoints<price)return false;
     this.collectionPoints-=price;this.collectionSlots++;
-    const waiting=COLLECTIBLE_IDS.find(id=>this.collection[id]?.reserve);
-    if(waiting!==undefined)delete this.collection[waiting].reserve;
-    this.emit('slotUnlocked',{price,kind:waiting});return true;
+    this.emit('slotUnlocked',{price});return true;
   }
   purchasePartner(kind){
-    const offer=SPECIAL_PARTNERS[kind];
-    if(!Number.isInteger(kind)||!offer||this.collection[kind]||this.collectionPoints<offer.price||usedSlots(this.collection)>=this.collectionSlots)return false;
-    this.collectionPoints-=offer.price;
-    this.collection[kind]={catches:1,shiny:false,useShiny:false};
-    this.emit('partnerPurchased',{kind,price:offer.price,fresh:true,legendary:true});return true;
+    const price=partnerPrice(kind),entry=this.collection[kind],special=Boolean(SPECIAL_PARTNERS[kind]);
+    if(price===null||(entry?!entry.reserve:!special)||this.collectionPoints<price||usedSlots(this.collection)>=this.collectionSlots)return false;
+    this.collectionPoints-=price;
+    if(entry)delete entry.reserve;
+    else this.collection[kind]={catches:1,shiny:false,useShiny:false};
+    this.emit('partnerPurchased',{kind,price,fresh:!entry,shiny:Boolean(entry?.useShiny),legendary:special||LEGENDARY_VISITORS.includes(kind)});return true;
+  }
+  coinExchangeOffer(){
+    const betweenWaves=['build','won'].includes(this.status),cleared=betweenWaves?this.wave:Math.max(0,this.wave-1);
+    const earned=Math.min(COIN_EXCHANGE.maxTrades,Math.floor(cleared/COIN_EXCHANGE.wavesPerTrade));
+    const remaining=Math.max(0,earned-this.coinExchanges);
+    const reason=this.status==='lost'?'Start a new run and clear wave 5 to earn an exchange.':!betweenWaves?'Finish the wave before exchanging coins.':!remaining?(earned===COIN_EXCHANGE.maxTrades?'All three exchanges used for this run.':`Next exchange unlocks after clearing wave ${(earned+1)*COIN_EXCHANGE.wavesPerTrade}.`):this.money<COIN_EXCHANGE.coins?`${COIN_EXCHANGE.coins-this.money} more battle coins needed.`:this.collectionPoints>MAX_COLLECTION_POINTS-COIN_EXCHANGE.points?'Your collection-point wallet is full.':null;
+    return {...COIN_EXCHANGE,earned,remaining,canExchange:reason===null,reason};
+  }
+  exchangeCoins(){
+    const offer=this.coinExchangeOffer();if(!offer.canExchange)return false;
+    this.money-=offer.coins;this.collectionPoints+=offer.points;this.coinExchanges++;
+    this.emit('coinsExchanged',{coins:offer.coins,points:offer.points});return true;
   }
   recruit(kind,shiny=false,position=null){
     if(!COLLECTIBLE_IDS.includes(kind)||SPECIAL_PARTNERS[kind])return false;
     const previous=this.collection[kind],fresh=!previous,newShiny=shiny&&!previous?.shiny;
-    const reserve=previous?.reserve||(fresh&&usedSlots(this.collection)>=this.collectionSlots);
+    const reserve=previous?Boolean(previous.reserve):true;
     this.collection[kind]={catches:Math.min(9999,(previous?.catches||0)+1),shiny:shiny||Boolean(previous?.shiny),useShiny:newShiny||Boolean(previous?.useShiny)};
     if(reserve)this.collection[kind].reserve=true;
     if(newShiny)this.setShiny(kind,true);

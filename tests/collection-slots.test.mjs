@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Game} from '../dist/game.mjs';
-import {COLLECTIBLE_IDS,INITIAL_SLOTS,STARTER_IDS,COLLECTION_VERSION,MAX_SLOTS,loadCollectionProgress,usedSlots,slotPrice} from '../dist/collection.mjs';
+import {COLLECTIBLE_IDS,INITIAL_SLOTS,STARTER_IDS,COLLECTION_VERSION,MAX_SLOTS,loadCollectionProgress,usedSlots,slotPrice,partnerPrice} from '../dist/collection.mjs';
 
-const fillInitial=(g,except=[])=>COLLECTIBLE_IDS.filter(id=>!except.includes(id)).slice(0,INITIAL_SLOTS-STARTER_IDS.length).forEach(id=>g.recruit(id));
+const fillInitial=(g,except=[])=>COLLECTIBLE_IDS.filter(id=>!except.includes(id)).slice(0,INITIAL_SLOTS-STARTER_IDS.length).forEach(id=>{g.recruit(id);g.collectionPoints=partnerPrice(id);assert.ok(g.purchasePartner(id));});
 
 test('twelve initial slots include four starters; spending never changes coins or score',()=>{
   const g=new Game();assert.equal(g.collectionSlots,12);assert.equal(usedSlots(g.collection),4);
@@ -13,17 +13,17 @@ test('twelve initial slots include four starters; spending never changes coins o
   assert.equal(g.score,345);assert.equal(g.money,coins);assert.equal(g.unlockCollectionSlot(),false);
 });
 
-test('full collections keep caught shinies in reserve until a slot is purchased',()=>{
+test('a new slot stays empty until the player explicitly recruits a caught shiny',()=>{
   const g=new Game();fillInitial(g,[63]);g.recruit(63,true);
   assert.equal(g.available(63),false);assert.equal(g.collection[63].reserve,true);assert.equal(g.place(63,0),false);
   g.recruit(63);assert.equal(usedSlots(g.collection),12);assert.equal(g.collection[63].shiny,true);
-  g.collectionPoints=100;assert.ok(g.unlockCollectionSlot());assert.equal(g.available(63),true);
+  g.collectionPoints=150;assert.ok(g.unlockCollectionSlot());assert.equal(g.available(63),false);assert.equal(usedSlots(g.collection),12);assert.ok(g.purchasePartner(63));
   assert.equal(g.place(63,0).shiny,true);assert.equal(usedSlots(g.collection),13);
   g.reset(2,'expert');assert.equal(g.collectionSlots,13);assert.equal(g.collectionPoints,0);assert.equal(g.available(63),true);
 });
 
 test('wallet, reserved partners, bought slots and shiny preferences survive one atomic save',()=>{
-  const g=new Game();fillInitial(g,[145,147]);g.recruit(145,true);g.collectionPoints=175;g.unlockCollectionSlot();g.recruit(147,true);
+  const g=new Game();fillInitial(g,[145,147]);g.recruit(145,true);g.collectionPoints=475;g.unlockCollectionSlot();assert.ok(g.purchasePartner(145));g.recruit(147,true);
   const restored=new Game(1,'hard',{collectionProgress:JSON.stringify(g.collectionSave())});
   assert.equal(restored.collectionSlots,13);assert.equal(restored.collectionPoints,85);
   assert.equal(restored.available(145),true);assert.equal(restored.collection[145].useShiny,true);

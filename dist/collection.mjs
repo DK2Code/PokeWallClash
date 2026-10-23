@@ -1,10 +1,10 @@
 import {EXTRA_TOWERS} from './expanded-roster.mjs';
-import {SPECIAL_TOWERS} from './special-partners.mjs';
+import {SPECIAL_TOWERS,SPECIAL_PARTNERS} from './special-partners.mjs';
 export const STARTER_IDS = [1,4,7,25];
 export const COLLECTIBLE_IDS = [133,10,63,81,131,37,147,...EXTRA_TOWERS.map(p=>p.id),144,145,146,...SPECIAL_TOWERS.map(p=>p.id)];
 export const INITIAL_SLOTS=12;
-export const COLLECTION_VERSION=3;
-export const COLLECTION_STORAGE_KEY='pokewallclash-collection-v3';
+export const COLLECTION_VERSION=4;
+export const COLLECTION_STORAGE_KEY='pokewallclash-collection-v4';
 export const MAX_SLOTS=STARTER_IDS.length+COLLECTIBLE_IDS.length;
 export const MAX_COLLECTION_POINTS=9999999;
 export const usedSlots=collection=>STARTER_IDS.length+Object.values(collection).filter(entry=>!entry.reserve).length;
@@ -12,6 +12,8 @@ export const slotPrice=slots=>slots>=MAX_SLOTS?null:Math.min(300,100+50*Math.max
 export const defeatPoints=enemy=>enemy.visitor?0:enemy.boss?5:1;
 export const RARE_VISITORS=[10,63,81,131,37,147,...EXTRA_TOWERS.map(p=>p.id)];
 export const LEGENDARY_VISITORS=[144,145,146];
+export const partnerPrice=id=>!Number.isInteger(id)||!COLLECTIBLE_IDS.includes(id)?null:SPECIAL_PARTNERS[id]?.price??(LEGENDARY_VISITORS.includes(id)?300:50);
+export const COIN_EXCHANGE=Object.freeze({coins:250,points:50,wavesPerTrade:5,maxTrades:3});
 export const BONUS_VISITOR_CHANCE=.35;
 export const ROUTE_VISITORS = [
   {rare:[10,63,13,16,43,123],legendary:145},
@@ -34,20 +36,17 @@ export function loadCollection(raw){
   }catch{return {};}
 }
 export const isUnlocked=(collection,id)=>STARTER_IDS.includes(id)||Boolean(collection[id]&&!collection[id].reserve);
-// Version 3 grants six extra slots to v2 saves, preserving every purchased slot.
-// Read previous keys, but write v3 separately so an older open game tab cannot
-// overwrite an expanded collection with the old, fourteen-species format.
+// Preserve existing teammates and every waiting catch. Version 4 never fills
+// slots automatically; a separate key protects choices from older open tabs.
 export function readCollectionProgress(storage){
-  return loadCollectionProgress(storage.getItem(COLLECTION_STORAGE_KEY)??storage.getItem('pokewallclash-collection-v2'),storage.getItem('pokewallclash-collection-v1'));
+  return loadCollectionProgress(storage.getItem(COLLECTION_STORAGE_KEY)??storage.getItem('pokewallclash-collection-v3')??storage.getItem('pokewallclash-collection-v2'),storage.getItem('pokewallclash-collection-v1'));
 }
 export function loadCollectionProgress(raw,legacy){
   let value;try{value=typeof raw==='string'?JSON.parse(raw):raw;}catch{}
-  const valid=[2,COLLECTION_VERSION].includes(value?.version)&&value.collection&&typeof value.collection==='object'&&!Array.isArray(value.collection);
+  const valid=[2,3,COLLECTION_VERSION].includes(value?.version)&&value.collection&&typeof value.collection==='object'&&!Array.isArray(value.collection);
   const collection=loadCollection(valid?value.collection:legacy);
   const savedSlots=valid&&Number.isInteger(value.slots)?Math.max(0,Math.min(value.version===2?14:MAX_SLOTS,value.slots)):0;
   const slots=Math.min(MAX_SLOTS,Math.max(INITIAL_SLOTS,usedSlots(collection),savedSlots+(valid&&value.version===2?INITIAL_SLOTS-6:0)));
-  let free=slots-usedSlots(collection);
-  for(const id of COLLECTIBLE_IDS)if(free>0&&collection[id]?.reserve){delete collection[id].reserve;free--;}
   return {version:COLLECTION_VERSION,collection,
     points:valid&&Number.isSafeInteger(value.points)?Math.max(0,Math.min(MAX_COLLECTION_POINTS,value.points)):0,
     slots};

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Game,TOWERS,EVOLUTIONS,ENEMIES,DIFFICULTIES,MAPS,towerStats} from '../dist/game.mjs';
-import {STARTER_IDS,COLLECTIBLE_IDS,RARE_VISITORS,LEGENDARY_VISITORS,loadCollection,rollVisitor,visitorForecast} from '../dist/collection.mjs';
+import {STARTER_IDS,COLLECTIBLE_IDS,RARE_VISITORS,LEGENDARY_VISITORS,loadCollection,rollVisitor,visitorForecast,partnerPrice} from '../dist/collection.mjs';
 
 test('the entire roster, enemy pool, evolutions and collection stay in Gen 1',()=>{
   const ids=[...TOWERS.flatMap(t=>[t.id,...t.stages]),...Object.keys(ENEMIES).map(Number),...Object.values(EVOLUTIONS).flat().map(b=>b.species).filter(Boolean),...COLLECTIBLE_IDS];
@@ -15,7 +15,7 @@ test('Pikachu evolves to Raichu and stays in Gen 1 when fully trained',()=>{
 test('Eevee is a permanent bonus only after defeating Onix and clearing wave 5',()=>{
   const g=new Game();assert.equal(g.place(133,0),false);g.wave=4;g.startWave();const boss=g.spawn(95);g.hit(boss,boss.hp);
   assert.equal(g.available(133),false);g.update(.01);assert.equal(g.available(133),false);
-  g.queue=[];g.enemies=[];g.update(.01);assert.equal(g.available(133),true);assert.ok(g.pendingReward);assert.equal(g.collection[133].catches,1);
+  g.queue=[];g.enemies=[];g.update(.01);assert.equal(g.available(133),false);assert.equal(g.collection[133].reserve,true);g.collectionPoints=50;assert.ok(g.purchasePartner(133));assert.ok(g.pendingReward);assert.equal(g.collection[133].catches,1);
   g.claimReward('charm');g.reset(2,'expert');assert.equal(g.available(133),true);assert.equal(g.place(133,0).species,133);
   const fresh=new Game(1,'easy',{collection:loadCollection(JSON.stringify(g.collection))});assert.equal(fresh.available(133),true);
 });
@@ -48,7 +48,7 @@ test('each legendary is the last spawn in wave 14 on every map and difficulty',(
 test('ordinary defeats do not recruit; marked visitors are caught once after wave clear',()=>{
   const g=new Game();g.wave=4;g.status='wave';g.queue=[13];const ordinary=g.spawn(10);g.hit(ordinary,9999);assert.deepEqual(g.pendingRecruits,[]);
   const rare=g.spawn({kind:10,visitor:true});g.hit(rare,9999);g.hit(rare,9999);assert.equal(g.pendingRecruits.length,1);assert.equal(g.available(10),false);
-  g.queue=[];g.update(.01);assert.equal(g.available(10),true);assert.equal(g.collection[10].catches,1);assert.equal(g.events.filter(e=>e.type==='recruit').length,1);
+  g.queue=[];g.update(.01);assert.equal(g.available(10),false);assert.equal(g.collection[10].reserve,true);assert.equal(g.collection[10].catches,1);assert.equal(g.events.filter(e=>e.type==='recruit').length,1);
 });
 test('visitors escape without costing hearts or awarding a recruit',()=>{
   const g=new Game();g.wave=14;g.status='wave';const e=g.spawn({kind:145,visitor:true,legendary:true});e.distance=g.length-1;g.update(.1);
@@ -65,7 +65,7 @@ test('duplicate catches grant 75 coins, while a newly found shiny unlocks cosmet
 });
 test('shiny chance is 10%, toggles survive saves, and cosmetic colors never change stats',()=>{
   assert.equal(rollVisitor(0,4,()=>.099).shiny,true);assert.equal(rollVisitor(0,4,()=>.1).shiny,false);
-  const g=new Game();g.recruit(10,true);const t=g.place(10,0);assert.equal(t.shiny,true);const before=towerStats(t);g.setShiny(10,false);assert.equal(t.shiny,false);assert.deepEqual(towerStats(t),before);
+  const g=new Game();g.recruit(10,true);g.collectionPoints=50;assert.ok(g.purchasePartner(10));const t=g.place(10,0);assert.equal(t.shiny,true);const before=towerStats(t);g.setShiny(10,false);assert.equal(t.shiny,false);assert.deepEqual(towerStats(t),before);
   assert.equal(g.setShiny(25,true),false);const saved=loadCollection(JSON.stringify(g.collection));assert.equal(saved[10].shiny,true);assert.equal(saved[10].useShiny,false);
   const next=new Game(0,'normal',{collection:saved});assert.equal(next.place(10,0).shiny,false);next.setShiny(10,true);assert.equal(next.towers[0].shiny,true);
 });
@@ -75,7 +75,7 @@ test('collection loading ignores corrupt data and species outside the recruitabl
 });
 
 test('finding a shiny updates an already placed partner and its evolving form immediately',()=>{
-  const g=new Game();g.recruit(10);const t=g.place(10,0);g.gainXP(t,40);g.upgrade(t.id,'tempest');
+  const g=new Game();g.recruit(10);g.collectionPoints=50;assert.ok(g.purchasePartner(10));const t=g.place(10,0);g.gainXP(t,40);g.upgrade(t.id,'tempest');
   assert.equal(t.shiny,false);g.recruit(10,true);
   assert.equal(t.shiny,true);assert.equal(g.effects.find(e=>e.type==='evolve').previousActor.shiny,true);
   g.setShiny(10,false);assert.equal(t.shiny,false);assert.equal(g.effects.find(e=>e.type==='evolve').previousActor.shiny,false);
@@ -83,7 +83,7 @@ test('finding a shiny updates an already placed partner and its evolving form im
 
 test('shiny choices survive placement, every evolution, recall, routes and collection reloads',()=>{
   for(const spec of TOWERS.filter(t=>COLLECTIBLE_IDS.includes(t.id)&&![150,151].includes(t.id))) {
-    const g=new Game();g.recruit(spec.id,true);
+    const g=new Game();g.recruit(spec.id,true);g.collectionPoints=partnerPrice(spec.id);assert.ok(g.purchasePartner(spec.id));
     for(let route=0;route<MAPS.length;route++)for(const branch of EVOLUTIONS[spec.id]) {
       g.reset(route);g.money=1000;const t=g.place(spec.id,0);assert.equal(t.shiny,true);
       g.gainXP(t,120);

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {existsSync} from 'node:fs';
 import {Game,TOWERS,MAPS,towerStats,EVOLUTIONS,multiplier} from '../dist/game.mjs';
 import {EXTRA_TOWERS} from '../dist/expanded-roster.mjs';
-import {RARE_VISITORS,LEGENDARY_VISITORS,COLLECTIBLE_IDS,STARTER_IDS,INITIAL_SLOTS,MAX_SLOTS,COLLECTION_STORAGE_KEY,readCollectionProgress,loadCollectionProgress,usedSlots,rollVisitor} from '../dist/collection.mjs';
+import {RARE_VISITORS,LEGENDARY_VISITORS,COLLECTIBLE_IDS,STARTER_IDS,INITIAL_SLOTS,MAX_SLOTS,COLLECTION_STORAGE_KEY,COLLECTION_VERSION,partnerPrice,readCollectionProgress,loadCollectionProgress,usedSlots,rollVisitor} from '../dist/collection.mjs';
 import {visitorPreview} from '../dist/visitor-preview.mjs';
 
 test('the expanded catalog contains basic Kanto families, complete art, and a dynamic collection capacity',()=>{
@@ -22,7 +22,7 @@ test('the expanded catalog contains basic Kanto families, complete art, and a dy
 test('every new visitor can be defeated, caught, placed shiny, evolved, and restored',()=>{
   for(const spec of EXTRA_TOWERS)for(const branch of EVOLUTIONS[spec.id]){
     const g=new Game();g.wave=4;g.status='wave';g.queue=[10];const enemy=g.spawn({kind:spec.id,visitor:true,shiny:true});g.hit(enemy,999999);
-    assert.equal(g.available(spec.id),false);g.queue=[];g.update(.01);assert.ok(g.available(spec.id));
+    assert.equal(g.available(spec.id),false);g.queue=[];g.update(.01);assert.equal(g.available(spec.id),false);assert.ok(g.collection[spec.id].reserve);g.collectionPoints=partnerPrice(spec.id);assert.ok(g.purchasePartner(spec.id));
     g.money=1000;const tower=g.place(spec.id,0);assert.equal(tower.species,spec.id);assert.ok(tower.shiny);g.gainXP(tower,120);
     for(const level of [2,3]){assert.ok(g.upgrade(tower.id,branch.id));assert.equal(tower.species,spec.stages[level-1]);assert.ok(towerStats(tower).moveId);assert.ok(tower.shiny);}
     const restored=new Game(0,'normal',{collectionProgress:JSON.stringify(g.collectionSave())});restored.money=1000;
@@ -46,7 +46,7 @@ test('fresh collections have eight open spaces and discovery can grow beyond fou
   g.collectionPoints=6500;g.purchasePartner(151);g.purchasePartner(150);
   for(const id of COLLECTIBLE_IDS)g.recruit(id,true);
   assert.equal(Object.keys(g.collection).length+STARTER_IDS.length,MAX_SLOTS);
-  assert.equal(usedSlots(g.collection),INITIAL_SLOTS);assert.equal(Object.values(g.collection).filter(e=>e.reserve).length,MAX_SLOTS-INITIAL_SLOTS);
+  assert.equal(usedSlots(g.collection),6);assert.equal(Object.values(g.collection).filter(e=>e.reserve).length,MAX_SLOTS-6);
   const restored=new Game(0,'normal',{collectionProgress:JSON.stringify(g.collectionSave())});
   assert.equal(Object.keys(restored.collection).length+STARTER_IDS.length,MAX_SLOTS);
 });
@@ -54,8 +54,8 @@ test('fresh collections have eight open spaces and discovery can grow beyond fou
 test('version two saves gain six free slots once while keeping purchases, points, catches, and shiny choices',()=>{
   for(let slots=6;slots<=14;slots++){
     const old={version:2,collection:{133:{catches:2},63:{catches:3,shiny:true,useShiny:false},131:{catches:1,shiny:true,useShiny:true,reserve:true}},points:245,slots};
-    const upgraded=loadCollectionProgress(JSON.stringify(old));assert.equal(upgraded.slots,slots+6);assert.equal(upgraded.points,245);assert.equal(upgraded.version,3);
-    assert.equal(upgraded.collection[63].catches,3);assert.equal(upgraded.collection[63].useShiny,false);assert.equal(upgraded.collection[131].useShiny,true);assert.equal(upgraded.collection[131].reserve,undefined);
+    const upgraded=loadCollectionProgress(JSON.stringify(old));assert.equal(upgraded.slots,slots+6);assert.equal(upgraded.points,245);assert.equal(upgraded.version,COLLECTION_VERSION);
+    assert.equal(upgraded.collection[63].catches,3);assert.equal(upgraded.collection[63].useShiny,false);assert.equal(upgraded.collection[131].useShiny,true);assert.equal(upgraded.collection[131].reserve,true);
     assert.deepEqual(loadCollectionProgress(JSON.stringify(upgraded)),upgraded,'reloading must not grant the six slots twice');
     const g=new Game(0,'normal',{collectionProgress:upgraded});g.reset(5,'expert');assert.equal(g.collectionSlots,slots+6);
   }

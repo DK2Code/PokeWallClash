@@ -14,6 +14,6 @@ test('confirmed collection catches celebrate in order and use real-time lifetime
 });
 test('recruitment details retain shiny and reserve status while duplicate notifications merge',()=>{
   const c=new CatchCelebrations();const event={type:'recruit',kind:10,shiny:true,newShiny:true,reserve:true,points:10};
-  c.enqueue(event);c.enqueue(event);assert.equal(c.queue.length,0);const message=catchMessage(c.current,'Caterpie');assert.match(message.heading,/Shiny caught/);assert.match(message.name,/★ Caterpie/);assert.match(message.detail,/reserve/);assert.match(message.detail,/10 pts/);
+  c.enqueue(event);c.enqueue(event);assert.equal(c.queue.length,0);const message=catchMessage(c.current,'Caterpie');assert.match(message.heading,/Shiny caught/);assert.match(message.name,/★ Caterpie/);assert.match(message.detail,/Collection/);assert.match(message.detail,/choose to recruit/);assert.match(message.detail,/10 pts/);
   c.enqueue({type:'recruit',kind:63});c.reset();assert.equal(c.current,null);assert.deepEqual(c.queue,[]);
 });

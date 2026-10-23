@@ -76,3 +76,23 @@ dialog:has(.route-choices){overflow:hidden}
 @media(max-width:800px){.roster-panel>.personal-best{margin:-12px -10px 12px;padding:9px 12px}.roster-panel>.personal-best>span{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.roster-panel>.personal-best strong{margin:0}}
 @media(max-width:540px){.battle-action-bar .wave-panel{padding:8px;gap:5px}.wave-panel .next-wave{flex-basis:100%}.wave-action{width:100%;justify-content:space-between;gap:6px}.wave-action .battle-controls .icon-button{width:36px;min-width:36px;height:44px}.wave-action .control-buttons{gap:3px}.wave-action .speed-button{min-width:54px;padding:0;gap:0}.wave-action .speed-button>.icon{display:none}.wave-action .speed-button select{min-width:52px;width:52px;min-height:42px;padding:6px 3px}.wave-action .primary-button{min-width:110px;max-width:none;font-size:11px;padding:10px 8px}.wave-action .wave-start{align-items:stretch}.special-partners{padding:12px}.special-grid{grid-template-columns:1fr}}
 @media(max-width:360px){.wave-action .battle-controls .icon-button{width:32px;min-width:32px}.wave-action .control-buttons{gap:2px}.wave-action .speed-button{min-width:48px}.wave-action .speed-button select{min-width:46px;width:46px}.wave-action .primary-button{min-width:100px}}
+
+/* A caught Pokémon stays in the collection until its trainer chooses it. */
+#coin-exchange{background:#fff7df;border:1px solid #ddc88c;border-radius:6px;padding:3px 7px;min-height:44px;color:var(--ink);cursor:pointer;pointer-events:auto}
+#coin-exchange:hover{background:#ffedb9}#coin-exchange:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+#coin-exchange>span{font-size:16px;color:#866820}
+dialog:has(.collection-upgrades){width:min(900px,94vw)}
+.collection-upgrades{padding:16px;margin:14px 0;background:#f2f7ff;border-color:#c5d6e8;color:var(--ink)}
+.collection-totals strong{font-size:27px}.collection-totals{margin-bottom:12px}
+.collection-actions{display:flex;gap:10px}.collection-actions button{flex:1;min-width:0;min-height:44px;font-size:12px}.collection-actions .primary-button{width:auto}
+.collection-upgrades .reserve-note{padding:8px 10px}.reserve-note b{display:inline}
+.recruit-section{margin:22px 0}.recruit-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.recruit-heading h3,.catalog-heading{font-size:18px;margin:0}.recruit-heading>span{font-size:11px;color:#456d54;background:#e6f2e9;padding:5px 9px;border-radius:20px;white-space:nowrap}
+.catalog-heading{margin:20px 0 12px}.recruit-section .dex-entry{display:flex;flex-direction:column;min-width:0;border:1px solid #b7d4c0;background:#f7fcf8}
+.recruit-section .collection-status{color:#316b47}.recruit-section .recruit-hint{font-size:11px;margin:12px 0 8px;color:var(--muted)}
+.recruit-section .primary-button{width:100%;min-height:44px;margin-top:auto;font-size:12px}.recruit-section .shiny-toggle{align-self:flex-start}
+.exchange-balances{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px;background:#f2f7ff;border:1px solid var(--line);border-radius:9px}
+.exchange-balances small{display:block;font-size:10px;letter-spacing:.5px;color:var(--muted)}.exchange-balances strong{display:block;font-size:25px;margin-top:5px}
+.exchange-offer{text-align:center;background:#fff8e2;border:1px solid #e1ce90;border-radius:9px;padding:22px 12px;margin:15px 0}.exchange-offer>strong{font-size:23px}.exchange-offer>strong>span{padding:0 12px;color:#997b34}.exchange-offer p{font-size:12px;margin:8px 0 0;color:#735e2c}.exchange-status{font-size:13px;color:#405b7b;line-height:1.6}
+@media(max-width:540px){#coin-exchange{min-height:44px;padding:2px 5px}.battle-stats{min-height:50px}.collection-actions{flex-direction:column}.collection-actions button{width:100%}.recruit-heading h3{font-size:16px}.exchange-offer>strong{font-size:19px}.exchange-offer>strong>span{padding:0 5px}.exchange-balances{gap:8px;padding:12px}.exchange-balances small{font-size:8px}#confirm-exchange{font-size:11px;padding:12px 9px}}
+@media(max-width:360px){.site-header{padding:0 8px;gap:6px}.brand{font-size:16px}.main-nav{gap:6px}}

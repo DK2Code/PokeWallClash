@@ -21,11 +21,11 @@ export class CatchCelebrations {
 }
 
 export function catchMessage(event,name){
-  if(event.type==='partnerPurchased')return {heading:'An incredible new partner!',name,detail:`Permanently unlocked · ${event.price.toLocaleString()} collection points`};
+  if(event.type==='partnerPurchased')return {heading:'Ready for your team!',name:`${event.shiny?'★ ':''}${name}`,detail:`Permanently unlocked · ${event.price.toLocaleString()} collection points`};
   if(event.type!=='recruit')return null;
   return {
     heading:event.shiny?'Shiny caught!':event.legendary?'Legendary caught!':event.fresh?'A new friend caught!':'Caught again!',
     name:`${event.shiny?'★ ':''}${name}`,
-    detail:(event.reserve?'Safe in reserve · unlock a collection slot':event.bonus?`Already collected · +${event.bonus} coins`:'Joined your collection · ready to place')+` · +${event.points||0} pts`,
+    detail:(event.reserve?'Saved in Collection · choose to recruit with points':event.bonus?`Already on your team · +${event.bonus} coins`:'Already on your team · shiny colors unlocked')+` · +${event.points||0} pts`,
   };
 }
