@@ -31,15 +31,15 @@ test('opening the login dialog does not lose the original pause choice',()=>{
 });
 
 test('test progress and records never enter normal storage; a new page loads only normal progress',()=>{
-  const values=new Map(),storage={setItem:(key,value)=>values.set(key,value)},normal=new Game();normal.collectionPoints=135;
+  const values=new Map(),storage={setItem:(key,value)=>values.set(key,value)},normal=new Game();normal.collectionPoints=135;normal.savedExchanges=3;
   persistCollection(storage,normal);const saved=values.get(COLLECTION_STORAGE_KEY),session=new AdminTesting(),testing=session.enter('1234',normal);
   const records={'0:normal':{wave:3,score:2500,won:false}},before=JSON.stringify(records);
-  testing.wave=15;testing.status='won';testing.score=999999;testing.collectionPoints=999999;
+  testing.wave=15;testing.status='won';testing.score=999999;testing.collectionPoints=999999;assert.equal(testing.savedExchanges,100);assert.ok(testing.exchangeCoins());
   assert.equal(persistCollection(storage,testing),false);assert.equal(values.get(COLLECTION_STORAGE_KEY),saved);
   assert.equal(recordRun(records,testing),records);assert.equal(JSON.stringify(records),before);
   const reloaded=new Game(0,'normal',{collectionProgress:values.get(COLLECTION_STORAGE_KEY)});
-  assert.equal(reloaded.adminTest,false);assert.equal(reloaded.collectionPoints,135);assert.equal(reloaded.available(150),false);
-  assert.equal(session.exit().collectionPoints,135);
+  assert.equal(reloaded.adminTest,false);assert.equal(reloaded.collectionPoints,135);assert.equal(reloaded.available(150),false);assert.equal(reloaded.savedExchanges,3);
+  assert.equal(session.exit().collectionPoints,135);assert.equal(normal.savedExchanges,3);
 });
 
 test('every test partner can use both evolution paths immediately and all routes retain test access',()=>{

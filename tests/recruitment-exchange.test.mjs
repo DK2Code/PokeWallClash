@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Game,DIFFICULTIES,MAPS} from '../dist/game.mjs';
-import {COLLECTION_STORAGE_KEY,COLLECTION_VERSION,MAX_COLLECTION_POINTS,usedSlots,partnerPrice,readCollectionProgress} from '../dist/collection.mjs';
+import {COLLECTION_STORAGE_KEY,COLLECTION_VERSION,MAX_COLLECTION_POINTS,MAX_SAVED_EXCHANGES,usedSlots,partnerPrice,readCollectionProgress} from '../dist/collection.mjs';
 import {catchMessage} from '../dist/catch-celebration.mjs';
 
 test('new catches wait even with open slots; the player chooses a later catch without buying the first',()=>{
@@ -52,24 +52,24 @@ test('version three migration preserves the current team and never fills empty s
   assert.equal(next.available(63),false);assert.equal(next.collectionPoints,420);assert.equal(next.collectionSlots,16);
 });
 
-test('exchange unlocks only after a completed milestone and spends each allowance once',()=>{
-  const g=new Game();g.money=1000;
-  for(let wave=0;wave<5;wave++){g.wave=wave;assert.equal(g.exchangeCoins(),false);}
-  g.wave=5;g.status='wave';assert.equal(g.exchangeCoins(),false);assert.equal(g.coinExchangeOffer().earned,0);
-  g.queue=[];g.update(.01);assert.equal(g.status,'build');assert.equal(g.coinExchangeOffer().remaining,1);
-  const coins=g.money,points=g.collectionPoints,score=g.score,lives=g.lives;
-  assert.ok(g.exchangeCoins());assert.equal(g.money,coins-250);assert.equal(g.collectionPoints,points+50);
-  assert.equal(g.score,score);assert.equal(g.lives,lives);assert.equal(g.coinExchanges,1);
-  assert.equal(g.exchangeCoins(),false);assert.match(g.coinExchangeOffer().reason,/wave 10/);
-  g.wave=10;g.status='wave';assert.equal(g.exchangeCoins(),false);g.update(.01);
-  assert.ok(g.exchangeCoins());assert.equal(g.coinExchanges,2);
-  g.wave=15;g.status='wave';assert.equal(g.exchangeCoins(),false);g.update(.01);assert.equal(g.status,'won');
-  assert.ok(g.exchangeCoins());assert.equal(g.coinExchanges,3);assert.equal(g.exchangeCoins(),false);
-  assert.equal(g.events.filter(e=>e.type==='coinsExchanged').length,3);
+test('every cleared wave earns one exchange exactly once, including the final wave',()=>{
+  const g=new Game();g.money=10000;
+  assert.equal(g.exchangeCoins(),false);
+  for(let wave=1;wave<=15;wave++){
+    g.wave=wave;g.status='wave';g.queue=[];
+    assert.equal(g.exchangeCoins(),false);assert.equal(g.savedExchanges,0);
+    g.update(.01);assert.equal(g.savedExchanges,1);assert.equal(g.status,wave===15?'won':'build');
+    g.update(.01);assert.equal(g.savedExchanges,1);
+    const {money,collectionPoints,score,lives}=g;
+    assert.ok(g.exchangeCoins());assert.equal(g.money,money-250);assert.equal(g.collectionPoints,collectionPoints+50);
+    assert.equal(g.score,score);assert.equal(g.lives,lives);assert.equal(g.savedExchanges,0);
+    assert.equal(g.exchangeCoins(),false);assert.match(g.coinExchangeOffer().reason,/Every cleared wave/);
+  }
+  assert.equal(g.coinExchanges,15);assert.equal(g.events.filter(e=>e.type==='coinsExchanged').length,15);
 });
 
 test('unused trades accumulate; low coins, full wallet, active or lost waves cannot consume a trade',()=>{
-  const g=new Game();g.wave=15;g.status='won';g.money=249;
+  const g=new Game();for(let wave=1;wave<=3;wave++){g.wave=wave;g.status='wave';g.update(.01);}g.money=249;
   assert.equal(g.coinExchangeOffer().remaining,3);assert.equal(g.exchangeCoins(),false);assert.equal(g.money,249);
   g.money=1000;g.collectionPoints=MAX_COLLECTION_POINTS-49;
   assert.equal(g.exchangeCoins(),false);assert.equal(g.collectionPoints,MAX_COLLECTION_POINTS-49);assert.equal(g.money,1000);
@@ -81,11 +81,47 @@ test('unused trades accumulate; low coins, full wallet, active or lost waves can
   assert.equal(restored.collectionPoints,150);assert.equal(restored.exchangeCoins(),false);assert.equal(restored.coinExchanges,0);
 });
 
-test('no route, difficulty, reset or starting balance grants a free exchange',()=>{
-  const g=new Game();g.collectionPoints=80;
+test('unused exchanges survive all route and difficulty resets without new grants',()=>{
+  const g=new Game();g.collectionPoints=80;g.savedExchanges=2;
   for(let route=0;route<MAPS.length;route++)for(const difficulty of DIFFICULTIES){
-    g.reset(route,difficulty.id);g.money=9999;
-    assert.equal(g.coinExchangeOffer().remaining,0);assert.equal(g.exchangeCoins(),false);assert.equal(g.collectionPoints,80);
-    g.wave=5;assert.ok(g.exchangeCoins());assert.equal(g.coinExchanges,1);g.collectionPoints=80;
+    g.reset(route,difficulty.id);
+    assert.equal(g.coinExchangeOffer().remaining,2);assert.ok(g.coinExchangeOffer().canExchange);assert.equal(g.collectionPoints,80);
   }
+  assert.ok(g.exchangeCoins());assert.equal(g.savedExchanges,1);assert.equal(g.collectionPoints,130);
+  g.reset(0,'normal');assert.ok(g.exchangeCoins());assert.equal(g.savedExchanges,0);
+  for(const d of DIFFICULTIES){g.reset(0,d.id);assert.equal(g.exchangeCoins(),false);assert.equal(g.savedExchanges,0);}
+});
+
+test('earned and spent exchanges persist with points through a refresh and difficulty change',()=>{
+  const values=new Map(),storage={getItem:k=>values.get(k)??null};
+  const g=new Game();for(let wave=1;wave<=4;wave++){g.wave=wave;g.status='wave';g.update(.01);}
+  assert.equal(g.savedExchanges,4);assert.ok(g.exchangeCoins());
+  values.set(COLLECTION_STORAGE_KEY,JSON.stringify(g.collectionSave()));
+  const restored=new Game(0,'hard',{collectionProgress:readCollectionProgress(storage)});
+  assert.equal(restored.savedExchanges,3);assert.equal(restored.collectionPoints,g.collectionPoints);assert.ok(restored.exchangeCoins());
+  values.set(COLLECTION_STORAGE_KEY,JSON.stringify(restored.collectionSave()));
+  values.set('pokewallclash-collection-v4',JSON.stringify({version:4,collection:{},points:1,slots:12}));
+  const fresh=new Game(2,'expert',{collectionProgress:readCollectionProgress(storage)});
+  assert.equal(fresh.savedExchanges,2);assert.equal(fresh.collectionPoints,restored.collectionPoints);
+});
+
+test('failed waves do not award exchanges or lose previously earned ones',()=>{
+  const g=new Game();g.savedExchanges=2;g.wave=1;g.status='wave';g.lives=1;g.spawn(10).distance=g.length;
+  g.update(.01);assert.equal(g.status,'lost');assert.equal(g.savedExchanges,2);
+  g.update(.01);assert.equal(g.savedExchanges,2);assert.equal(g.exchangeCoins(),false);
+  g.reset(0,'hard');assert.ok(g.exchangeCoins());assert.equal(g.savedExchanges,1);
+});
+
+test('older collections migrate without invented exchanges and malformed balances are safe',()=>{
+  for(const version of [2,3,4]){
+    const progress={version,collection:{63:{catches:2,shiny:true,useShiny:true,reserve:true}},points:500,slots:14,exchanges:99};
+    const g=new Game(0,'normal',{collectionProgress:progress});
+    assert.equal(g.savedExchanges,0);assert.equal(g.collectionPoints,500);assert.ok(g.collection[63].reserve);assert.ok(g.collection[63].useShiny);
+  }
+  for(const exchanges of [-1,1.5,NaN,Infinity,'100',null]){
+    const g=new Game(0,'normal',{collectionProgress:{version:COLLECTION_VERSION,collection:{},points:100,slots:12,exchanges}});
+    assert.equal(g.savedExchanges,0);
+  }
+  const g=new Game(0,'normal',{collectionProgress:{version:COLLECTION_VERSION,collection:{},exchanges:MAX_SAVED_EXCHANGES+1}});
+  assert.equal(g.savedExchanges,MAX_SAVED_EXCHANGES);g.wave=1;g.status='wave';g.update(.01);assert.equal(g.savedExchanges,MAX_SAVED_EXCHANGES);
 });

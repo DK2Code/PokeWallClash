@@ -2,7 +2,7 @@ import {attackTiming,muzzlePosition} from './sprite-animation.mjs';
 import {attackVisual} from './combat-visuals.mjs';
 import {partnerMove,PARTNER_MOVES} from './partner-moves.mjs';
 import {MOVES} from './arena/moves.mjs';
-import {STARTER_IDS,loadCollectionProgress,isUnlocked,rollVisitor,COLLECTIBLE_IDS,LEGENDARY_VISITORS,usedSlots,slotPrice,partnerPrice,COIN_EXCHANGE,defeatPoints,MAX_COLLECTION_POINTS,COLLECTION_VERSION} from './collection.mjs';
+import {STARTER_IDS,loadCollectionProgress,isUnlocked,rollVisitor,COLLECTIBLE_IDS,LEGENDARY_VISITORS,usedSlots,slotPrice,partnerPrice,COIN_EXCHANGE,defeatPoints,MAX_COLLECTION_POINTS,MAX_SAVED_EXCHANGES,COLLECTION_VERSION} from './collection.mjs';
 import {EXTRA_ROUTES} from './routes.mjs';
 import {EXTRA_TOWERS,EXTRA_EVOLUTIONS,EXTRA_ENEMIES} from './expanded-roster.mjs';
 import {SPECIAL_PARTNERS,SPECIAL_TOWERS,SPECIAL_EVOLUTIONS} from './special-partners.mjs';
@@ -177,7 +177,7 @@ export function pointAt(path,distance) {
   return {x:path.at(-1)[0],y:path.at(-1)[1],dx:1,dy:0};
 }
 export class Game {
-  constructor(mapIndex=0,difficultyId='normal',options={}) {const progress=loadCollectionProgress(options.collectionProgress,options.collection);this.collection=progress.collection;this.collectionPoints=progress.points;this.collectionSlots=progress.slots;this.adminTest=options.adminTest===true;this.random=options.random||Math.random;this.reset(mapIndex,difficultyId);}
+  constructor(mapIndex=0,difficultyId='normal',options={}) {const progress=loadCollectionProgress(options.collectionProgress,options.collection);this.collection=progress.collection;this.collectionPoints=progress.points;this.collectionSlots=progress.slots;this.savedExchanges=progress.exchanges;this.adminTest=options.adminTest===true;this.random=options.random||Math.random;this.reset(mapIndex,difficultyId);}
   reset(mapIndex=this.mapIndex,difficultyId=this.difficulty?.id||'normal') {
     this.mapIndex=mapIndex;this.map=MAPS[mapIndex];this.length=routeLength(this.map.path);
     this.difficulty=difficultyFor(difficultyId);this.maxLives=this.difficulty.hearts;
@@ -188,7 +188,7 @@ export class Game {
     if(this.adminTest)this.refillTestResources();
   }
   available(kind){return isUnlocked(this.collection,kind);}
-  collectionSave(){return {version:COLLECTION_VERSION,collection:this.collection,points:this.collectionPoints,slots:this.collectionSlots};}
+  collectionSave(){return {version:COLLECTION_VERSION,collection:this.collection,points:this.collectionPoints,slots:this.collectionSlots,exchanges:this.savedExchanges};}
   earnCollectionPoints(points){this.collectionPoints=Math.min(MAX_COLLECTION_POINTS,this.collectionPoints+points);this.emit('collectionPoints',{points});}
   unlockCollectionSlot(){
     const price=slotPrice(this.collectionSlots);
@@ -212,7 +212,7 @@ export class Game {
   }
   refillTestResources(){
     if(!this.adminTest)return false;
-    this.money=100000;this.collectionPoints=100000;this.lives=this.maxLives;return true;
+    this.money=100000;this.collectionPoints=100000;this.savedExchanges=100;this.lives=this.maxLives;return true;
   }
   prepareTestWave(wave){
     if(!this.adminTest||!Number.isInteger(wave)||wave<1||wave>MAX_WAVES)return false;
@@ -222,15 +222,13 @@ export class Game {
     return true;
   }
   coinExchangeOffer(){
-    const betweenWaves=['build','won'].includes(this.status),cleared=betweenWaves?this.wave:Math.max(0,this.wave-1);
-    const earned=Math.min(COIN_EXCHANGE.maxTrades,Math.floor(cleared/COIN_EXCHANGE.wavesPerTrade));
-    const remaining=Math.max(0,earned-this.coinExchanges);
-    const reason=this.status==='lost'?'Start a new run and clear wave 5 to earn an exchange.':!betweenWaves?'Finish the wave before exchanging coins.':!remaining?(earned===COIN_EXCHANGE.maxTrades?'All three exchanges used for this run.':`Next exchange unlocks after clearing wave ${(earned+1)*COIN_EXCHANGE.wavesPerTrade}.`):this.money<COIN_EXCHANGE.coins?`${COIN_EXCHANGE.coins-this.money} more battle coins needed.`:this.collectionPoints>MAX_COLLECTION_POINTS-COIN_EXCHANGE.points?'Your collection-point wallet is full.':null;
-    return {...COIN_EXCHANGE,earned,remaining,canExchange:reason===null,reason};
+    const betweenWaves=['build','won'].includes(this.status),remaining=this.savedExchanges;
+    const reason=this.status==='lost'?'Start a new run to trade. Your unused exchanges are saved.':!betweenWaves?'Finish the wave before exchanging coins.':!remaining?'Clear the next wave to earn an exchange. Every cleared wave earns one.':this.money<COIN_EXCHANGE.coins?`${COIN_EXCHANGE.coins-this.money} more battle coins needed.`:this.collectionPoints>MAX_COLLECTION_POINTS-COIN_EXCHANGE.points?'Your collection-point wallet is full.':null;
+    return {...COIN_EXCHANGE,remaining,canExchange:reason===null,reason};
   }
   exchangeCoins(){
     const offer=this.coinExchangeOffer();if(!offer.canExchange)return false;
-    this.money-=offer.coins;this.collectionPoints+=offer.points;this.coinExchanges++;
+    this.money-=offer.coins;this.collectionPoints+=offer.points;this.savedExchanges--;this.coinExchanges++;
     this.emit('coinsExchanged',{coins:offer.coins,points:offer.points});return true;
   }
   recruit(kind,shiny=false,position=null){
@@ -358,6 +356,7 @@ export class Game {
       this.towers.filter(t=>this.wavePartners.has(t.id)).forEach(t=>this.gainXP(t,XP_RULES.clear));this.wavePartners.clear();
       for(const recruit of this.pendingRecruits.splice(0))this.recruit(recruit.kind,recruit.shiny,recruit);
       if(this.wave===5&&this.bossDefeated&&!this.collection[133])this.recruit(133);
+      this.savedExchanges=Math.min(MAX_SAVED_EXCHANGES,this.savedExchanges+1);
       const points=this.status==='won'?60:10;this.earnCollectionPoints(points);
       if(this.wave%5===0){
         if(this.map.bonusPoints){this.earnCollectionPoints(this.map.bonusPoints);this.emit('routeBonus',{message:`Ranger milestone! +${this.map.bonusPoints} collection points.`});}
