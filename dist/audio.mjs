@@ -25,6 +25,8 @@ export const ATTACK_SOUNDS = {
   slash: [noise(5400,800,.12,.55),tone(1900,560,.09,.15,.025,'triangle')],
   stars: [tone(880,880,.14,.24),tone(1108,1108,.14,.22,.045),tone(1318,1318,.18,.2,.09)],
   psychic: [tone(690,460,.32,.32,0,'sine',{tremolo:17}),tone(1030,520,.3,.18,.025,'triangle'),tone(345,230,.3,.12)],
+  'aura-orb': [tone(210,920,.2,.3,0,'sine',{attack:.025}),tone(1060,240,.22,.23,.09,'triangle'),noise(1800,340,.24,.24,.08),tone(130,55,.24,.25,.12)],
+  psystrike: [tone(960,260,.31,.3,0,'sine',{tremolo:21}),tone(1440,480,.25,.17,.035,'triangle'),noise(760,90,.3,.34,.07),tone(115,38,.32,.3,.06)],
   dragon: [tone(190,65,.32,.34,0,'sawtooth'),noise(1700,400,.32,.4),tone(570,230,.25,.14,.04,'triangle')],
   ice: [tone(2200,1400,.2,.25,0,'triangle'),tone(1760,1760,.25,.2,.055),tone(2640,2640,.2,.15,.1),noise(6000,2800,.15,.12,0,{highpass:true})],
   rumble: [noise(360,65,.3,.55),tone(110,38,.32,.3,0,'triangle'),noise(1200,180,.08,.2,.04)],

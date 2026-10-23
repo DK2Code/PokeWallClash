@@ -29,7 +29,7 @@ test('paths must be valid, are locked after choosing and need no coins',()=>{
 test('every choice produces a distinct combat specialization and a valid level 3',()=>{
   assert.ok(Object.values(EVOLUTIONS).flat().length>=13);
   for(const base of TOWERS){const profiles=[];for(const branch of EVOLUTIONS[base.id]){
-    const g=new Game(0,'normal',{collection:{[base.id]:{catches:1}}}),t=g.place(base.id,0);g.gainXP(t,120);assert.ok(g.upgrade(t.id,branch.id));const s=towerStats(t);
+    const g=new Game(0,'normal',{collection:{[base.id]:{catches:1}}});g.money=base.cost;const t=g.place(base.id,0);g.gainXP(t,120);assert.ok(g.upgrade(t.id,branch.id));const s=towerStats(t);
     profiles.push(JSON.stringify([s.damage,s.range,s.rate,s.type,s.splash,s.chain,s.slowFactor,s.poisonPower]));
     assert.equal(s.move,branch.moves?.[1]||branch.move);assert.ok(g.upgrade(t.id));assert.ok(towerStats(t).damage>s.damage);assert.equal(t.branch,branch.id);
   }assert.equal(new Set(profiles).size,profiles.length);}

@@ -20,7 +20,7 @@ export function attackVisual(stats,level=1,branch=null){
     arenaMove:move,moveId:move.slug,move:move.name,style:move.visual,pose:move.pose,
     mode:move.mode,type:move.element,color:move.color,light:move.core,level,
     variant:branch==='focus'?'focus':branch==='surge'?'surge':'move',
-    scale:1+(level-1)*.3,area:stats.splash||0,chain:stats.chain||0,
+    scale:1+(level-1)*.3+(stats.signature?.2:0),signature:stats.signature||null,area:stats.splash||0,chain:stats.chain||0,
     shotDuration:move.mode==='projectile'?.3:timing.duration-timing.windup,
     impactDuration:Math.min(.8,Math.max(.3,move.duration)),
     description:descriptions[move.visual]||`${move.name}: ${move.mode} attack`,

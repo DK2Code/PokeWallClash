@@ -106,7 +106,7 @@ export function render(c,terrain,game,ui){
   for(const e of game.effects)drawEffect(c,e,game.time,ui.reducedMotion);
   for(const p of game.particles){const y=p.y-30-(ui.reducedMotion?0:(1-p.life/p.maxLife)*24);c.globalAlpha=p.life/p.maxLife;c.font='bold 12px monospace';c.textAlign='center';c.lineWidth=3;c.strokeStyle='#557149';c.strokeText(p.text,p.x,y);c.fillStyle=p.color;c.fillText(p.text,p.x,y);c.globalAlpha=1;}
   // A quiet drifting leaf or two keeps the forest alive between waves.
-  if(!ui.reducedMotion){for(let i=0;i<7;i++){const x=(game.time*9+i*151)%1000-20,y=(game.time*13+i*91)%600-20;c.save();c.translate(x,y);c.rotate(Math.sin(game.time+i)*.7);rect(c,0,0,5,3,game.map.theme==='autumn'?'#c58e5599':'#e9e8ad88');c.restore();}}
+  if(!ui.reducedMotion&&['forest','autumn'].includes(game.map.theme)){for(let i=0;i<7;i++){const x=(game.time*9+i*151)%1000-20,y=(game.time*13+i*91)%600-20;c.save();c.translate(x,y);c.rotate(Math.sin(game.time+i)*.7);rect(c,0,0,5,3,game.map.theme==='autumn'?'#c58e5599':'#e9e8ad88');c.restore();}}
 }
 
 // A harmless demonstration using the same sprites, cast timing and effects as

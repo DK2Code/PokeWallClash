@@ -6,6 +6,8 @@ import {EXTRA_MOVES} from './expanded-roster.mjs';
 // stable; the tower-defense perks and economy remain in game.mjs.
 export const PARTNER_MOVES={
   ...EXTRA_MOVES,
+  151:{basic:'ancient-power',focus:['ancient-power','ancient-power'],surge:['psychic','psychic']},
+  150:{basic:'aura-sphere',focus:['aura-sphere','aura-sphere'],surge:['psystrike','psystrike']},
   1:{basic:'vine-whip',garden:['razor-leaf','petal-blizzard'],razor:['solar-beam','frenzy-plant']},
   4:{basic:'ember',blast:['fire-fang','fire-blast'],flame:['flamethrower','flamethrower']},
   7:{basic:'water-gun',current:['water-pulse','hydro-pump'],hydro:['hydro-pump','hydro-cannon']},

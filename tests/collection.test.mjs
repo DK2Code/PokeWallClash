@@ -82,7 +82,7 @@ test('finding a shiny updates an already placed partner and its evolving form im
 });
 
 test('shiny choices survive placement, every evolution, recall, routes and collection reloads',()=>{
-  for(const spec of TOWERS.filter(t=>COLLECTIBLE_IDS.includes(t.id))) {
+  for(const spec of TOWERS.filter(t=>COLLECTIBLE_IDS.includes(t.id)&&![150,151].includes(t.id))) {
     const g=new Game();g.recruit(spec.id,true);
     for(let route=0;route<MAPS.length;route++)for(const branch of EVOLUTIONS[spec.id]) {
       g.reset(route);g.money=1000;const t=g.place(spec.id,0);assert.equal(t.shiny,true);

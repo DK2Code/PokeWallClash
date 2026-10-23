@@ -9,7 +9,7 @@ import {visitorPreview} from '../dist/visitor-preview.mjs';
 test('the expanded catalog contains basic Kanto families, complete art, and a dynamic collection capacity',()=>{
   const additions=[13,16,19,23,27,41,43,46,50,52,54,58,60,66,69,74,77,79,92,98,104,116,120,123,127,129,138,140];
   assert.deepEqual(EXTRA_TOWERS.map(t=>t.id),additions);
-  assert.equal(RARE_VISITORS.length,34);assert.equal(MAX_SLOTS,42);assert.equal(MAX_SLOTS,TOWERS.length);
+  assert.equal(RARE_VISITORS.length,34);assert.equal(MAX_SLOTS,44);assert.equal(MAX_SLOTS,TOWERS.length);
   assert.equal(new Set([...STARTER_IDS,...COLLECTIBLE_IDS]).size,TOWERS.length);
   for(const t of EXTRA_TOWERS){
     assert.ok(RARE_VISITORS.includes(t.id));assert.equal(t.stages[0],t.id);
@@ -43,6 +43,7 @@ test('all routes can roll every basic visitor and legends remain exclusive to la
 
 test('fresh collections have eight open spaces and discovery can grow beyond fourteen even in reserve',()=>{
   const g=new Game();assert.equal(g.collectionSlots-STARTER_IDS.length,8);
+  g.collectionPoints=6500;g.purchasePartner(151);g.purchasePartner(150);
   for(const id of COLLECTIBLE_IDS)g.recruit(id,true);
   assert.equal(Object.keys(g.collection).length+STARTER_IDS.length,MAX_SLOTS);
   assert.equal(usedSlots(g.collection),INITIAL_SLOTS);assert.equal(Object.values(g.collection).filter(e=>e.reserve).length,MAX_SLOTS-INITIAL_SLOTS);

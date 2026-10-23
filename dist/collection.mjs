@@ -1,6 +1,7 @@
 import {EXTRA_TOWERS} from './expanded-roster.mjs';
+import {SPECIAL_TOWERS} from './special-partners.mjs';
 export const STARTER_IDS = [1,4,7,25];
-export const COLLECTIBLE_IDS = [133,10,63,81,131,37,147,...EXTRA_TOWERS.map(p=>p.id),144,145,146];
+export const COLLECTIBLE_IDS = [133,10,63,81,131,37,147,...EXTRA_TOWERS.map(p=>p.id),144,145,146,...SPECIAL_TOWERS.map(p=>p.id)];
 export const INITIAL_SLOTS=12;
 export const COLLECTION_VERSION=3;
 export const COLLECTION_STORAGE_KEY='pokewallclash-collection-v3';

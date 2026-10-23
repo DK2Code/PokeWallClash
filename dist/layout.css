@@ -24,12 +24,7 @@ dialog{background:#fff;border:1px solid #a9bfd7;border-radius:14px;max-width:min
 .battle-controls .speed-button{width:auto;min-width:94px;padding:0 0 0 10px;gap:5px;cursor:pointer}
 .speed-button select{min-height:42px;min-width:65px;border:0;border-radius:6px;padding:8px 7px;background:transparent;color:inherit;font:600 13px var(--body);cursor:pointer}
 .speed-button select:focus-visible{outline:3px solid var(--red);outline-offset:2px}
-.roster-panel>.personal-best{display:flex;justify-content:flex-start;gap:10px;padding:12px 14px;margin:0 -14px;background:#f4f8fe;border-top:1px solid var(--line);border-radius:0 0 12px 12px;min-width:0}
-.roster-panel>.personal-best>.icon{width:21px;height:21px;color:#a18b50}
-.roster-panel>.personal-best>span{display:block;min-width:0;color:#526987}
-.roster-panel>.personal-best strong{margin-top:4px}
-@media(min-width:801px) and (max-width:1050px){.roster-panel>.personal-best{margin-inline:-10px}}
-@media(max-width:800px){.roster-panel>.personal-best{margin-inline:-10px;padding:10px 12px}.roster-panel>.personal-best>span{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.roster-panel>.personal-best strong{margin:0}}
+
 
 /* Keep the route chooser's final action visible, including on a small phone. */
 dialog:has(.route-choices){width:min(900px,94vw)}
@@ -59,3 +54,25 @@ dialog:has(.route-choices){overflow:hidden}
  .pace-picker{grid-column:2;grid-row:1/4;margin:35px 0 0;align-self:start}.pace-options{grid-template-columns:repeat(2,1fr);gap:6px}.pace-picker legend{font-size:12px}.pace-options button{font-size:11px}#pace-summary{font-size:10px;margin:8px 0 0}
  .route-picker-footer{grid-column:2;grid-row:4;padding-top:8px}.route-picker-footer>p{display:none}.route-picker-footer>div{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6px}.route-picker-footer button{font-size:11px;padding:8px}
 }
+
+/* Keep the battle controls beside the primary action, with no separate strip. */
+.battle-action-bar .wave-panel{display:flex;flex-wrap:wrap;border-bottom:0;gap:8px;padding:10px 12px}
+.wave-panel .next-wave{flex:1 1 180px;min-width:0}
+.wave-action{display:flex;flex-direction:row;align-items:flex-end;gap:10px;max-width:100%;margin-left:auto}
+.wave-start{display:flex;flex-direction:column;align-items:center;gap:5px}
+.wave-action .battle-controls{background:none;padding:0;min-height:44px;flex-shrink:0;border-radius:0}
+.wave-action .control-buttons{gap:5px}
+.roster-panel>.personal-best{display:flex;gap:10px;margin:-17px -14px 14px;padding:11px 14px;border-bottom:1px solid var(--line);background:#f2f7ff;border-radius:12px 12px 0 0}
+.roster-panel>.personal-best>.icon{color:#a18b50;width:21px;height:21px}
+.roster-panel>.personal-best>span{display:block;min-width:0}
+.roster-panel>.personal-best strong{display:block;margin-top:3px}
+.special-partners{margin:22px 0;padding:18px;border:1px solid #d6c5ee;border-radius:12px;background:linear-gradient(120deg,#fff6fc,#f0edff)}
+.special-partners h3{font-size:18px;margin:0 0 3px}.special-partners>p{font-size:12px;color:var(--muted);margin:0 0 15px}
+.special-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.special-card{min-width:0;background:#ffffffcf;border:1px solid #e1d4ed;border-radius:9px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.special-card header{display:flex;align-items:center;gap:10px}.special-card header img{width:65px;height:65px;image-rendering:pixelated}.special-card h4{font-size:20px;margin:0}.special-card small{color:#665181;font-size:10px}.special-card p{font-size:12px;margin:0;color:var(--muted)}
+.special-card .move-preview{width:100%;height:auto;border-radius:6px;display:block}.special-card .primary-button{margin-top:auto;width:100%;font-size:12px}.special-card progress{width:100%;height:7px;accent-color:#8860b0}.special-card .unlock-note{min-height:32px;font-size:11px}.special-card .owned-partner{color:#346a50;background:#e8f3eb;box-shadow:none;border-color:#bdd5c5}
+@media(min-width:801px) and (max-width:1050px){.roster-panel>.personal-best{margin:-14px -10px 12px}}
+@media(max-width:800px){.roster-panel>.personal-best{margin:-12px -10px 12px;padding:9px 12px}.roster-panel>.personal-best>span{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.roster-panel>.personal-best strong{margin:0}}
+@media(max-width:540px){.battle-action-bar .wave-panel{padding:8px;gap:5px}.wave-panel .next-wave{flex-basis:100%}.wave-action{width:100%;justify-content:space-between;gap:6px}.wave-action .battle-controls .icon-button{width:36px;min-width:36px;height:44px}.wave-action .control-buttons{gap:3px}.wave-action .speed-button{min-width:54px;padding:0;gap:0}.wave-action .speed-button>.icon{display:none}.wave-action .speed-button select{min-width:52px;width:52px;min-height:42px;padding:6px 3px}.wave-action .primary-button{min-width:110px;max-width:none;font-size:11px;padding:10px 8px}.wave-action .wave-start{align-items:stretch}.special-partners{padding:12px}.special-grid{grid-template-columns:1fr}}
+@media(max-width:360px){.wave-action .battle-controls .icon-button{width:32px;min-width:32px}.wave-action .control-buttons{gap:2px}.wave-action .speed-button{min-width:48px}.wave-action .speed-button select{min-width:46px;width:46px}.wave-action .primary-button{min-width:100px}}

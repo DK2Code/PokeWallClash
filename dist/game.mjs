@@ -5,6 +5,7 @@ import {MOVES} from './arena/moves.mjs';
 import {STARTER_IDS,loadCollectionProgress,isUnlocked,rollVisitor,COLLECTIBLE_IDS,LEGENDARY_VISITORS,usedSlots,slotPrice,defeatPoints,MAX_COLLECTION_POINTS,COLLECTION_VERSION} from './collection.mjs';
 import {EXTRA_ROUTES} from './routes.mjs';
 import {EXTRA_TOWERS,EXTRA_EVOLUTIONS,EXTRA_ENEMIES} from './expanded-roster.mjs';
+import {SPECIAL_PARTNERS,SPECIAL_TOWERS,SPECIAL_EVOLUTIONS} from './special-partners.mjs';
 export {STARTER_IDS} from './collection.mjs';
 export const WIDTH = 960, HEIGHT = 560, MAX_WAVES = 15;
 export const DIFFICULTIES = [
@@ -27,6 +28,7 @@ export const TOWERS = [
   {"id":37,"name":"Vulpix","type":"fire","cost":140,"damage":20,"range":145,"rate":0.9,"color":"#de8968","move":"Ember","ability":"Foxfire splash","description":"A rare visitor that favors autumn trails and coasts. Small fire bursts grow into Ninetales’s sweeping flames.","stages":[37,38,38],"names":["Vulpix","Ninetales","Ninetales"]},
   {"id":147,"name":"Dratini","type":"dragon","cost":190,"damage":28,"range":155,"rate":0.95,"color":"#9d95d3","move":"Dragon Rage","ability":"Steady dragon power","description":"An elusive rare visitor. Raise Dratini into Dragonair, then Dragonite.","stages":[147,148,149],"names":["Dratini","Dragonair","Dragonite"]},
   ...EXTRA_TOWERS,
+  ...SPECIAL_TOWERS,
   {"id":145,"name":"Zapdos","type":"electric","cost":360,"damage":40,"range":180,"rate":1.1,"color":"#e9bc43","move":"Thunder Shock","ability":"Legendary lightning","description":"A random legendary visitor in wave 14 on any route. Chains lightning; training strengthens its legendary power.","stages":[145,145,145],"names":["Zapdos","Zapdos","Zapdos"],"legendary":true},
   {"id":144,"name":"Articuno","type":"ice","cost":360,"damage":34,"range":180,"rate":1.1,"color":"#83c9da","move":"Ice Beam","ability":"Freezing wind","description":"A random legendary visitor in wave 14 on any route. Slows enemies by 45% for 2 seconds.","slowTime":2,"slowFactor":0.55,"stages":[144,144,144],"names":["Articuno","Articuno","Articuno"],"legendary":true},
   {"id":146,"name":"Moltres","type":"fire","cost":360,"damage":45,"range":170,"rate":1.2,"color":"#de8968","move":"Ember","ability":"Legendary fire","description":"A random legendary visitor in wave 14 on any route. Powerful flames splash across the path.","stages":[146,146,146],"names":["Moltres","Moltres","Moltres"],"legendary":true},
@@ -44,6 +46,7 @@ export const OPENING_WAVES = [
 // A path changes the move as well as the sprite. Its identity stays with the partner.
 export const EVOLUTIONS = {
   ...EXTRA_EVOLUTIONS,
+  ...SPECIAL_EVOLUTIONS,
   1:[
     {"id":"garden","name":"Petal garden","ability":"Lingering poison","description":"Razor Leaf grows into Petal Blizzard. Your garden perk deals 50% power as poison each second for 4 seconds.","poisonPower":0.5,"poisonTime":4},
     {"id":"razor","name":"Solar keeper","ability":"Long-range leaves","description":"Solar Beam grows into Frenzy Plant. Gain 40% direct power and +25 range, with lighter poison.","power":1.4,"reach":25,"poisonPower":0.12},
@@ -194,8 +197,15 @@ export class Game {
     if(waiting!==undefined)delete this.collection[waiting].reserve;
     this.emit('slotUnlocked',{price,kind:waiting});return true;
   }
+  purchasePartner(kind){
+    const offer=SPECIAL_PARTNERS[kind];
+    if(!Number.isInteger(kind)||!offer||this.collection[kind]||this.collectionPoints<offer.price||usedSlots(this.collection)>=this.collectionSlots)return false;
+    this.collectionPoints-=offer.price;
+    this.collection[kind]={catches:1,shiny:false,useShiny:false};
+    this.emit('partnerPurchased',{kind,price:offer.price,fresh:true,legendary:true});return true;
+  }
   recruit(kind,shiny=false,position=null){
-    if(!COLLECTIBLE_IDS.includes(kind))return false;
+    if(!COLLECTIBLE_IDS.includes(kind)||SPECIAL_PARTNERS[kind])return false;
     const previous=this.collection[kind],fresh=!previous,newShiny=shiny&&!previous?.shiny;
     const reserve=previous?.reserve||(fresh&&usedSlots(this.collection)>=this.collectionSlots);
     this.collection[kind]={catches:Math.min(9999,(previous?.catches||0)+1),shiny:shiny||Boolean(previous?.shiny),useShiny:newShiny||Boolean(previous?.useShiny)};
