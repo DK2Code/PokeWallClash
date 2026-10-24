@@ -61,6 +61,8 @@ All 34 basic visitors and all three legendary birds can appear on **every route*
 - Escaped visitors cost **no hearts**. Catches are only added to your collection after a successful wave clear.
 - Open **Collection / Pokédex** for slot upgrades, unlock instructions, evolution lines, and shiny preferences. Collection, points, slots, and unused exchanges are saved together under `pokewallclash-collection-v5`; v1–v4 collections migrate automatically and personal bests are preserved. Older saves did not store unused exchanges, so those cannot be recovered on migration. If storage fails, progress remains available for the current session.
 
+Between waves, a **20-second countdown** automatically starts the next wave. Wave 1 stays manual. Use **Pause** (or Space away from buttons) to plan for as long as needed, or **Start now** to begin early. Menus, evolution previews, catch celebrations, and pending boss rewards hold the countdown; boss rewards leave the full 20 seconds afterward. An empty battlefield also holds the timer until a partner is placed. Switching tabs pauses the game and countdown until you resume. The preparation time is the same on every difficulty and is not shortened by 2× or 3× battle speed. Starting early grants no extra coins, points, or XP. Restarting or changing routes clears the timer.
+
 ## Reversible admin testing
 
 Open **How to play → Admin testing** or **Trainer journal → Admin testing**, then enter **1234**. This intentionally public, browser-only test password is a convenience gate, not account authentication or server access.

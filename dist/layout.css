@@ -56,6 +56,10 @@ dialog:has(.route-choices){overflow:hidden}
 }
 
 /* Keep the battle controls beside the primary action, with no separate strip. */
+.wave-countdown{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 13px 12px;background:#f0f6ff;color:#29496d;border-bottom:1px solid var(--line)}
+.wave-countdown[hidden]{display:none}.countdown-copy{display:flex;flex-direction:column;gap:3px;min-width:0}.countdown-copy>strong{font-size:12px}.countdown-copy>span{font-size:10px;color:var(--muted)}
+#countdown-time{font-size:22px;line-height:1;font-variant-numeric:tabular-nums;flex-shrink:0}.countdown-track{position:absolute;bottom:0;left:0;right:0;height:3px;background:#dae6f4}.countdown-track>span{display:block;height:100%;background:#5483b2}.countdown-urgent{background:#fff0f3;color:#ab1436}.countdown-urgent .countdown-track>span{background:var(--red)}
+@media(max-width:540px){.wave-countdown{padding:8px 9px 10px;gap:8px}.countdown-copy>strong{font-size:11px}.countdown-copy>span{font-size:9px}#countdown-time{font-size:21px}}
 .battle-action-bar .wave-panel{display:flex;flex-wrap:wrap;border-bottom:0;gap:8px;padding:10px 12px}
 .wave-panel .next-wave{flex:1 1 180px;min-width:0}
 .wave-action{display:flex;flex-direction:row;align-items:flex-end;gap:10px;max-width:100%;margin-left:auto}

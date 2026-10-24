@@ -176,6 +176,7 @@ export function pointAt(path,distance) {
   for(let i=1;i<path.length;i++){const a=path[i-1],b=path[i],len=Math.hypot(b[0]-a[0],b[1]-a[1]);if(distance<=len)return {x:a[0]+(b[0]-a[0])*distance/len,y:a[1]+(b[1]-a[1])*distance/len,dx:b[0]-a[0],dy:b[1]-a[1]};distance-=len;}
   return {x:path.at(-1)[0],y:path.at(-1)[1],dx:1,dy:0};
 }
+export const INTERMISSION_SECONDS=20;
 export class Game {
   constructor(mapIndex=0,difficultyId='normal',options={}) {const progress=loadCollectionProgress(options.collectionProgress,options.collection);this.collection=progress.collection;this.collectionPoints=progress.points;this.collectionSlots=progress.slots;this.savedExchanges=progress.exchanges;this.adminTest=options.adminTest===true;this.random=options.random||Math.random;this.reset(mapIndex,difficultyId);}
   reset(mapIndex=this.mapIndex,difficultyId=this.difficulty?.id||'normal') {
@@ -184,7 +185,7 @@ export class Game {
     this.money=this.difficulty.coins;this.lives=this.maxLives;this.wave=0;this.kills=0;this.score=0;this.towers=[];this.enemies=[];this.shots=[];this.particles=[];this.effects=[];this.events=[];this.queue=[];this.status='build';this.paused=false;this.time=0;this.spawnTimer=0;this.nextId=1;this.waveKills=0;
     this.pendingReward=null;this.rewardHistory=[];this.powerCharms=0;this.bossDefeated=false;this.bossesDefeated=0;this.coinExchanges=0;
     this.visitor=null;this.visitorArrived=false;this.previousVisitor=null;this.pendingRecruits=[];this.lastRecruits=[];this.caught=0;
-    this.wavePartners=new Set();
+    this.wavePartners=new Set();this.nextWaveIn=null;
     if(this.adminTest)this.refillTestResources();
   }
   available(kind){return isUnlocked(this.collection,kind);}
@@ -281,6 +282,7 @@ export class Game {
   }
   startWave() {
     if(this.status!=='build' || this.wave>=MAX_WAVES || this.pendingReward)return false;
+    this.nextWaveIn=null;
     this.wave++;this.waveKills=0;this.bossDefeated=false;this.status='wave';this.paused=false;this.spawnTimer=.5;
     this.wavePartners=new Set(this.towers.map(t=>t.id));this.towers.forEach(t=>{t.combatXP=0;});
     const info=waveInfo(this.wave,this.difficulty.id,this.mapIndex);this.queue=Array.from({length:info.count-(info.boss?1:0)},(_,i)=>info.pool[(i+this.wave)%info.pool.length]);
@@ -288,6 +290,12 @@ export class Game {
     if(info.boss)this.queue.splice(this.wave===5?this.queue.length:Math.floor(this.queue.length*.6),0,info.boss);
     this.lastRecruits=[];this.visitorArrived=false;this.visitor=rollVisitor(this.mapIndex,this.wave,this.random,this.collection,this.previousVisitor);if(this.visitor){this.queue.push(this.visitor);this.previousVisitor=this.visitor.kind;}
     this.emit('wave',{wave:this.wave});return true;
+  }
+  advanceIntermission(elapsed,{blocked=false}={}) {
+    if(this.status!=='build'||this.nextWaveIn===null||this.paused||this.pendingReward||blocked||!this.towers.length||!Number.isFinite(elapsed)||elapsed<=0)return false;
+    // The caller supplies unscaled foreground time, independent of battle speed.
+    this.nextWaveIn=Math.max(0,this.nextWaveIn-elapsed);
+    return this.nextWaveIn===0?this.startWave():false;
   }
   spawn(kind,encounter={}) {
     if(typeof kind==='object'){encounter=kind;kind=encounter.kind;}
@@ -362,6 +370,7 @@ export class Game {
         if(this.map.bonusPoints){this.earnCollectionPoints(this.map.bonusPoints);this.emit('routeBonus',{message:`Ranger milestone! +${this.map.bonusPoints} collection points.`});}
         if(this.map.healing){const healed=Math.min(this.map.healing,this.maxLives-this.lives);this.lives+=healed;this.emit('routeBonus',{message:healed?`Hot springs restored ${healed} hearts!`:'Hot springs reached. Your hearts are already full!'});}
       }
+      this.nextWaveIn=this.status==='build'?INTERMISSION_SECONDS:null;
       this.emit(this.status==='won'?'won':'clear',{reward,points});
       if(this.bossDefeated&&this.status==='build'){this.pendingReward={wave:this.wave,boss:waveInfo(this.wave).boss};this.emit('bossReward');}
     }
